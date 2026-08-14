@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aitoolshub.com/sitemap.xml
+Sitemap: https://yahyalm001.github.io/ai-tools-hub/sitemap.xml
