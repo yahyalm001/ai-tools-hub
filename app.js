@@ -27,6 +27,23 @@ const categoryCards = document.querySelectorAll(".category-card");
 const cookieBanner = document.getElementById("cookieBanner");
 const acceptCookies = document.getElementById("acceptCookies");
 const rejectCookies = document.getElementById("rejectCookies");
+const customizeCookies =
+    document.getElementById("customizeCookies");
+
+const cookieSettings =
+    document.getElementById("cookieSettings");
+
+const closeCookieSettings =
+    document.getElementById("closeCookieSettings");
+
+const analyticsCookies =
+    document.getElementById("analyticsCookies");
+
+const advertisingCookies =
+    document.getElementById("advertisingCookies");
+
+const saveCookiePreferences =
+    document.getElementById("saveCookiePreferences");
 
 // =============================
 // PAGE NAVIGATION
