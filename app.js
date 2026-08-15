@@ -456,6 +456,40 @@ function initCookies(){
     cookieBanner.classList.remove("hide");
 
 }
+/*=========================================
+ OPEN COOKIE SETTINGS
+=========================================*/
+
+function openCookieSettings(){
+
+    const savedPreferences =
+        localStorage.getItem("cookiePreferences");
+
+    if(savedPreferences){
+
+        try{
+
+            const preferences =
+                JSON.parse(savedPreferences);
+
+            analyticsCookies.checked =
+                preferences.analytics === true;
+
+            advertisingCookies.checked =
+                preferences.advertising === true;
+
+        }catch(error){
+
+            analyticsCookies.checked = false;
+            advertisingCookies.checked = false;
+
+        }
+
+    }
+
+    cookieSettings.classList.add("show");
+
+}
 
 
 /*=========================================
