@@ -385,54 +385,192 @@ loadTools(category);
 });
 /*=========================================
  PART 4
- COOKIE BANNER
+ COOKIE CONSENT
 =========================================*/
 
 function initCookies(){
 
-const choice=
+    const savedPreferences =
+        localStorage.getItem("cookiePreferences");
 
-localStorage.getItem("cookieChoice");
+    if(savedPreferences){
 
-if(choice){
+        try{
 
-cookieBanner.style.display="none";
+            const preferences =
+                JSON.parse(savedPreferences);
 
-return;
+            cookieBanner.classList.add("hide");
+
+            if(
+                analyticsCookies &&
+                preferences.analytics
+            ){
+
+                analyticsCookies.checked = true;
+
+            }
+
+            if(
+                advertisingCookies &&
+                preferences.advertising
+            ){
+
+                advertisingCookies.checked = true;
+
+            }
+
+            return;
+
+        }catch(error){
+
+            console.warn(
+                "Invalid cookie preferences found."
+            );
+
+            localStorage.removeItem(
+                "cookiePreferences"
+            );
+
+        }
+
+    }
+
+    cookieBanner.classList.remove("hide");
 
 }
 
-cookieBanner.style.display="flex";
 
-}
+/*=========================================
+ ACCEPT ALL
+=========================================*/
 
-acceptCookies.addEventListener("click",()=>{
+acceptCookies.addEventListener(
+    "click",
+    ()=>{
 
-localStorage.setItem(
+        const preferences = {
 
-"cookieChoice",
+            necessary:true,
 
-"accepted"
+            analytics:true,
 
+            advertising:true
+
+        };
+
+        localStorage.setItem(
+
+            "cookiePreferences",
+
+            JSON.stringify(preferences)
+
+        );
+
+        cookieBanner.classList.add("hide");
+
+    }
 );
 
-cookieBanner.style.display="none";
 
-});
+/*=========================================
+ REJECT ALL
+=========================================*/
 
-rejectCookies.addEventListener("click",()=>{
+rejectCookies.addEventListener(
+    "click",
+    ()=>{
 
-localStorage.setItem(
+        const preferences = {
 
-"cookieChoice",
+            necessary:true,
 
-"rejected"
+            analytics:false,
 
+            advertising:false
+
+        };
+
+        localStorage.setItem(
+
+            "cookiePreferences",
+
+            JSON.stringify(preferences)
+
+        );
+
+        cookieBanner.classList.add("hide");
+
+    }
 );
 
-cookieBanner.style.display="none";
 
-});
+/*=========================================
+ CUSTOMIZE
+=========================================*/
+
+customizeCookies.addEventListener(
+    "click",
+    ()=>{
+
+        cookieSettings.classList.add("show");
+
+    }
+);
+
+
+/*=========================================
+ CLOSE SETTINGS
+=========================================*/
+
+closeCookieSettings.addEventListener(
+    "click",
+    ()=>{
+
+        cookieSettings.classList.remove("show");
+
+    }
+);
+
+
+/*=========================================
+ SAVE PREFERENCES
+=========================================*/
+
+saveCookiePreferences.addEventListener(
+    "click",
+    ()=>{
+
+        const preferences = {
+
+            necessary:true,
+
+            analytics:
+                analyticsCookies.checked,
+
+            advertising:
+                advertisingCookies.checked
+
+        };
+
+        localStorage.setItem(
+
+            "cookiePreferences",
+
+            JSON.stringify(preferences)
+
+        );
+
+        cookieSettings.classList.remove(
+            "show"
+        );
+
+        cookieBanner.classList.add(
+            "hide"
+        );
+
+    }
+);
 
 /*=========================================
  START WEBSITE
