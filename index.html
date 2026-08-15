@@ -736,47 +736,155 @@ target="_blank" class="visit-btn">
 </main>
 
 
-<!-- ================= COOKIE BANNER ================= -->
+<!-- ================= COOKIE CONSENT ================= -->
 
-<div
-id="cookieBanner"
-class="cookie-banner">
+<div id="cookieBanner" class="cookie-banner">
 
-<div>
+    <div class="cookie-content">
 
-<h3>
+        <h3>🍪 Cookie Notice</h3>
 
-🍪 Cookie Notice
+        <p>
+            We use cookies and similar technologies to improve your
+            browsing experience and understand how our website is used.
+        </p>
 
-</h3>
+    </div>
 
-<p>
+    <div class="cookie-actions">
 
-We use cookies to improve your browsing experience.
+        <button
+            id="customizeCookies"
+            class="secondary-btn">
+            Customize
+        </button>
 
-</p>
+        <button
+            id="rejectCookies"
+            class="secondary-btn">
+            Reject All
+        </button>
 
-</div>
+        <button
+            id="acceptCookies"
+            class="primary-btn">
+            Accept All
+        </button>
 
-<div class="cookie-actions">
-
-<button
-id="acceptCookies"
-class="primary-btn">
-
-Accept
-
-</button>
-
-<button
-id="rejectCookies"
-class="secondary-btn">
-
-Reject
-
-</button>
+    </div>
 
 </div>
+
+
+<!-- ================= COOKIE SETTINGS ================= -->
+
+<div id="cookieSettings" class="cookie-settings">
+
+    <div class="cookie-settings-box">
+
+        <div class="cookie-settings-header">
+
+            <h3>Cookie Preferences</h3>
+
+            <button
+                id="closeCookieSettings"
+                class="cookie-close">
+                ×
+            </button>
+
+        </div>
+
+        <p class="cookie-settings-description">
+            Manage your cookie preferences. Necessary storage is always
+            enabled because it is required for the website to remember
+            your choices.
+        </p>
+
+
+        <!-- Necessary -->
+
+        <div class="cookie-option">
+
+            <div>
+
+                <h4>Necessary</h4>
+
+                <p>
+                    Required for the website to function properly
+                    and remember your preferences.
+                </p>
+
+            </div>
+
+            <span class="cookie-status">
+                Always On
+            </span>
+
+        </div>
+
+
+        <!-- Analytics -->
+
+        <div class="cookie-option">
+
+            <div>
+
+                <h4>Analytics</h4>
+
+                <p>
+                    Helps us understand how visitors use the website.
+                </p>
+
+            </div>
+
+            <label class="cookie-toggle">
+
+                <input
+                    type="checkbox"
+                    id="analyticsCookies">
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <!-- Advertising -->
+
+        <div class="cookie-option">
+
+            <div>
+
+                <h4>Advertising</h4>
+
+                <p>
+                    Used for advertising and measuring advertising
+                    performance.
+                </p>
+
+            </div>
+
+            <label class="cookie-toggle">
+
+                <input
+                    type="checkbox"
+                    id="advertisingCookies">
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <button
+            id="saveCookiePreferences"
+            class="primary-btn cookie-save">
+            Save Preferences
+        </button>
+
+    </div>
 
 </div>
 
