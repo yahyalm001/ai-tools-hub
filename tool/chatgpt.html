@@ -17,7 +17,7 @@
           content="index, follow">
 
     <link rel="canonical"
-          href="https://yahyalm001.github.io/ai-tools-hub/tools/chatgpt.html">
+          href="https://yahyalm001.github.io/ai-tools-hub/tool/chatgpt.html">
 
     <link rel="icon"
           type="image/png"
@@ -26,21 +26,405 @@
     <link rel="stylesheet"
           href="../style.css">
 
+    <style>
+
+        /* =========================================
+           TOOL DETAILS PAGE
+        ========================================= */
+
+        .tool-details-page {
+
+            min-height: 100vh;
+
+            padding: 80px 20px;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(37, 99, 235, 0.20),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(6, 182, 212, 0.16),
+                    transparent 35%
+                ),
+                #07111f;
+
+            color: #ffffff;
+
+        }
+
+
+        .tool-details-container {
+
+            width: min(100%, 1000px);
+
+            margin: auto;
+
+        }
+
+
+        /* BACK LINK */
+
+        .tool-back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 35px;
+
+            color: #cbd5e1;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-back-link:hover {
+
+            color: #22d3ee;
+
+            transform: translateX(-4px);
+
+        }
+
+
+        /* MAIN CARD */
+
+        .tool-details-card {
+
+            padding: 45px;
+
+            border-radius: 28px;
+
+            background: rgba(15, 23, 42, 0.88);
+
+            border: 1px solid rgba(255,255,255,.09);
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.45);
+
+            backdrop-filter: blur(20px);
+
+        }
+
+
+        /* LOGO AREA */
+
+        .tool-details-logo {
+
+            width: 150px;
+
+            height: 150px;
+
+            margin-bottom: 30px;
+
+            padding: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #ffffff;
+
+            border-radius: 24px;
+
+            border: 1px solid rgba(255,255,255,.75);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.30);
+
+        }
+
+
+        .tool-details-logo img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+
+        }
+
+
+        /* CATEGORY */
+
+        .tool-details-category {
+
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 7px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(34,211,238,.10);
+
+            border: 1px solid rgba(34,211,238,.20);
+
+            color: #67e8f9;
+
+            font-size: .85rem;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+
+        }
+
+
+        /* TITLE */
+
+        .tool-details-card h1 {
+
+            margin: 0 0 18px;
+
+            font-size: clamp(2.2rem, 5vw, 4rem);
+
+            line-height: 1.05;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        /* COMPANY */
+
+        .tool-details-company {
+
+            margin-bottom: 25px;
+
+            color: #94a3b8;
+
+            font-size: 1rem;
+
+        }
+
+
+        .tool-details-company strong {
+
+            color: #e2e8f0;
+
+        }
+
+
+        /* DESCRIPTION */
+
+        .tool-details-description {
+
+            max-width: 750px;
+
+            color: #cbd5e1;
+
+            font-size: 1.08rem;
+
+            line-height: 1.9;
+
+        }
+
+
+        /* BUTTONS */
+
+        .tool-details-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+            margin-top: 35px;
+
+        }
+
+
+        .tool-visit-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #06b6d4,
+                #2563eb
+            );
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 10px 30px rgba(37,99,235,.30);
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-visit-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(37,99,235,.40);
+
+        }
+
+
+        .tool-home-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            background: rgba(255,255,255,.05);
+
+            color: #e2e8f0;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-home-btn:hover {
+
+            background: rgba(255,255,255,.09);
+
+            transform: translateY(-3px);
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .tool-details-page {
+
+                padding: 45px 16px;
+
+            }
+
+
+            .tool-details-card {
+
+                padding: 28px 22px;
+
+                border-radius: 22px;
+
+            }
+
+
+            .tool-details-logo {
+
+                width: 120px;
+
+                height: 120px;
+
+                padding: 18px;
+
+            }
+
+
+            .tool-details-card h1 {
+
+                font-size: 2.4rem;
+
+            }
+
+
+            .tool-details-description {
+
+                font-size: 1rem;
+
+                line-height: 1.75;
+
+            }
+
+
+            .tool-details-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .tool-visit-btn,
+            .tool-home-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <main>
 
-        <section class="tool-page">
+    <main class="tool-details-page">
 
-            <div class="container">
+        <div class="tool-details-container">
 
-                <a href="../index.html">
-                    ← Back to AI Tools Hub
-                </a>
 
-                <div class="tool-page-content">
+            <!-- BACK -->
+
+            <a
+                href="../index.html"
+                class="tool-back-link">
+
+                ← Back to AI Tools Hub
+
+            </a>
+
+
+            <!-- TOOL CARD -->
+
+            <article class="tool-details-card">
+
+
+                <!-- LOGO -->
+
+                <div class="tool-details-logo">
 
                     <img
                         src="../logos/chatgpt.png"
@@ -48,36 +432,88 @@
                         width="120"
                         height="120">
 
-                    <h1>ChatGPT</h1>
+                </div>
 
-                    <p>
-                        ChatGPT is an advanced AI assistant for
-                        writing, coding, learning, research and
-                        productivity.
-                    </p>
 
-                    <p>
-                        Developed by OpenAI, ChatGPT can help users
-                        generate and understand text, solve problems,
-                        write code and explore ideas.
-                    </p>
+                <!-- CATEGORY -->
+
+                <span class="tool-details-category">
+
+                    Chat
+
+                </span>
+
+
+                <!-- TITLE -->
+
+                <h1>
+
+                    ChatGPT
+
+                </h1>
+
+
+                <!-- COMPANY -->
+
+                <p class="tool-details-company">
+
+                    Developed by
+                    <strong>OpenAI</strong>
+
+                </p>
+
+
+                <!-- DESCRIPTION -->
+
+                <p class="tool-details-description">
+
+                    ChatGPT is an advanced AI assistant for
+                    writing, coding, learning, research and
+                    productivity.
+
+                    <br><br>
+
+                    Developed by OpenAI, ChatGPT can help users
+                    generate and understand text, solve problems,
+                    write code and explore ideas.
+
+                </p>
+
+
+                <!-- ACTIONS -->
+
+                <div class="tool-details-actions">
+
 
                     <a
                         href="https://chatgpt.com"
                         target="_blank"
-                        rel="noopener noreferrer">
+                        rel="noopener noreferrer"
+                        class="tool-visit-btn">
 
                         Visit ChatGPT →
 
                     </a>
 
+
+                    <a
+                        href="../index.html"
+                        class="tool-home-btn">
+
+                        Explore More AI Tools
+
+                    </a>
+
+
                 </div>
 
-            </div>
 
-        </section>
+            </article>
+
+        </div>
 
     </main>
+
 
 </body>
 
