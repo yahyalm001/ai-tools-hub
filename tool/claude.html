@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Claude | AI Assistant for Reasoning, Writing & Analysis | AI Tools Hub</title>
+
+    <meta name="description"
+          content="Discover Claude, an advanced AI assistant by Anthropic for reasoning, writing, analysis, coding and productivity. Explore Claude on AI Tools Hub.">
+
+    <meta name="robots"
+          content="index, follow">
+
+    <link rel="canonical"
+          href="https://yahyalm001.github.io/ai-tools-hub/tool/claude.html">
+
+    <link rel="icon"
+          type="image/png"
+          href="../favicon.png">
+
+    <link rel="stylesheet"
+          href="../style.css">
+
+    <style>
+
+        /* =========================================
+           TOOL DETAILS PAGE
+        ========================================= */
+
+        .tool-details-page {
+
+            min-height: 100vh;
+
+            padding: 80px 20px;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(37, 99, 235, 0.20),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(6, 182, 212, 0.16),
+                    transparent 35%
+                ),
+                #07111f;
+
+            color: #ffffff;
+
+        }
+
+
+        .tool-details-container {
+
+            width: min(100%, 1000px);
+
+            margin: auto;
+
+        }
+
+
+        /* BACK LINK */
+
+        .tool-back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 35px;
+
+            padding: 10px 16px;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            color: #cbd5e1;
+
+            text-decoration: none;
+
+            font-size: .95rem;
+
+            font-weight: 600;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
+
+            backdrop-filter: blur(10px);
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-back-link:hover {
+
+            color: #67e8f9;
+
+            background: rgba(34, 211, 238, 0.08);
+
+            border-color: rgba(34, 211, 238, 0.25);
+
+            transform: translateX(-4px);
+
+            box-shadow: 0 10px 30px rgba(34, 211, 238, .12);
+
+        }
+
+
+        /* MAIN CARD */
+
+        .tool-details-card {
+
+            padding: 45px;
+
+            border-radius: 28px;
+
+            background: rgba(15, 23, 42, 0.88);
+
+            border: 1px solid rgba(255,255,255,.09);
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.45);
+
+            backdrop-filter: blur(20px);
+
+        }
+
+
+        /* LOGO AREA */
+
+        .tool-details-logo {
+
+            width: 150px;
+
+            height: 150px;
+
+            margin-bottom: 30px;
+
+            padding: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #ffffff !important;
+
+            border-radius: 24px;
+
+            border: 1px solid rgba(255,255,255,.75);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.30);
+
+            overflow: hidden;
+
+        }
+
+
+        .tool-details-logo img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+
+        }
+
+
+        /* CATEGORY */
+
+        .tool-details-category {
+
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 7px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(34,211,238,.10);
+
+            border: 1px solid rgba(34,211,238,.20);
+
+            color: #67e8f9;
+
+            font-size: .85rem;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+
+        }
+
+
+        /* TITLE */
+
+        .tool-details-card h1 {
+
+            margin: 0 0 18px;
+
+            font-size: clamp(2.2rem, 5vw, 4rem);
+
+            line-height: 1.05;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        /* COMPANY */
+
+        .tool-details-company {
+
+            margin-bottom: 25px;
+
+            color: #94a3b8;
+
+            font-size: 1rem;
+
+        }
+
+
+        .tool-details-company strong {
+
+            color: #e2e8f0;
+
+        }
+
+
+        /* DESCRIPTION */
+
+        .tool-details-description {
+
+            max-width: 750px;
+
+            color: #cbd5e1;
+
+            font-size: 1.08rem;
+
+            line-height: 1.9;
+
+        }
+
+
+        /* INFORMATION SECTIONS */
+
+        .tool-info-section {
+
+            margin-top: 45px;
+
+            padding-top: 30px;
+
+            border-top: 1px solid rgba(255,255,255,.08);
+
+        }
+
+
+        .tool-info-section h2 {
+
+            margin: 0 0 16px;
+
+            font-size: 1.5rem;
+
+            line-height: 1.3;
+
+            color: #ffffff;
+
+        }
+
+
+        .tool-info-section p {
+
+            margin: 0;
+
+            max-width: 780px;
+
+            color: #cbd5e1;
+
+            font-size: 1rem;
+
+            line-height: 1.85;
+
+        }
+
+
+        .tool-info-section ul {
+
+            margin: 0;
+
+            padding-left: 22px;
+
+            max-width: 780px;
+
+            color: #cbd5e1;
+
+        }
+
+
+        .tool-info-section li {
+
+            margin-bottom: 12px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .tool-info-section li::marker {
+
+            color: #22d3ee;
+
+        }
+
+
+        /* BUTTONS */
+
+        .tool-details-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+            margin-top: 35px;
+
+        }
+
+
+        .tool-visit-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #06b6d4,
+                #2563eb
+            );
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 10px 30px rgba(37,99,235,.30);
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-visit-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(37,99,235,.40);
+
+        }
+
+
+        .tool-home-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            background: rgba(255,255,255,.05);
+
+            color: #e2e8f0;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .tool-home-btn:hover {
+
+            background: rgba(255,255,255,.09);
+
+            transform: translateY(-3px);
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .tool-details-page {
+
+                padding: 45px 16px;
+
+            }
+
+
+            .tool-details-card {
+
+                padding: 28px 22px;
+
+                border-radius: 22px;
+
+            }
+
+
+            .tool-details-logo {
+
+                width: 120px;
+
+                height: 120px;
+
+                padding: 18px;
+
+            }
+
+
+            .tool-details-card h1 {
+
+                font-size: 2.4rem;
+
+            }
+
+
+            .tool-details-description {
+
+                font-size: 1rem;
+
+                line-height: 1.75;
+
+            }
+
+
+            .tool-info-section {
+
+                margin-top: 35px;
+
+                padding-top: 25px;
+
+            }
+
+
+            .tool-info-section h2 {
+
+                font-size: 1.3rem;
+
+            }
+
+
+            .tool-info-section p,
+
+            .tool-info-section li {
+
+                font-size: .95rem;
+
+            }
+
+
+            .tool-details-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .tool-visit-btn,
+
+            .tool-home-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="tool-details-page">
+
+        <div class="tool-details-container">
+
+
+            <!-- BACK -->
+
+            <a
+                href="../index.html"
+                class="tool-back-link">
+
+                ← Back to AI Tools Hub
+
+            </a>
+
+
+            <!-- TOOL CARD -->
+
+            <article class="tool-details-card">
+
+
+                <!-- LOGO -->
+
+                <div class="tool-details-logo">
+
+                    <img
+                        src="../logos/claude.png"
+                        alt="Claude logo"
+                        width="120"
+                        height="120">
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <span class="tool-details-category">
+
+                    Chat AI
+
+                </span>
+
+
+                <!-- TITLE -->
+
+                <h1>
+
+                    Claude
+
+                </h1>
+
+
+                <!-- COMPANY -->
+
+                <p class="tool-details-company">
+
+                    Developed by
+                    <strong>Anthropic</strong>
+
+                </p>
+
+
+                <!-- INTRODUCTION -->
+
+                <p class="tool-details-description">
+
+                    Claude is an advanced AI assistant developed by
+                    Anthropic, designed for reasoning, writing,
+                    analysis, coding and other knowledge-based tasks.
+
+                </p>
+
+
+                <!-- WHAT IS CLAUDE -->
+
+                <section class="tool-info-section">
+
+                    <h2>
+                        What is Claude?
+                    </h2>
+
+                    <p>
+
+                        Claude is a conversational AI assistant
+                        designed to understand natural language and
+                        help users work with information, ideas,
+                        documents, code and complex problems.
+
+                    </p>
+
+                </section>
+
+
+                <!-- USE CASES -->
+
+                <section class="tool-info-section">
+
+                    <h2>
+                        What can you use Claude for?
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            Writing and editing content
+                        </li>
+
+                        <li>
+                            Reasoning and problem solving
+                        </li>
+
+                        <li>
+                            Analyzing documents and information
+                        </li>
+
+                        <li>
+                            Programming and code assistance
+                        </li>
+
+                        <li>
+                            Brainstorming and idea development
+                        </li>
+
+                        <li>
+                            Research and productivity tasks
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- WHO IS IT FOR -->
+
+                <section class="tool-info-section">
+
+                    <h2>
+                        Who is Claude for?
+                    </h2>
+
+                    <p>
+
+                        Claude can be useful for students,
+                        developers, writers, researchers,
+                        professionals and anyone who needs an AI
+                        assistant for reasoning, writing,
+                        analysis and everyday work.
+
+                    </p>
+
+                </section>
+
+
+                <!-- ACTIONS -->
+
+                <div class="tool-details-actions">
+
+                    <a
+                        href="https://claude.ai"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="tool-visit-btn">
+
+                        Visit Claude →
+
+                    </a>
+
+
+                    <a
+                        href="../index.html"
+                        class="tool-home-btn">
+
+                        AI Tools Hub
+
+                    </a>
+
+                </div>
+
+
+            </article>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
