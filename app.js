@@ -381,23 +381,34 @@ function changePage(page) {
 
 categoryCards.forEach(card=>{
 
-card.addEventListener("click",()=>{
+    card.addEventListener("click",()=>{
 
-categoryCards.forEach(c=>{
+        categoryCards.forEach(c=>{
 
-c.classList.remove("active");
+            c.classList.remove("active");
 
-});
+        });
 
-card.classList.add("active");
+        card.classList.add("active");
 
-const category=
+        const category =
+            card.dataset.category;
 
-card.dataset.category;
+        loadTools(category);
 
-loadTools(category);
+        setTimeout(()=>{
 
-});
+            toolsGrid.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }, 50);
+
+    });
 
 });
 /*=========================================
