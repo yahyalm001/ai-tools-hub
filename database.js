@@ -225,7 +225,7 @@ const aiToolsDatabase = [
     company: "InVideo",
     description: "Create complete AI videos from simple prompts.",
     website: "https://invideo.io",
-    image: "logos/invideo.png",
+    image: "logos/Invideo.png",
     featured: false
 },
 
