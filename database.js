@@ -175,7 +175,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 18,
+    id: 17,
     name: "Pika",
     category: "video",
     company: "Pika Labs",
@@ -186,7 +186,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 19,
+    id: 18,
     name: "Luma Dream Machine",
     category: "video",
     company: "Luma AI",
@@ -197,7 +197,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 20,
+    id: 19,
     name: "Synthesia",
     category: "video",
     company: "Synthesia",
@@ -208,7 +208,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 21,
+    id: 20,
     name: "HeyGen",
     category: "video",
     company: "HeyGen",
@@ -219,7 +219,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 22,
+    id: 21,
     name: "InVideo AI",
     category: "video",
     company: "InVideo",
@@ -230,7 +230,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 23,
+    id: 22,
     name: "CapCut AI",
     category: "video",
     company: "CapCut",
@@ -241,7 +241,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 24,
+    id: 23,
     name: "ElevenLabs",
     category: "audio",
     company: "ElevenLabs",
@@ -252,7 +252,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 25,
+    id: 24,
     name: "Suno",
     category: "audio",
     company: "Suno",
@@ -263,7 +263,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 26,
+    id: 25,
     name: "Udio",
     category: "audio",
     company: "Udio",
@@ -274,7 +274,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 27,
+    id: 26,
     name: "Murf AI",
     category: "audio",
     company: "Murf",
@@ -285,7 +285,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 28,
+    id: 27,
     name: "Adobe Podcast",
     category: "audio",
     company: "Adobe",
@@ -296,7 +296,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 29,
+    id: 28,
     name: "Speechify",
     category: "audio",
     company: "Speechify",
@@ -306,7 +306,7 @@ const aiToolsDatabase = [
     featured: false
 },
 {
-    id: 30,
+    id: 29,
     name: "GitHub Copilot",
     category: "coding",
     company: "GitHub",
@@ -317,7 +317,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 31,
+    id: 30,
     name: "Cursor",
     category: "coding",
     company: "Cursor",
@@ -328,7 +328,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 32,
+    id: 31,
     name: "Codeium",
     category: "coding",
     company: "Codeium",
@@ -339,7 +339,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 33,
+    id: 32,
     name: "Replit AI",
     category: "coding",
     company: "Replit",
@@ -350,7 +350,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 34,
+    id: 33,
     name: "Tabnine",
     category: "coding",
     company: "Tabnine",
@@ -361,7 +361,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 35,
+    id: 34,
     name: "Amazon Q Developer",
     category: "coding",
     company: "Amazon",
@@ -372,7 +372,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 36,
+    id: 35,
     name: "Notion AI",
     category: "productivity",
     company: "Notion",
@@ -383,7 +383,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 37,
+    id: 36,
     name: "Grammarly",
     category: "productivity",
     company: "Grammarly",
@@ -394,7 +394,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 38,
+    id: 37,
     name: "Jasper",
     category: "productivity",
     company: "Jasper",
@@ -405,7 +405,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 39,
+    id: 38,
     name: "Copy.ai",
     category: "productivity",
     company: "Copy.ai",
@@ -417,7 +417,7 @@ const aiToolsDatabase = [
 
 
 {
-    id: 40,
+    id: 39,
     name: "Elicit",
     category: "research",
     company: "Elicit",
@@ -427,7 +427,7 @@ const aiToolsDatabase = [
     featured: false
 },
 {
-    id: 41,
+    id: 40,
     name: "Canva Magic Studio",
     category: "design",
     company: "Canva",
@@ -438,7 +438,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 42,
+    id: 41,
     name: "Adobe Express AI",
     category: "design",
     company: "Adobe",
@@ -449,7 +449,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 43,
+    id: 42,
     name: "Gamma",
     category: "productivity",
     company: "Gamma",
@@ -460,7 +460,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 45,
+    id: 43,
     name: "DeepL",
     category: "translation",
     company: "DeepL",
@@ -471,7 +471,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 46,
+    id: 44,
     name: "Otter.ai",
     category: "productivity",
     company: "Otter",
@@ -482,7 +482,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 47,
+    id: 45,
     name: "Fireflies AI",
     category: "productivity",
     company: "Fireflies",
@@ -493,7 +493,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 48,
+    id: 46,
     name: "Beautiful.ai",
     category: "design",
     company: "Beautiful.ai",
@@ -504,7 +504,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 49,
+    id: 47,
     name: "SlidesAI",
     category: "design",
     company: "SlidesAI",
@@ -515,7 +515,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 50,
+    id: 48,
     name: "Quizlet AI",
     category: "education",
     company: "Quizlet",
@@ -526,7 +526,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 51,
+    id: 49,
     name: "Khanmigo",
     category: "education",
     company: "Khan Academy",
@@ -536,7 +536,7 @@ const aiToolsDatabase = [
     featured: false
 },
 {
-    id: 52,
+    id: 50,
     name: "Surfer SEO",
     category: "marketing",
     company: "Surfer",
@@ -547,7 +547,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 53,
+    id: 51,
     name: "Frase",
     category: "marketing",
     company: "Frase",
@@ -558,7 +558,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 54,
+    id: 52,
     name: "Writesonic",
     category: "marketing",
     company: "Writesonic",
@@ -569,7 +569,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 55,
+    id: 53,
     name: "Anyword",
     category: "marketing",
     company: "Anyword",
@@ -580,7 +580,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 56,
+    id: 54,
     name: "Zapier AI",
     category: "automation",
     company: "Zapier",
@@ -591,7 +591,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 57,
+    id: 55,
     name: "Make",
     category: "automation",
     company: "Make",
@@ -602,7 +602,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 58,
+    id: 56,
     name: "Taskade AI",
     category: "productivity",
     company: "Taskade",
@@ -613,7 +613,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 59,
+    id: 57,
     name: "ClickUp AI",
     category: "productivity",
     company: "ClickUp",
@@ -624,7 +624,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 60,
+    id: 58,
     name: "Slack AI",
     category: "productivity",
     company: "Slack",
@@ -635,7 +635,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 61,
+    id: 59,
     name: "HubSpot AI",
     category: "business",
     company: "HubSpot",
@@ -646,7 +646,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 62,
+    id: 60,
     name: "Salesforce Einstein",
     category: "business",
     company: "Salesforce",
@@ -657,7 +657,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 63,
+    id: 61,
     name: "Durable AI",
     category: "business",
     company: "Durable",
@@ -667,7 +667,7 @@ const aiToolsDatabase = [
     featured: false
 },
 {
-    id: 64,
+    id: 62,
     name: "Figma AI",
     category: "design",
     company: "Figma",
@@ -678,7 +678,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 65,
+    id: 63,
     name: "Relume AI",
     category: "design",
     company: "Relume",
@@ -689,7 +689,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 66,
+    id: 64,
     name: "Khroma",
     category: "design",
     company: "Khroma",
@@ -700,7 +700,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 67,
+    id: 65,
     name: "Looka",
     category: "design",
     company: "Looka",
@@ -711,7 +711,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 68,
+    id: 66,
     name: "Microsoft Designer",
     category: "design",
     company: "Microsoft",
@@ -722,7 +722,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 69,
+    id: 67,
     name: "Blackbox AI",
     category: "coding",
     company: "Blackbox",
@@ -733,7 +733,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 70,
+    id: 68,
     name: "Bolt.new",
     category: "coding",
     company: "StackBlitz",
@@ -744,7 +744,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 71,
+    id: 69,
     name: "V0",
     category: "coding",
     company: "Vercel",
@@ -755,7 +755,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 72,
+    id: 70,
     name: "Lovable",
     category: "coding",
     company: "Lovable",
@@ -766,7 +766,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 73,
+    id: 71,
     name: "Harvey AI",
     category: "business",
     company: "Harvey",
@@ -777,7 +777,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 74,
+    id: 72,
     name: "NotebookLM",
     category: "research",
     company: "Google",
@@ -788,7 +788,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 75,
+    id: 73,
     name: "Character.AI",
     category: "chat",
     company: "Character.AI",
@@ -799,7 +799,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 76,
+    id: 74,
     name: "Poe",
     category: "chat",
     company: "Quora",
@@ -810,7 +810,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 77,
+    id: 75,
     name: "Hugging Face",
     category: "research",
     company: "Hugging Face",
@@ -821,7 +821,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 78,
+    id: 76,
     name: "TensorFlow",
     category: "coding",
     company: "Google",
@@ -832,7 +832,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 79,
+    id: 77,
     name: "PyTorch",
     category: "coding",
     company: "PyTorch",
@@ -843,7 +843,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 80,
+    id: 78,
     name: "AssemblyAI",
     category: "audio",
     company: "AssemblyAI",
@@ -854,7 +854,7 @@ const aiToolsDatabase = [
 },
 
 {
-    id: 81,
+    id: 79,
     name: "VEED AI",
     category: "video",
     company: "VEED",
