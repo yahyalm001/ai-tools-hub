@@ -8,6 +8,7 @@ const aiToolsDatabase = [
     description: "The world's leading AI assistant for writing, coding, learning and productivity.",
     website: "https://chatgpt.com",
     image: "logos/chatgpt.png",
+    pricing: "freemium",
     featured: true
 },
 
