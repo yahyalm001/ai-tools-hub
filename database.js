@@ -1,6 +1,5 @@
 const aiToolsDatabase = [
-
-{
+  {
     id: 1,
     name: "ChatGPT",
     category: "chat",
@@ -10,9 +9,8 @@ const aiToolsDatabase = [
     image: "logos/chatgpt.png",
     pricing: "freemium",
     featured: true
-},
-
-{
+  },
+  {
     id: 2,
     name: "Claude",
     category: "chat",
@@ -20,10 +18,10 @@ const aiToolsDatabase = [
     description: "Advanced AI assistant designed for reasoning, writing and analysis.",
     website: "https://claude.ai",
     image: "logos/claude.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 3,
     name: "Gemini",
     category: "chat",
@@ -31,10 +29,10 @@ const aiToolsDatabase = [
     description: "Google's multimodal AI assistant integrated with Google services.",
     website: "https://gemini.google.com",
     image: "logos/gemini.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 4,
     name: "Perplexity",
     category: "research",
@@ -42,10 +40,10 @@ const aiToolsDatabase = [
     description: "AI-powered search engine that provides accurate answers with sources.",
     website: "https://www.perplexity.ai",
     image: "logos/perplexity.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 5,
     name: "DeepSeek",
     category: "chat",
@@ -53,10 +51,10 @@ const aiToolsDatabase = [
     description: "Powerful reasoning model for programming and mathematics.",
     website: "https://chat.deepseek.com",
     image: "logos/deepseek.png",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 6,
     name: "Grok",
     category: "chat",
@@ -64,10 +62,10 @@ const aiToolsDatabase = [
     description: "AI assistant developed by xAI with real-time knowledge capabilities.",
     website: "https://grok.com",
     image: "logos/grok.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 7,
     name: "Microsoft Copilot",
     category: "productivity",
@@ -75,10 +73,10 @@ const aiToolsDatabase = [
     description: "AI assistant integrated into Microsoft 365 and Windows.",
     website: "https://copilot.microsoft.com",
     image: "logos/copilot.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 8,
     name: "Meta AI",
     category: "chat",
@@ -86,9 +84,10 @@ const aiToolsDatabase = [
     description: "Meta's AI assistant available across Facebook, Instagram and WhatsApp.",
     website: "https://www.meta.ai",
     image: "logos/meta.png",
+    pricing: "free",
     featured: false
-},
-{
+  },
+  {
     id: 9,
     name: "Midjourney",
     category: "image",
@@ -96,10 +95,10 @@ const aiToolsDatabase = [
     description: "Premium AI image generation with stunning artistic quality.",
     website: "https://www.midjourney.com",
     image: "logos/midjourney.webp",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 10,
     name: "Leonardo AI",
     category: "image",
@@ -107,10 +106,10 @@ const aiToolsDatabase = [
     description: "Professional AI image generation for creators and designers.",
     website: "https://leonardo.ai",
     image: "logos/leonardo.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 11,
     name: "Ideogram",
     category: "image",
@@ -118,10 +117,10 @@ const aiToolsDatabase = [
     description: "Create AI images with accurate text rendering.",
     website: "https://ideogram.ai",
     image: "logos/ideogram.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 12,
     name: "Adobe Firefly",
     category: "image",
@@ -129,10 +128,10 @@ const aiToolsDatabase = [
     description: "Adobe's generative AI platform for creative professionals.",
     website: "https://firefly.adobe.com",
     image: "logos/firefly.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 13,
     name: "Flux AI",
     category: "image",
@@ -140,10 +139,10 @@ const aiToolsDatabase = [
     description: "Next-generation high-quality AI image generation model.",
     website: "https://blackforestlabs.ai",
     image: "logos/flux.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 14,
     name: "Playground AI",
     category: "image",
@@ -151,10 +150,10 @@ const aiToolsDatabase = [
     description: "Generate and edit AI images directly in your browser.",
     website: "https://playground.com",
     image: "logos/playground.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 15,
     name: "Pixlr AI",
     category: "image",
@@ -162,9 +161,10 @@ const aiToolsDatabase = [
     description: "AI-powered online photo editing and image generation.",
     website: "https://pixlr.com",
     image: "logos/pixlr.png",
+    pricing: "freemium",
     featured: false
-},
-{
+  },
+  {
     id: 16,
     name: "Runway",
     category: "video",
@@ -172,10 +172,10 @@ const aiToolsDatabase = [
     description: "Professional AI video generation and editing platform.",
     website: "https://runwayml.com",
     image: "logos/runway.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 17,
     name: "Pika",
     category: "video",
@@ -183,10 +183,10 @@ const aiToolsDatabase = [
     description: "AI-powered text-to-video creation platform.",
     website: "https://pika.art",
     image: "logos/pika.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 18,
     name: "Luma Dream Machine",
     category: "video",
@@ -194,10 +194,10 @@ const aiToolsDatabase = [
     description: "Create cinematic AI-generated videos in seconds.",
     website: "https://lumalabs.ai/dream-machine",
     image: "logos/luma.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 19,
     name: "Synthesia",
     category: "video",
@@ -205,10 +205,10 @@ const aiToolsDatabase = [
     description: "Create professional AI avatar videos for business.",
     website: "https://www.synthesia.io",
     image: "logos/synthesia.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 20,
     name: "HeyGen",
     category: "video",
@@ -216,10 +216,10 @@ const aiToolsDatabase = [
     description: "Generate realistic AI spokesperson videos.",
     website: "https://www.heygen.com",
     image: "logos/heygen.jpg",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 21,
     name: "InVideo AI",
     category: "video",
@@ -227,10 +227,10 @@ const aiToolsDatabase = [
     description: "Create complete AI videos from simple prompts.",
     website: "https://invideo.io",
     image: "logos/Invideo.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 22,
     name: "CapCut AI",
     category: "video",
@@ -238,10 +238,10 @@ const aiToolsDatabase = [
     description: "AI-powered video editing and automatic effects.",
     website: "https://www.capcut.com",
     image: "logos/capcut.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 23,
     name: "ElevenLabs",
     category: "audio",
@@ -249,10 +249,10 @@ const aiToolsDatabase = [
     description: "Industry-leading AI voice generation and cloning.",
     website: "https://elevenlabs.io",
     image: "logos/elevenlabs.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 24,
     name: "Suno",
     category: "audio",
@@ -260,10 +260,10 @@ const aiToolsDatabase = [
     description: "Generate complete AI songs from text.",
     website: "https://suno.com",
     image: "logos/suno.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 25,
     name: "Udio",
     category: "audio",
@@ -271,10 +271,10 @@ const aiToolsDatabase = [
     description: "Create realistic AI music with vocals.",
     website: "https://www.udio.com",
     image: "logos/udio.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 26,
     name: "Murf AI",
     category: "audio",
@@ -282,10 +282,10 @@ const aiToolsDatabase = [
     description: "Professional AI voiceovers for videos and presentations.",
     website: "https://murf.ai",
     image: "logos/murf.jpg",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 27,
     name: "Adobe Podcast",
     category: "audio",
@@ -293,10 +293,10 @@ const aiToolsDatabase = [
     description: "Enhance recordings and remove background noise using AI.",
     website: "https://podcast.adobe.com",
     image: "logos/adobepodcast.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 28,
     name: "Speechify",
     category: "audio",
@@ -304,9 +304,10 @@ const aiToolsDatabase = [
     description: "Convert text into natural AI speech.",
     website: "https://speechify.com",
     image: "logos/speechify.png",
+    pricing: "freemium",
     featured: false
-},
-{
+  },
+  {
     id: 29,
     name: "GitHub Copilot",
     category: "coding",
@@ -314,10 +315,10 @@ const aiToolsDatabase = [
     description: "AI coding assistant that helps developers write code faster.",
     website: "https://github.com/features/copilot",
     image: "logos/github-copilot.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 30,
     name: "Cursor",
     category: "coding",
@@ -325,10 +326,10 @@ const aiToolsDatabase = [
     description: "AI-powered code editor built for modern developers.",
     website: "https://cursor.com",
     image: "logos/cursor.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 31,
     name: "Codeium",
     category: "coding",
@@ -336,10 +337,10 @@ const aiToolsDatabase = [
     description: "Free AI coding assistant with intelligent autocomplete.",
     website: "https://codeium.com",
     image: "logos/codeium.webp",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 32,
     name: "Replit AI",
     category: "coding",
@@ -347,10 +348,10 @@ const aiToolsDatabase = [
     description: "Build applications faster using AI inside Replit.",
     website: "https://replit.com",
     image: "logos/replit.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 33,
     name: "Tabnine",
     category: "coding",
@@ -358,10 +359,10 @@ const aiToolsDatabase = [
     description: "AI code completion for multiple programming languages.",
     website: "https://www.tabnine.com",
     image: "logos/tabnine.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 34,
     name: "Amazon Q Developer",
     category: "coding",
@@ -369,10 +370,10 @@ const aiToolsDatabase = [
     description: "AWS AI coding assistant for software development.",
     website: "https://aws.amazon.com/q/developer",
     image: "logos/amazon-q.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 35,
     name: "Notion AI",
     category: "productivity",
@@ -380,10 +381,10 @@ const aiToolsDatabase = [
     description: "AI assistant integrated into Notion for writing and organization.",
     website: "https://www.notion.so/product/ai",
     image: "logos/notion.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 36,
     name: "Grammarly",
     category: "productivity",
@@ -391,10 +392,10 @@ const aiToolsDatabase = [
     description: "AI writing assistant for grammar, clarity and style.",
     website: "https://www.grammarly.com",
     image: "logos/grammarly.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 37,
     name: "Jasper",
     category: "productivity",
@@ -402,10 +403,10 @@ const aiToolsDatabase = [
     description: "AI content creation platform for marketing and business.",
     website: "https://www.jasper.ai",
     image: "logos/jasper.webp",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 38,
     name: "Copy.ai",
     category: "productivity",
@@ -413,11 +414,10 @@ const aiToolsDatabase = [
     description: "Generate marketing copy, blogs and emails with AI.",
     website: "https://www.copy.ai",
     image: "logos/copyai.png",
+    pricing: "freemium",
     featured: false
-},
-
-
-{
+  },
+  {
     id: 39,
     name: "Elicit",
     category: "research",
@@ -425,9 +425,10 @@ const aiToolsDatabase = [
     description: "AI research assistant for academic papers and literature review.",
     website: "https://elicit.com",
     image: "logos/elicit.png",
+    pricing: "freemium",
     featured: false
-},
-{
+  },
+  {
     id: 40,
     name: "Canva Magic Studio",
     category: "design",
@@ -435,10 +436,10 @@ const aiToolsDatabase = [
     description: "AI-powered design suite for presentations, graphics and social media.",
     website: "https://www.canva.com",
     image: "logos/canva.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 41,
     name: "Adobe Express AI",
     category: "design",
@@ -446,10 +447,10 @@ const aiToolsDatabase = [
     description: "Create professional designs using Adobe AI tools.",
     website: "https://www.adobe.com/express",
     image: "logos/adobe-express.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 42,
     name: "Gamma",
     category: "productivity",
@@ -457,10 +458,10 @@ const aiToolsDatabase = [
     description: "Create presentations, documents and websites with AI.",
     website: "https://gamma.app",
     image: "logos/gamma.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 43,
     name: "DeepL",
     category: "translation",
@@ -468,10 +469,10 @@ const aiToolsDatabase = [
     description: "One of the world's most accurate AI translators.",
     website: "https://www.deepl.com",
     image: "logos/deepl.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 44,
     name: "Otter.ai",
     category: "productivity",
@@ -479,10 +480,10 @@ const aiToolsDatabase = [
     description: "AI meeting notes, transcription and summaries.",
     website: "https://otter.ai",
     image: "logos/otter.jpg",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 45,
     name: "Fireflies AI",
     category: "productivity",
@@ -490,10 +491,10 @@ const aiToolsDatabase = [
     description: "Automatically record, transcribe and summarize meetings.",
     website: "https://fireflies.ai",
     image: "logos/fireflies.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 46,
     name: "Beautiful.ai",
     category: "design",
@@ -501,10 +502,10 @@ const aiToolsDatabase = [
     description: "AI presentation software with automatic slide design.",
     website: "https://www.beautiful.ai",
     image: "logos/beautifulai.webp",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 47,
     name: "SlidesAI",
     category: "design",
@@ -512,10 +513,10 @@ const aiToolsDatabase = [
     description: "Generate Google Slides presentations from text.",
     website: "https://www.slidesai.io",
     image: "logos/slidesai.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 48,
     name: "Quizlet AI",
     category: "education",
@@ -523,10 +524,10 @@ const aiToolsDatabase = [
     description: "AI-powered flashcards and study assistant.",
     website: "https://quizlet.com",
     image: "logos/quizlet.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 49,
     name: "Khanmigo",
     category: "education",
@@ -534,9 +535,10 @@ const aiToolsDatabase = [
     description: "AI tutor designed to help students learn effectively.",
     website: "https://www.khanacademy.org/khan-labs",
     image: "logos/khanmigo.png",
+    pricing: "paid",
     featured: false
-},
-{
+  },
+  {
     id: 50,
     name: "Surfer SEO",
     category: "marketing",
@@ -544,10 +546,10 @@ const aiToolsDatabase = [
     description: "Optimize articles and websites for search engines using AI.",
     website: "https://surferseo.com",
     image: "logos/surfer.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 51,
     name: "Frase",
     category: "marketing",
@@ -555,10 +557,10 @@ const aiToolsDatabase = [
     description: "AI content optimization and SEO writing assistant.",
     website: "https://www.frase.io",
     image: "logos/frase.webp",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 52,
     name: "Writesonic",
     category: "marketing",
@@ -566,10 +568,10 @@ const aiToolsDatabase = [
     description: "Create SEO articles, ads and marketing content with AI.",
     website: "https://writesonic.com",
     image: "logos/writesonic.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 53,
     name: "Anyword",
     category: "marketing",
@@ -577,10 +579,10 @@ const aiToolsDatabase = [
     description: "AI copywriting platform focused on marketing performance.",
     website: "https://anyword.com",
     image: "logos/anyword.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 54,
     name: "Zapier AI",
     category: "automation",
@@ -588,10 +590,10 @@ const aiToolsDatabase = [
     description: "Automate workflows between thousands of applications.",
     website: "https://zapier.com/ai",
     image: "logos/zapier.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 55,
     name: "Make",
     category: "automation",
@@ -599,10 +601,10 @@ const aiToolsDatabase = [
     description: "Visual automation platform connecting apps with AI.",
     website: "https://www.make.com",
     image: "logos/make.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 56,
     name: "Taskade AI",
     category: "productivity",
@@ -610,10 +612,10 @@ const aiToolsDatabase = [
     description: "AI-powered task management and collaboration platform.",
     website: "https://www.taskade.com",
     image: "logos/taskade.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 57,
     name: "ClickUp AI",
     category: "productivity",
@@ -621,10 +623,10 @@ const aiToolsDatabase = [
     description: "Project management enhanced with AI writing and planning.",
     website: "https://clickup.com/ai",
     image: "logos/clickup.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 58,
     name: "Slack AI",
     category: "productivity",
@@ -632,10 +634,10 @@ const aiToolsDatabase = [
     description: "AI summaries, search and workflow assistance inside Slack.",
     website: "https://slack.com",
     image: "logos/slack.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 59,
     name: "HubSpot AI",
     category: "business",
@@ -643,10 +645,10 @@ const aiToolsDatabase = [
     description: "AI tools for CRM, sales, customer service and marketing.",
     website: "https://www.hubspot.com",
     image: "logos/hubspot.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 60,
     name: "Salesforce Einstein",
     category: "business",
@@ -654,10 +656,10 @@ const aiToolsDatabase = [
     description: "AI-powered CRM insights and business automation.",
     website: "https://www.salesforce.com/products/einstein-ai",
     image: "logos/einstein.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 61,
     name: "Durable AI",
     category: "business",
@@ -665,9 +667,10 @@ const aiToolsDatabase = [
     description: "Create complete business websites with AI in minutes.",
     website: "https://durable.co",
     image: "logos/durable.webp",
+    pricing: "freemium",
     featured: false
-},
-{
+  },
+  {
     id: 62,
     name: "Figma AI",
     category: "design",
@@ -675,10 +678,10 @@ const aiToolsDatabase = [
     description: "AI-powered interface and UX design tools.",
     website: "https://www.figma.com",
     image: "logos/figma.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 63,
     name: "Relume AI",
     category: "design",
@@ -686,10 +689,10 @@ const aiToolsDatabase = [
     description: "Generate complete website wireframes and sitemaps with AI.",
     website: "https://www.relume.io",
     image: "logos/relume.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 64,
     name: "Khroma",
     category: "design",
@@ -697,10 +700,10 @@ const aiToolsDatabase = [
     description: "AI color palette generator for designers.",
     website: "https://www.khroma.co",
     image: "logos/khroma.webp",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 65,
     name: "Looka",
     category: "design",
@@ -708,10 +711,10 @@ const aiToolsDatabase = [
     description: "Create logos and complete brand identities with AI.",
     website: "https://looka.com",
     image: "logos/looka.png",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 66,
     name: "Microsoft Designer",
     category: "design",
@@ -719,10 +722,10 @@ const aiToolsDatabase = [
     description: "Generate graphics, posters and social media content using AI.",
     website: "https://designer.microsoft.com",
     image: "logos/designer.png",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 67,
     name: "Blackbox AI",
     category: "coding",
@@ -730,10 +733,10 @@ const aiToolsDatabase = [
     description: "AI coding assistant with code generation and search.",
     website: "https://www.blackbox.ai",
     image: "logos/blackbox.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 68,
     name: "Bolt.new",
     category: "coding",
@@ -741,10 +744,10 @@ const aiToolsDatabase = [
     description: "Build full-stack web apps instantly with AI.",
     website: "https://bolt.new",
     image: "logos/bolt.avif",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 69,
     name: "V0",
     category: "coding",
@@ -752,10 +755,10 @@ const aiToolsDatabase = [
     description: "Generate beautiful React interfaces from prompts.",
     website: "https://v0.dev",
     image: "logos/v0.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 70,
     name: "Lovable",
     category: "coding",
@@ -763,10 +766,10 @@ const aiToolsDatabase = [
     description: "Build complete web applications using AI prompts.",
     website: "https://lovable.dev",
     image: "logos/lovable.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 71,
     name: "Harvey AI",
     category: "business",
@@ -774,10 +777,10 @@ const aiToolsDatabase = [
     description: "AI assistant designed for legal professionals.",
     website: "https://www.harvey.ai",
     image: "logos/harvey.webp",
+    pricing: "paid",
     featured: false
-},
-
-{
+  },
+  {
     id: 72,
     name: "NotebookLM",
     category: "research",
@@ -785,10 +788,10 @@ const aiToolsDatabase = [
     description: "Research and summarize documents with Google's AI.",
     website: "https://notebooklm.google.com",
     image: "logos/notebooklm.jpeg",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 73,
     name: "Character.AI",
     category: "chat",
@@ -796,10 +799,10 @@ const aiToolsDatabase = [
     description: "Chat with millions of AI characters for entertainment and learning.",
     website: "https://character.ai",
     image: "logos/characterai.webp",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 74,
     name: "Poe",
     category: "chat",
@@ -807,10 +810,10 @@ const aiToolsDatabase = [
     description: "Access multiple AI models from one platform.",
     website: "https://poe.com",
     image: "logos/poe.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 75,
     name: "Hugging Face",
     category: "research",
@@ -818,10 +821,10 @@ const aiToolsDatabase = [
     description: "Open-source AI models, datasets and machine learning community.",
     website: "https://huggingface.co",
     image: "logos/huggingface.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 76,
     name: "TensorFlow",
     category: "coding",
@@ -829,10 +832,10 @@ const aiToolsDatabase = [
     description: "Open-source machine learning framework.",
     website: "https://www.tensorflow.org",
     image: "logos/tensorflow.png",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 77,
     name: "PyTorch",
     category: "coding",
@@ -840,10 +843,10 @@ const aiToolsDatabase = [
     description: "Deep learning framework widely used in AI research.",
     website: "https://pytorch.org",
     image: "logos/pytorch.png",
+    pricing: "free",
     featured: false
-},
-
-{
+  },
+  {
     id: 78,
     name: "AssemblyAI",
     category: "audio",
@@ -851,10 +854,10 @@ const aiToolsDatabase = [
     description: "Speech-to-text and AI audio understanding APIs.",
     website: "https://www.assemblyai.com",
     image: "logos/assemblyai.png",
+    pricing: "freemium",
     featured: false
-},
-
-{
+  },
+  {
     id: 79,
     name: "VEED AI",
     category: "video",
@@ -862,7 +865,7 @@ const aiToolsDatabase = [
     description: "Online AI video editor with subtitles and effects.",
     website: "https://www.veed.io",
     image: "logos/veed.png",
+    pricing: "freemium",
     featured: false
-}
-
+  }
 ];
