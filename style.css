@@ -2245,3 +2245,66 @@ transform:scale(1.03);
     transform: none;
     box-shadow: none;
 }
+/*=========================================
+  PRICING BADGES & FILTER BUTTONS
+=========================================*/
+
+/* Pricing Badge inside Cards */
+.pricing-badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.pricing-badge.free {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.pricing-badge.freemium {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.pricing-badge.paid {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+/* Pricing Filter Container */
+.pricing-filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* Pricing Filter Buttons */
+.pricing-btn {
+    padding: 8px 16px;
+    border: 1px solid #333;
+    background-color: #1a1a1a;
+    color: #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.pricing-btn:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.pricing-btn.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
