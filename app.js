@@ -188,32 +188,24 @@ function createToolCard(tool) {
 // =========================================
 
 function loadFeaturedTool() {
+    if (!featuredTitle || !aiToolsDatabase || aiToolsDatabase.length === 0) return;
 
-    if (!featuredTitle) return;
+    // Change the Tool of the Week every 7 days
+    const startDate = new Date("2026-01-05T00:00:00");
+    const today = new Date();
 
-    if (
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase) ||
-        aiToolsDatabase.length === 0
-    ) {
-        return;
-    }
+    const differenceInTime = today.getTime() - startDate.getTime();
+    const daysPassed = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
 
-    const featured =
-        aiToolsDatabase.find(tool => tool.featured) ||
-        aiToolsDatabase[0];
+    const currentWeek = Math.floor(daysPassed / 7);
 
+    const featuredIndex = ((currentWeek % aiToolsDatabase.length) + aiToolsDatabase.length) % aiToolsDatabase.length;
+
+    const featured = aiToolsDatabase[featuredIndex];
 
     featuredTitle.textContent = featured.name;
-
-    if (featuredDescription) {
-        featuredDescription.textContent = featured.description;
-    }
-
-    if (featuredLink) {
-        featuredLink.href = featured.website;
-    }
-
+    featuredDescription.textContent = featured.description;
+    featuredLink.href = featured.website;
 }
 
 
