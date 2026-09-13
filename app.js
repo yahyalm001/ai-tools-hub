@@ -571,103 +571,65 @@ pricingButtons.forEach(btn => {
 });
 
 
-// =========================================
-// SEARCH FILTER
-// =========================================
+/*=========================================
+  SEARCH FILTER
+=========================================*/
+
+const searchInput = document.getElementById("searchInput");
 
 if (searchInput) {
-
     searchInput.addEventListener("input", () => {
+        const keyword = searchInput.value.trim().toLowerCase();
 
-        const keyword =
-            searchInput.value
-                .trim()
-                .toLowerCase();
-
-
-        // Empty search
-
+        // If search is empty, restore current category + pricing filters
         if (keyword === "") {
-
-            loadTools(
-                selectedCategory,
-                selectedPricing,
-                1
-            );
-
+            loadTools(selectedCategory, selectedPricing, 1);
             return;
         }
 
+        const filtered = aiToolsDatabase.filter(tool => {
 
-        // Search tools
+            /*
+             * Special pricing search
+             * "free" should match only FREE,
+             * not FREEMIUM.
+             */
+            let matchesSearch;
 
-        const filtered =
-            aiToolsDatabase.filter(tool => {
+            if (keyword === "free" || keyword === "freemium" || keyword === "paid") {
+                matchesSearch =
+                    tool.pricing &&
+                    tool.pricing.toLowerCase() === keyword;
+            } else {
+                matchesSearch =
+                    tool.name.toLowerCase().includes(keyword) ||
+                    tool.company.toLowerCase().includes(keyword) ||
+                    tool.category.toLowerCase().includes(keyword) ||
+                    tool.description.toLowerCase().includes(keyword);
+            }
 
-                const name =
-                    String(tool.name || "")
-                        .toLowerCase();
+            // Keep category filter active
+            const matchesCategory =
+                selectedCategory === "all" ||
+                tool.category.toLowerCase() === selectedCategory.toLowerCase();
 
-                const company =
-                    String(tool.company || "")
-                        .toLowerCase();
-
-                const category =
-                    String(tool.category || "")
-                        .toLowerCase();
-
-                const description =
-                    String(tool.description || "")
-                        .toLowerCase();
-
-                const pricing =
-                    String(tool.pricing || "")
-                        .toLowerCase();
-
-
-                const matchesSearch =
-                    name.includes(keyword) ||
-                    company.includes(keyword) ||
-                    category.includes(keyword) ||
-                    description.includes(keyword) ||
-                    pricing.includes(keyword);
-
-
-                const matchesCategory =
-                    selectedCategory === "all" ||
-                    category ===
-                    selectedCategory.toLowerCase();
-
-
-                const matchesPricing =
-                    selectedPricing === "all" ||
-                    pricing ===
-                    selectedPricing.toLowerCase();
-
-
-                return (
-                    matchesSearch &&
-                    matchesCategory &&
-                    matchesPricing
+            // Keep pricing filter active
+            const matchesPricing =
+                selectedPricing === "all" ||
+                (
+                    tool.pricing &&
+                    tool.pricing.toLowerCase() === selectedPricing.toLowerCase()
                 );
 
-            });
+            return matchesSearch && matchesCategory && matchesPricing;
+        });
 
-
-        currentFilteredTools =
-            filtered;
-
-
+        currentFilteredTools = filtered;
         currentPage = 1;
 
-
         renderToolsPage();
-
     });
-
 }
-
-
 // =========================================
 // COOKIE CONSENT
 // =========================================
