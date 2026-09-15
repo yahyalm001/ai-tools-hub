@@ -184,28 +184,73 @@ function createToolCard(tool) {
 
 
 // =========================================
-// FEATURED TOOL
+// FEATURED TOOL / TOOL OF THE WEEK
 // =========================================
 
 function loadFeaturedTool() {
-    if (!featuredTitle || !aiToolsDatabase || aiToolsDatabase.length === 0) return;
+
+    if (
+        !featuredTitle ||
+        typeof aiToolsDatabase === "undefined" ||
+        !Array.isArray(aiToolsDatabase) ||
+        aiToolsDatabase.length === 0
+    ) {
+        return;
+    }
+
 
     // Change the Tool of the Week every 7 days
     const startDate = new Date("2026-01-05T00:00:00");
     const today = new Date();
 
-    const differenceInTime = today.getTime() - startDate.getTime();
-    const daysPassed = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
 
-    const currentWeek = Math.floor(daysPassed / 7);
+    const differenceInTime =
+        today.getTime() - startDate.getTime();
 
-    const featuredIndex = ((currentWeek % aiToolsDatabase.length) + aiToolsDatabase.length) % aiToolsDatabase.length;
 
-    const featured = aiToolsDatabase[featuredIndex];
+    const daysPassed =
+        Math.floor(
+            differenceInTime /
+            (1000 * 60 * 60 * 24)
+        );
 
-    featuredTitle.textContent = featured.name;
-    featuredDescription.textContent = featured.description;
-    featuredLink.href = featured.website;
+
+    const currentWeek =
+        Math.floor(daysPassed / 7);
+
+
+    const featuredIndex =
+        (
+            currentWeek %
+            aiToolsDatabase.length +
+            aiToolsDatabase.length
+        ) %
+        aiToolsDatabase.length;
+
+
+    const featured =
+        aiToolsDatabase[featuredIndex];
+
+
+    featuredTitle.textContent =
+        featured.name;
+
+
+    if (featuredDescription) {
+
+        featuredDescription.textContent =
+            featured.description;
+
+    }
+
+
+    if (featuredLink) {
+
+        featuredLink.href =
+            featured.website;
+
+    }
+
 }
 
 
@@ -217,12 +262,14 @@ function loadLatestTools() {
 
     if (!latestToolsGrid) return;
 
+
     if (
         typeof aiToolsDatabase === "undefined" ||
         !Array.isArray(aiToolsDatabase)
     ) {
         return;
     }
+
 
     const latest =
         [...aiToolsDatabase]
@@ -276,33 +323,47 @@ function loadTools(
     selectedPricing = pricing;
 
 
-    const filtered = aiToolsDatabase.filter(tool => {
+    const filtered =
+        aiToolsDatabase.filter(tool => {
 
-        const toolCategory =
-            String(tool.category || "").toLowerCase();
-
-        const toolPricing =
-            String(tool.pricing || "").toLowerCase();
-
-
-        const matchesCategory =
-            category === "all" ||
-            toolCategory === category.toLowerCase();
+            const toolCategory =
+                String(
+                    tool.category || ""
+                ).toLowerCase();
 
 
-        const matchesPricing =
-            pricing === "all" ||
-            toolPricing === pricing.toLowerCase();
+            const toolPricing =
+                String(
+                    tool.pricing || ""
+                ).toLowerCase();
 
 
-        return matchesCategory && matchesPricing;
+            const matchesCategory =
+                category === "all" ||
+                toolCategory ===
+                    category.toLowerCase();
 
-    });
+
+            const matchesPricing =
+                pricing === "all" ||
+                toolPricing ===
+                    pricing.toLowerCase();
 
 
-    currentFilteredTools = filtered;
+            return (
+                matchesCategory &&
+                matchesPricing
+            );
 
-    currentPage = page;
+        });
+
+
+    currentFilteredTools =
+        filtered;
+
+
+    currentPage =
+        page;
 
 
     renderToolsPage();
@@ -319,7 +380,9 @@ function renderToolsPage() {
     if (!toolsGrid) return;
 
 
-    if (currentFilteredTools.length === 0) {
+    if (
+        currentFilteredTools.length === 0
+    ) {
 
         toolsGrid.innerHTML = `
             <div class="empty-tools">
@@ -343,15 +406,20 @@ function renderToolsPage() {
 
 
     const start =
-        (currentPage - 1) * toolsPerPage;
+        (currentPage - 1) *
+        toolsPerPage;
 
 
     const end =
-        start + toolsPerPage;
+        start +
+        toolsPerPage;
 
 
     const toolsToShow =
-        currentFilteredTools.slice(start, end);
+        currentFilteredTools.slice(
+            start,
+            end
+        );
 
 
     toolsGrid.innerHTML =
@@ -377,7 +445,9 @@ function renderToolsPage() {
 function renderPagination(totalPages) {
 
     const pagination =
-        document.getElementById("pagination");
+        document.getElementById(
+            "pagination"
+        );
 
 
     if (!pagination) return;
@@ -451,7 +521,8 @@ function renderPagination(totalPages) {
     `;
 
 
-    pagination.innerHTML = html;
+    pagination.innerHTML =
+        html;
 
 }
 
@@ -477,7 +548,8 @@ function changePage(page) {
     }
 
 
-    currentPage = page;
+    currentPage =
+        page;
 
 
     renderToolsPage();
@@ -501,41 +573,44 @@ function changePage(page) {
 
 categoryCards.forEach(card => {
 
-    card.addEventListener("click", () => {
+    card.addEventListener(
+        "click",
+        () => {
 
-        categoryCards.forEach(c => {
-            c.classList.remove("active");
-        });
-
-
-        card.classList.add("active");
-
-
-        const category =
-            card.dataset.category;
+            categoryCards.forEach(c => {
+                c.classList.remove("active");
+            });
 
 
-        loadTools(
-            category,
-            selectedPricing,
-            1
-        );
+            card.classList.add("active");
 
 
-        setTimeout(() => {
+            const category =
+                card.dataset.category;
 
-            if (toolsGrid) {
 
-                toolsGrid.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
+            loadTools(
+                category,
+                selectedPricing,
+                1
+            );
 
-            }
 
-        }, 50);
+            setTimeout(() => {
 
-    });
+                if (toolsGrid) {
+
+                    toolsGrid.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            }, 50);
+
+        }
+    );
 
 });
 
@@ -546,90 +621,162 @@ categoryCards.forEach(card => {
 
 pricingButtons.forEach(btn => {
 
-    btn.addEventListener("click", () => {
+    btn.addEventListener(
+        "click",
+        () => {
 
-        pricingButtons.forEach(b => {
-            b.classList.remove("active");
-        });
-
-
-        btn.classList.add("active");
-
-
-        const pricing =
-            btn.dataset.pricing;
+            pricingButtons.forEach(b => {
+                b.classList.remove("active");
+            });
 
 
-        loadTools(
-            selectedCategory,
-            pricing,
-            1
-        );
+            btn.classList.add("active");
 
-    });
+
+            const pricing =
+                btn.dataset.pricing;
+
+
+            loadTools(
+                selectedCategory,
+                pricing,
+                1
+            );
+
+        }
+    );
 
 });
 
 
-/*=========================================
-  SEARCH FILTER
-=========================================*/
-
-const searchInput = document.getElementById("searchInput");
+// =========================================
+// SEARCH FILTER
+// =========================================
 
 if (searchInput) {
-    searchInput.addEventListener("input", () => {
-        const keyword = searchInput.value.trim().toLowerCase();
 
-        // If search is empty, restore current category + pricing filters
-        if (keyword === "") {
-            loadTools(selectedCategory, selectedPricing, 1);
-            return;
-        }
+    searchInput.addEventListener(
+        "input",
+        () => {
 
-        const filtered = aiToolsDatabase.filter(tool => {
+            const keyword =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
 
-            /*
-             * Special pricing search
-             * "free" should match only FREE,
-             * not FREEMIUM.
-             */
-            let matchesSearch;
 
-            if (keyword === "free" || keyword === "freemium" || keyword === "paid") {
-                matchesSearch =
-                    tool.pricing &&
-                    tool.pricing.toLowerCase() === keyword;
-            } else {
-                matchesSearch =
-                    tool.name.toLowerCase().includes(keyword) ||
-                    tool.company.toLowerCase().includes(keyword) ||
-                    tool.category.toLowerCase().includes(keyword) ||
-                    tool.description.toLowerCase().includes(keyword);
-            }
+            // Empty search
+            if (keyword === "") {
 
-            // Keep category filter active
-            const matchesCategory =
-                selectedCategory === "all" ||
-                tool.category.toLowerCase() === selectedCategory.toLowerCase();
-
-            // Keep pricing filter active
-            const matchesPricing =
-                selectedPricing === "all" ||
-                (
-                    tool.pricing &&
-                    tool.pricing.toLowerCase() === selectedPricing.toLowerCase()
+                loadTools(
+                    selectedCategory,
+                    selectedPricing,
+                    1
                 );
 
-            return matchesSearch && matchesCategory && matchesPricing;
-        });
+                return;
+            }
 
-        currentFilteredTools = filtered;
-        currentPage = 1;
 
-        renderToolsPage();
-    });
+            const filtered =
+                aiToolsDatabase.filter(
+                    tool => {
+
+                        let matchesSearch;
+
+
+                        /*
+                         * Special pricing search
+                         *
+                         * free     → FREE only
+                         * freemium → FREEMIUM only
+                         * paid     → PAID only
+                         */
+
+                        if (
+                            keyword === "free" ||
+                            keyword === "freemium" ||
+                            keyword === "paid"
+                        ) {
+
+                            matchesSearch =
+                                String(
+                                    tool.pricing || ""
+                                ).toLowerCase() ===
+                                keyword;
+
+                        } else {
+
+                            matchesSearch =
+                                String(
+                                    tool.name || ""
+                                ).toLowerCase()
+                                .includes(keyword) ||
+
+                                String(
+                                    tool.company || ""
+                                ).toLowerCase()
+                                .includes(keyword) ||
+
+                                String(
+                                    tool.category || ""
+                                ).toLowerCase()
+                                .includes(keyword) ||
+
+                                String(
+                                    tool.description || ""
+                                ).toLowerCase()
+                                .includes(keyword);
+
+                        }
+
+
+                        // Keep category filter active
+
+                        const matchesCategory =
+                            selectedCategory === "all" ||
+                            String(
+                                tool.category || ""
+                            ).toLowerCase() ===
+                            selectedCategory.toLowerCase();
+
+
+                        // Keep pricing filter active
+
+                        const matchesPricing =
+                            selectedPricing === "all" ||
+                            String(
+                                tool.pricing || ""
+                            ).toLowerCase() ===
+                            selectedPricing.toLowerCase();
+
+
+                        return (
+                            matchesSearch &&
+                            matchesCategory &&
+                            matchesPricing
+                        );
+
+                    }
+                );
+
+
+            currentFilteredTools =
+                filtered;
+
+
+            currentPage =
+                1;
+
+
+            renderToolsPage();
+
+        }
+    );
+
 }
+
+
 // =========================================
 // COOKIE CONSENT
 // =========================================
@@ -665,7 +812,8 @@ function initCookies() {
                 preferences.analytics
             ) {
 
-                analyticsCookies.checked = true;
+                analyticsCookies.checked =
+                    true;
 
             }
 
@@ -675,7 +823,8 @@ function initCookies() {
                 preferences.advertising
             ) {
 
-                advertisingCookies.checked = true;
+                advertisingCookies.checked =
+                    true;
 
             }
 
@@ -748,11 +897,18 @@ function openCookieSettings() {
         } catch (error) {
 
             if (analyticsCookies) {
-                analyticsCookies.checked = false;
+
+                analyticsCookies.checked =
+                    false;
+
             }
 
+
             if (advertisingCookies) {
-                advertisingCookies.checked = false;
+
+                advertisingCookies.checked =
+                    false;
+
             }
 
         }
@@ -790,7 +946,9 @@ if (acceptCookies) {
 
             localStorage.setItem(
                 "cookiePreferences",
-                JSON.stringify(preferences)
+                JSON.stringify(
+                    preferences
+                )
             );
 
 
@@ -831,7 +989,9 @@ if (rejectCookies) {
 
             localStorage.setItem(
                 "cookiePreferences",
-                JSON.stringify(preferences)
+                JSON.stringify(
+                    preferences
+                )
             );
 
 
@@ -926,7 +1086,9 @@ if (saveCookiePreferences) {
 
             localStorage.setItem(
                 "cookiePreferences",
-                JSON.stringify(preferences)
+                JSON.stringify(
+                    preferences
+                )
             );
 
 
