@@ -5,81 +5,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | AI Tools Hub</title>
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
 
-        body{
-            font-family:'Plus Jakarta Sans',sans-serif;
-            background:#0f172a;
-            color:white;
+        /* Page-specific styles only — everything else (colors, fonts,
+           blurs, button styles) is inherited from style.css so this
+           page stays in sync with the rest of the site automatically. */
+
+        .not-found{
+
+            min-height:calc(100vh - 82px);
+
             display:flex;
-            justify-content:center;
+
             align-items:center;
-            height:100vh;
+
+            justify-content:center;
+
+            padding:90px 0;
+
             text-align:center;
-            padding:20px;
+
         }
 
-        h1{
-            font-size:90px;
-            margin-bottom:15px;
+        .not-found-content{
+
+            max-width:560px;
+
+            animation:fadeUp .8s ease;
+
         }
 
-        p{
-            font-size:18px;
-            margin-bottom:30px;
-            color:#cbd5e1;
+        .not-found h1{
+
+            font-size:clamp(5rem,14vw,8rem);
+
+            font-weight:800;
+
+            line-height:1;
+
+            letter-spacing:-2px;
+
+            margin-bottom:10px;
+
+            background:linear-gradient(
+                90deg,
+                #4f8cff,
+                #6ee7ff,
+                #8b5cf6
+            );
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+
+            background-clip:text;
+
         }
 
-        a{
-            display:inline-block;
-            padding:14px 28px;
-            background:#6C63FF;
-            color:white;
-            text-decoration:none;
-            border-radius:10px;
-            font-weight:bold;
-            transition:.25s;
+        .not-found h2{
+
+            font-size:1.6rem;
+
+            font-weight:700;
+
+            margin-bottom:18px;
+
         }
 
-        a:hover{
-            transform:translateY(-2px);
-            opacity:.95;
+        .not-found p{
+
+            color:var(--text2);
+
+            font-size:1.05rem;
+
+            line-height:1.8;
+
+            margin-bottom:12px;
+
         }
+
+        .not-found-actions{
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            gap:16px;
+
+            flex-wrap:wrap;
+
+            margin-top:35px;
+
+        }
+
+        @media(max-width:480px){
+
+            .not-found-actions{
+
+                flex-direction:column;
+
+            }
+
+            .not-found-actions a{
+
+                width:100%;
+
+                max-width:280px;
+
+            }
+
+        }
+
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div>
-
-<h1>404</h1>
-
-<p>
-Oops! The page you're looking for couldn't be found.
-</p>
-
-<p>
-AI Tools Hub helps you discover the best AI tools in one place.
-</p>
-
-<a href="index.html">
-← Back to Home
-</a>
-
+<div class="background">
+    <div class="blur blur1"></div>
+    <div class="blur blur2"></div>
 </div>
 
-</body>
+<header class="header">
+    <div class="container">
+        <a href="index.html" class="logo">
+            <img src="ai_tools_logo.png" alt="AI Tools Hub Logo">
+            <span>AI <strong>Tools Hub</strong></span>
+        </a>
+    </div>
+</header>
 
+<main>
+
+    <section class="not-found">
+        <div class="container">
+
+            <div class="not-found-content">
+
+                <h1>404</h1>
+
+                <h2>Page Not Found</h2>
+
+                <p>Oops! The page you're looking for couldn't be found.</p>
+
+                <p>AI Tools Hub helps you discover the best AI tools in one place.</p>
+
+                <div class="not-found-actions">
+
+                    <a href="index.html" class="primary-btn">← Back to Home</a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+</body>
 </html>
