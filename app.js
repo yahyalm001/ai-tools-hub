@@ -58,9 +58,11 @@ function showPage(pageId) {
     navButtons.forEach(btn => {
 
         btn.classList.remove("active");
+        btn.removeAttribute("aria-current");
 
         if (btn.dataset.page === pageId) {
             btn.classList.add("active");
+            btn.setAttribute("aria-current", "page");
         }
 
     });
@@ -568,49 +570,53 @@ function changePage(page) {
 
 
 // =========================================
-// CATEGORY FILTER
+// CATEGORY FILTER (click + keyboard)
 // =========================================
+
+function activateCategoryCard(card) {
+
+    categoryCards.forEach(c => {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+    });
+
+    card.classList.add("active");
+    card.setAttribute("aria-pressed", "true");
+
+    const category = card.dataset.category;
+
+    loadTools(category, selectedPricing, 1);
+
+    setTimeout(() => {
+
+        if (toolsGrid) {
+
+            toolsGrid.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+    }, 50);
+
+}
 
 categoryCards.forEach(card => {
 
-    card.addEventListener(
-        "click",
-        () => {
+    card.addEventListener("click", () => {
+        activateCategoryCard(card);
+    });
 
-            categoryCards.forEach(c => {
-                c.classList.remove("active");
-            });
+    // Keyboard accessibility: Enter / Space activate the card
+    card.addEventListener("keydown", (event) => {
 
-
-            card.classList.add("active");
-
-
-            const category =
-                card.dataset.category;
-
-
-            loadTools(
-                category,
-                selectedPricing,
-                1
-            );
-
-
-            setTimeout(() => {
-
-                if (toolsGrid) {
-
-                    toolsGrid.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
-
-            }, 50);
-
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            activateCategoryCard(card);
         }
-    );
+
+    });
 
 });
 
@@ -650,128 +656,141 @@ pricingButtons.forEach(btn => {
 
 
 // =========================================
-// SEARCH FILTER
+// SEARCH FILTER (debounced)
 // =========================================
+
+function debounce(fn, delay) {
+
+    let timeoutId;
+
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+    };
+
+}
+
+function runSearch() {
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    // Empty search
+    if (keyword === "") {
+
+        loadTools(
+            selectedCategory,
+            selectedPricing,
+            1
+        );
+
+        return;
+    }
+
+
+    const filtered =
+        aiToolsDatabase.filter(
+            tool => {
+
+                let matchesSearch;
+
+
+                /*
+                 * Special pricing search
+                 *
+                 * free     → FREE only
+                 * freemium → FREEMIUM only
+                 * paid     → PAID only
+                 */
+
+                if (
+                    keyword === "free" ||
+                    keyword === "freemium" ||
+                    keyword === "paid"
+                ) {
+
+                    matchesSearch =
+                        String(
+                            tool.pricing || ""
+                        ).toLowerCase() ===
+                        keyword;
+
+                } else {
+
+                    matchesSearch =
+                        String(
+                            tool.name || ""
+                        ).toLowerCase()
+                        .includes(keyword) ||
+
+                        String(
+                            tool.company || ""
+                        ).toLowerCase()
+                        .includes(keyword) ||
+
+                        String(
+                            tool.category || ""
+                        ).toLowerCase()
+                        .includes(keyword) ||
+
+                        String(
+                            tool.description || ""
+                        ).toLowerCase()
+                        .includes(keyword);
+
+                }
+
+
+                // Keep category filter active
+
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    String(
+                        tool.category || ""
+                    ).toLowerCase() ===
+                    selectedCategory.toLowerCase();
+
+
+                // Keep pricing filter active
+
+                const matchesPricing =
+                    selectedPricing === "all" ||
+                    String(
+                        tool.pricing || ""
+                    ).toLowerCase() ===
+                    selectedPricing.toLowerCase();
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesPricing
+                );
+
+            }
+        );
+
+
+    currentFilteredTools =
+        filtered;
+
+
+    currentPage =
+        1;
+
+
+    renderToolsPage();
+
+}
 
 if (searchInput) {
 
     searchInput.addEventListener(
         "input",
-        () => {
-
-            const keyword =
-                searchInput.value
-                    .trim()
-                    .toLowerCase();
-
-
-            // Empty search
-            if (keyword === "") {
-
-                loadTools(
-                    selectedCategory,
-                    selectedPricing,
-                    1
-                );
-
-                return;
-            }
-
-
-            const filtered =
-                aiToolsDatabase.filter(
-                    tool => {
-
-                        let matchesSearch;
-
-
-                        /*
-                         * Special pricing search
-                         *
-                         * free     → FREE only
-                         * freemium → FREEMIUM only
-                         * paid     → PAID only
-                         */
-
-                        if (
-                            keyword === "free" ||
-                            keyword === "freemium" ||
-                            keyword === "paid"
-                        ) {
-
-                            matchesSearch =
-                                String(
-                                    tool.pricing || ""
-                                ).toLowerCase() ===
-                                keyword;
-
-                        } else {
-
-                            matchesSearch =
-                                String(
-                                    tool.name || ""
-                                ).toLowerCase()
-                                .includes(keyword) ||
-
-                                String(
-                                    tool.company || ""
-                                ).toLowerCase()
-                                .includes(keyword) ||
-
-                                String(
-                                    tool.category || ""
-                                ).toLowerCase()
-                                .includes(keyword) ||
-
-                                String(
-                                    tool.description || ""
-                                ).toLowerCase()
-                                .includes(keyword);
-
-                        }
-
-
-                        // Keep category filter active
-
-                        const matchesCategory =
-                            selectedCategory === "all" ||
-                            String(
-                                tool.category || ""
-                            ).toLowerCase() ===
-                            selectedCategory.toLowerCase();
-
-
-                        // Keep pricing filter active
-
-                        const matchesPricing =
-                            selectedPricing === "all" ||
-                            String(
-                                tool.pricing || ""
-                            ).toLowerCase() ===
-                            selectedPricing.toLowerCase();
-
-
-                        return (
-                            matchesSearch &&
-                            matchesCategory &&
-                            matchesPricing
-                        );
-
-                    }
-                );
-
-
-            currentFilteredTools =
-                filtered;
-
-
-            currentPage =
-                1;
-
-
-            renderToolsPage();
-
-        }
+        debounce(runSearch, 250)
     );
 
 }
@@ -781,75 +800,56 @@ if (searchInput) {
 // COOKIE CONSENT
 // =========================================
 
+// Single helper used by both initCookies() and openCookieSettings()
+// so the parse / error-handling logic isn't duplicated.
+function getSavedCookiePreferences() {
+
+    const raw = localStorage.getItem("cookiePreferences");
+
+    if (!raw) return null;
+
+    try {
+
+        return JSON.parse(raw);
+
+    } catch (error) {
+
+        console.warn("Invalid cookie preferences found.");
+
+        localStorage.removeItem("cookiePreferences");
+
+        return null;
+
+    }
+
+}
+
 function initCookies() {
 
     if (!cookieBanner) return;
 
 
-    const savedPreferences =
-        localStorage.getItem(
-            "cookiePreferences"
-        );
+    const preferences = getSavedCookiePreferences();
 
 
-    if (savedPreferences) {
+    if (preferences) {
 
-        try {
+        cookieBanner.classList.add("hide");
 
-            const preferences =
-                JSON.parse(
-                    savedPreferences
-                );
-
-
-            cookieBanner.classList.add(
-                "hide"
-            );
-
-
-            if (
-                analyticsCookies &&
-                preferences.analytics
-            ) {
-
-                analyticsCookies.checked =
-                    true;
-
-            }
-
-
-            if (
-                advertisingCookies &&
-                preferences.advertising
-            ) {
-
-                advertisingCookies.checked =
-                    true;
-
-            }
-
-
-            return;
-
-        } catch (error) {
-
-            console.warn(
-                "Invalid cookie preferences found."
-            );
-
-
-            localStorage.removeItem(
-                "cookiePreferences"
-            );
-
+        if (analyticsCookies && preferences.analytics) {
+            analyticsCookies.checked = true;
         }
+
+        if (advertisingCookies && preferences.advertising) {
+            advertisingCookies.checked = true;
+        }
+
+        return;
 
     }
 
 
-    cookieBanner.classList.remove(
-        "hide"
-    );
+    cookieBanner.classList.remove("hide");
 
 }
 
@@ -863,62 +863,19 @@ function openCookieSettings() {
     if (!cookieSettings) return;
 
 
-    const savedPreferences =
-        localStorage.getItem(
-            "cookiePreferences"
-        );
+    const preferences = getSavedCookiePreferences();
 
 
-    if (savedPreferences) {
+    if (analyticsCookies) {
+        analyticsCookies.checked = !!(preferences && preferences.analytics);
+    }
 
-        try {
-
-            const preferences =
-                JSON.parse(
-                    savedPreferences
-                );
-
-
-            if (analyticsCookies) {
-
-                analyticsCookies.checked =
-                    preferences.analytics === true;
-
-            }
-
-
-            if (advertisingCookies) {
-
-                advertisingCookies.checked =
-                    preferences.advertising === true;
-
-            }
-
-        } catch (error) {
-
-            if (analyticsCookies) {
-
-                analyticsCookies.checked =
-                    false;
-
-            }
-
-
-            if (advertisingCookies) {
-
-                advertisingCookies.checked =
-                    false;
-
-            }
-
-        }
-
+    if (advertisingCookies) {
+        advertisingCookies.checked = !!(preferences && preferences.advertising);
     }
 
 
-    cookieSettings.classList.add(
-        "show"
-    );
+    cookieSettings.classList.add("show");
 
 }
 
