@@ -126,6 +126,10 @@ function createToolCard(tool) {
            </span>`
         : "";
 
+    // First letter of the tool name, used as a text fallback
+    // when both the local logo and the favicon fetch fail.
+    const initial = (tool.name || "?").trim().charAt(0).toUpperCase();
+
     return `
         <div class="tool-card">
 
@@ -134,7 +138,8 @@ function createToolCard(tool) {
                 <img
                     src="${tool.image || `https://www.google.com/s2/favicons?sz=128&domain=${new URL(tool.website).hostname}`}"
                     alt="${tool.name}"
-                    loading="lazy">
+                    loading="lazy"
+                    onerror="this.onerror=null; this.replaceWith(Object.assign(document.createElement('div'), { className: 'tool-image-fallback', textContent: '${initial}' }));">
 
             </div>
 
@@ -183,7 +188,6 @@ function createToolCard(tool) {
         </div>
     `;
 }
-
 
 // =========================================
 // FEATURED TOOL / TOOL OF THE WEEK
