@@ -1155,6 +1155,125 @@ color:#fff;
 }
 
 /* ===================================================
+   SUGGEST A TOOL FORM
+=================================================== */
+
+.suggest-tool-card{
+
+max-width:700px;
+
+margin:40px auto 0;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:26px;
+
+padding:45px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+}
+
+.suggest-tool-card h2{
+
+font-size:1.7rem;
+
+margin-bottom:14px;
+
+text-align:center;
+
+}
+
+.suggest-tool-card > p{
+
+color:var(--text2);
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+.form-group{
+
+margin-bottom:22px;
+
+}
+
+.form-group label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-size:.92rem;
+
+font-weight:600;
+
+color:var(--text2);
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+width:100%;
+
+padding:14px 16px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,.12);
+
+background:rgba(255,255,255,.04);
+
+color:#fff;
+
+font-family:inherit;
+
+font-size:.95rem;
+
+outline:none;
+
+transition:var(--transition);
+
+resize:vertical;
+
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+border-color:var(--primary);
+
+background:rgba(255,255,255,.07);
+
+}
+
+.form-group select option{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+.suggest-tool-card .primary-btn{
+
+width:100%;
+
+border:none;
+
+font-size:1rem;
+
+}
+/* ===================================================
    PAGE ANIMATION
 =================================================== */
 
