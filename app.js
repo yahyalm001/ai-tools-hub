@@ -913,6 +913,11 @@ if (acceptCookies) {
             );
 
 
+            if (window.loadGoogleAnalytics) {
+                window.loadGoogleAnalytics();
+            }
+
+
             if (cookieBanner) {
 
                 cookieBanner.classList.add(
@@ -928,8 +933,7 @@ if (acceptCookies) {
 
 
 // =========================================
-// REJECT COOKIES
-// =========================================
+// REJECT COOKIES =========================================
 
 if (rejectCookies) {
 
