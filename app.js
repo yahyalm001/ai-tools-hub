@@ -1057,6 +1057,11 @@ if (saveCookiePreferences) {
             );
 
 
+            if (preferences.analytics && window.loadGoogleAnalytics) {
+                window.loadGoogleAnalytics();
+            }
+
+
             if (cookieSettings) {
 
                 cookieSettings.classList.remove(
