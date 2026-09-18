@@ -1,14 +1,20 @@
 {
   "name": "AI Tools Hub",
   "short_name": "AI Tools",
-  "description": "Discover over 85 of the best AI tools in one place.",
-  "start_url": "/",
+  "description": "Discover over 79 of the best AI tools in one place.",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
