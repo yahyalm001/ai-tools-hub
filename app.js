@@ -1084,6 +1084,44 @@ if (saveCookiePreferences) {
 
 }
 
+// =========================================
+// SUGGEST A TOOL
+// =========================================
+
+const suggestToolForm = document.getElementById("suggestToolForm");
+
+if (suggestToolForm) {
+
+    suggestToolForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const name = document.getElementById("suggestName").value.trim();
+        const website = document.getElementById("suggestWebsite").value.trim();
+        const category = document.getElementById("suggestCategory").value;
+        const reason = document.getElementById("suggestReason").value.trim();
+
+        const subject = `Tool Suggestion: ${name}`;
+
+        const bodyLines = [
+            `Tool Name: ${name}`,
+            `Website: ${website}`,
+            `Category: ${category}`,
+            `Reason: ${reason || "N/A"}`
+        ];
+
+        const body = bodyLines.join("\n");
+
+        const mailtoUrl =
+            "mailto:aitoolshuboffic@gmail.com" +
+            "?subject=" + encodeURIComponent(subject) +
+            "&body=" + encodeURIComponent(body);
+
+        window.location.href = mailtoUrl;
+
+    });
+
+}
 
 // =========================================
 // START WEBSITE
