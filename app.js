@@ -115,6 +115,48 @@ if (learnMore) {
 
 
 // =========================================
+// WEEKLY FEATURED TOOL (shared logic)
+// =========================================
+
+function getWeeklyFeaturedId() {
+
+    if (
+        typeof aiToolsDatabase === "undefined" ||
+        !Array.isArray(aiToolsDatabase) ||
+        aiToolsDatabase.length === 0
+    ) {
+        return null;
+    }
+
+    const startDate = new Date("2026-01-05T00:00:00");
+    const today = new Date();
+
+    const differenceInTime =
+        today.getTime() - startDate.getTime();
+
+    const daysPassed =
+        Math.floor(
+            differenceInTime /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const currentWeek =
+        Math.floor(daysPassed / 7);
+
+    const featuredIndex =
+        (
+            currentWeek %
+            aiToolsDatabase.length +
+            aiToolsDatabase.length
+        ) %
+        aiToolsDatabase.length;
+
+    return aiToolsDatabase[featuredIndex].id;
+
+}
+
+
+// =========================================
 // CREATE TOOL CARDS
 // =========================================
 
@@ -129,6 +171,8 @@ function createToolCard(tool) {
     // First letter of the tool name, used as a text fallback
     // when both the local logo and the favicon fetch fail.
     const initial = (tool.name || "?").trim().charAt(0).toUpperCase();
+
+    const isFeatured = tool.id === getWeeklyFeaturedId();
 
     return `
         <div class="tool-card">
@@ -155,7 +199,7 @@ function createToolCard(tool) {
                     ${pricingBadge}
 
                     ${
-                        tool.featured
+                        isFeatured
                             ? '<span class="featured-badge">🔥 Featured</span>'
                             : ""
                     }
