@@ -625,23 +625,62 @@ padding:90px 0;
 
 .featured-card{
 
+display:flex;
+
+align-items:center;
+
+gap:50px;
+
 background:linear-gradient(
 135deg,
-rgba(79,140,255,.15),
-rgba(255,255,255,.05)
+rgba(79,140,255,.22),
+rgba(0,212,255,.10),
+rgba(255,255,255,.04)
 );
 
-border:1px solid rgba(255,255,255,.08);
+border:1px solid rgba(79,140,255,.25);
 
-border-radius:28px;
+border-radius:32px;
 
-padding:50px;
+padding:55px;
 
 backdrop-filter:blur(18px);
 
-box-shadow:var(--shadow);
+box-shadow:0 30px 80px rgba(79,140,255,.15),var(--shadow);
 
 transition:var(--transition);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.featured-card::before{
+
+content:"🔥 FEATURED";
+
+position:absolute;
+
+top:24px;
+
+right:24px;
+
+background:rgba(255,152,0,.15);
+
+border:1px solid rgba(255,152,0,.4);
+
+color:#ff9800;
+
+padding:6px 14px;
+
+border-radius:999px;
+
+font-size:.75rem;
+
+font-weight:800;
+
+letter-spacing:.5px;
 
 }
 
@@ -651,11 +690,95 @@ transform:translateY(-8px);
 
 }
 
+.featured-image{
+
+flex-shrink:0;
+
+width:180px;
+
+height:180px;
+
+border-radius:28px;
+
+overflow:hidden;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+}
+
+.featured-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:contain;
+
+padding:10px;
+
+}
+
+.featured-image-fallback{
+
+width:180px;
+
+height:180px;
+
+border-radius:28px;
+
+background:linear-gradient(135deg,var(--primary),#2f67ff);
+
+color:#fff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:4rem;
+
+font-weight:800;
+
+flex-shrink:0;
+
+box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+}
+
+.featured-content{
+
+flex:1;
+
+min-width:0;
+
+}
+
+.featured-badges{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:16px;
+
+flex-wrap:wrap;
+
+}
+
 .featured-card h3{
 
-font-size:2rem;
+font-size:2.2rem;
 
-margin-bottom:18px;
+margin-bottom:16px;
 
 }
 
@@ -665,7 +788,54 @@ color:var(--text2);
 
 line-height:1.9;
 
-margin-bottom:35px;
+margin-bottom:30px;
+
+font-size:1.05rem;
+
+}
+
+@media(max-width:768px){
+
+.featured-card{
+
+flex-direction:column;
+
+text-align:center;
+
+padding:40px 28px;
+
+}
+
+.featured-badges{
+
+justify-content:center;
+
+}
+
+.featured-image,
+.featured-image-fallback{
+
+width:130px;
+
+height:130px;
+
+}
+
+.featured-image-fallback{
+
+font-size:3rem;
+
+}
+
+.featured-card::before{
+
+position:static;
+
+display:inline-block;
+
+margin-bottom:20px;
+
+}
 
 }
 
