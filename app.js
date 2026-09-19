@@ -205,37 +205,11 @@ function loadFeaturedTool() {
     }
 
 
-    // Change the Tool of the Week every 7 days
-    const startDate = new Date("2026-01-05T00:00:00");
-    const today = new Date();
-
-
-    const differenceInTime =
-        today.getTime() - startDate.getTime();
-
-
-    const daysPassed =
-        Math.floor(
-            differenceInTime /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    const currentWeek =
-        Math.floor(daysPassed / 7);
-
-
-    const featuredIndex =
-        (
-            currentWeek %
-            aiToolsDatabase.length +
-            aiToolsDatabase.length
-        ) %
-        aiToolsDatabase.length;
-
+    const featuredId = getWeeklyFeaturedId();
 
     const featured =
-        aiToolsDatabase[featuredIndex];
+        aiToolsDatabase.find(tool => tool.id === featuredId) ||
+        aiToolsDatabase[0];
 
 
     featuredTitle.textContent =
