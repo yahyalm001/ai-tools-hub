@@ -237,7 +237,85 @@ function createToolCard(tool) {
 // FEATURED TOOL / TOOL OF THE WEEK
 // =========================================
 
-7
+function loadFeaturedTool() {
+
+    if (
+        !featuredTitle ||
+        typeof aiToolsDatabase === "undefined" ||
+        !Array.isArray(aiToolsDatabase) ||
+        aiToolsDatabase.length === 0
+    ) {
+        return;
+    }
+
+
+    const featuredId = getWeeklyFeaturedId();
+
+    const featured =
+        aiToolsDatabase.find(tool => tool.id === featuredId) ||
+        aiToolsDatabase[0];
+
+
+    featuredTitle.textContent =
+        featured.name;
+
+
+    if (featuredDescription) {
+
+        featuredDescription.textContent =
+            featured.description;
+
+    }
+
+
+    if (featuredLink) {
+
+        featuredLink.href =
+            featured.website;
+
+    }
+
+
+    const featuredImage = document.getElementById("featuredImage");
+
+    if (featuredImage) {
+
+        const initial = (featured.name || "?").trim().charAt(0).toUpperCase();
+
+        featuredImage.onerror = () => {
+            featuredImage.onerror = null;
+            featuredImage.replaceWith(
+                Object.assign(document.createElement("div"), {
+                    className: "featured-image-fallback",
+                    textContent: initial
+                })
+            );
+        };
+
+        featuredImage.src =
+            featured.image ||
+            `https://www.google.com/s2/favicons?sz=128&domain=${new URL(featured.website).hostname}`;
+
+        featuredImage.alt = featured.name;
+
+    }
+
+
+    const featuredCategory = document.getElementById("featuredCategory");
+
+    if (featuredCategory) {
+        featuredCategory.textContent = featured.category;
+    }
+
+
+    const featuredPricing = document.getElementById("featuredPricing");
+
+    if (featuredPricing && featured.pricing) {
+        featuredPricing.textContent = featured.pricing.toUpperCase();
+        featuredPricing.className = `pricing-badge ${featured.pricing}`;
+    }
+
+}
 
 
 // =========================================
