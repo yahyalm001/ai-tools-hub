@@ -237,45 +237,7 @@ function createToolCard(tool) {
 // FEATURED TOOL / TOOL OF THE WEEK
 // =========================================
 
-function loadFeaturedTool() {
-
-    if (
-        !featuredTitle ||
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase) ||
-        aiToolsDatabase.length === 0
-    ) {
-        return;
-    }
-
-
-    const featuredId = getWeeklyFeaturedId();
-
-    const featured =
-        aiToolsDatabase.find(tool => tool.id === featuredId) ||
-        aiToolsDatabase[0];
-
-
-    featuredTitle.textContent =
-        featured.name;
-
-
-    if (featuredDescription) {
-
-        featuredDescription.textContent =
-            featured.description;
-
-    }
-
-
-    if (featuredLink) {
-
-        featuredLink.href =
-            featured.website;
-
-    }
-
-}
+7
 
 
 // =========================================
