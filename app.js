@@ -1118,7 +1118,6 @@ if (suggestToolForm) {
             "&body=" + encodeURIComponent(body);
 
         window.location.href = mailtoUrl;
-
     });
 
 }
