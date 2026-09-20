@@ -315,7 +315,7 @@ const aiToolsDatabase = [
     description: "AI coding assistant that helps developers write code faster.",
     website: "https://github.com/features/copilot",
     image: "logos/github-copilot.png",
-    pricing: "paid",
+    pricing: "freemium",
     featured: false
   },
   {
@@ -337,7 +337,7 @@ const aiToolsDatabase = [
     description: "Free AI coding assistant with intelligent autocomplete.",
     website: "https://codeium.com",
     image: "logos/codeium.webp",
-    pricing: "free",
+    pricing: "freemium",
     featured: false
   },
   {
@@ -535,7 +535,7 @@ const aiToolsDatabase = [
     description: "AI tutor designed to help students learn effectively.",
     website: "https://www.khanacademy.org/khan-labs",
     image: "logos/khanmigo.png",
-    pricing: "paid",
+    pricing: "freemium",
     featured: false
   },
   {
@@ -788,7 +788,7 @@ const aiToolsDatabase = [
     description: "Research and summarize documents with Google's AI.",
     website: "https://notebooklm.google.com",
     image: "logos/notebooklm.jpeg",
-    pricing: "free",
+    pricing: "freemium",
     featured: false
   },
   {
