@@ -1,7 +1,7 @@
 {
   "name": "AI Tools Hub",
   "short_name": "AI Tools",
-  "description": "Discover over 79 of the best AI tools in one place.",
+ "description": "Discover over 79 of the best AI tools in one place."
   "start_url": "/ai-tools-hub/",
 "scope": "/ai-tools-hub/"
   "display": "standalone",
