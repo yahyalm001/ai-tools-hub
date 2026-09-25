@@ -4,177 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>404 - Page Not Found | AI Tools Hub</title>
+
     <meta name="robots" content="noindex, follow">
 
     <link rel="icon" type="image/png" href="/ai-tools-hub/favicon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="/ai-tools-hub/style.css">
 
     <style>
-
-        /* Page-specific styles only — everything else (colors, fonts,
-           blurs, button styles) is inherited from style.css so this
-           page stays in sync with the rest of the site automatically. */
-
-        .not-found{
-
-            min-height:calc(100vh - 82px);
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            padding:90px 0;
-
-            text-align:center;
-
+        .not-found {
+            min-height: calc(100vh - 82px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 90px 0;
+            text-align: center;
         }
 
-        .not-found-content{
-
-            max-width:560px;
-
-            animation:fadeUp .8s ease;
-
+        .not-found-content {
+            max-width: 560px;
+            animation: fadeUp .8s ease;
         }
 
-        .not-found h1{
+        .not-found h1 {
+            font-size: clamp(5rem, 14vw, 8rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
 
-            font-size:clamp(5rem,14vw,8rem);
-
-            font-weight:800;
-
-            line-height:1;
-
-            letter-spacing:-2px;
-
-            margin-bottom:10px;
-
-            background:linear-gradient(
+            background: linear-gradient(
                 90deg,
                 #4f8cff,
                 #6ee7ff,
                 #8b5cf6
             );
 
-            -webkit-background-clip:text;
-
-            -webkit-text-fill-color:transparent;
-
-            background-clip:text;
-
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .not-found h2{
-
-            font-size:1.6rem;
-
-            font-weight:700;
-
-            margin-bottom:18px;
-
+        .not-found h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 18px;
         }
 
-        .not-found p{
-
-            color:var(--text2);
-
-            font-size:1.05rem;
-
-            line-height:1.8;
-
-            margin-bottom:12px;
-
+        .not-found p {
+            color: var(--text2);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 12px;
         }
 
-        .not-found-actions{
-
-            display:flex;
-
-            justify-content:center;
-
-            align-items:center;
-
-            gap:16px;
-
-            flex-wrap:wrap;
-
-            margin-top:35px;
-
+        .not-found-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 35px;
         }
 
-        @media(max-width:480px){
-
-            .not-found-actions{
-
-                flex-direction:column;
-
+        @media (max-width: 480px) {
+            .not-found-actions {
+                flex-direction: column;
             }
 
-            .not-found-actions a{
-
-                width:100%;
-
-                max-width:280px;
-
+            .not-found-actions a {
+                width: 100%;
+                max-width: 280px;
             }
-
         }
-
     </style>
-
 </head>
 
 <body>
 
-<div class="background">
-    <div class="blur blur1"></div>
-    <div class="blur blur2"></div>
-</div>
-
-<header class="header">
-    <div class="container">
-        <a href="/ai-tools-hub/" class="logo">
-            <img src="/ai-tools-hub/ai_tools_logo.png" alt="AI Tools Hub Logo">
-            <span>AI <strong>Tools Hub</strong></span>
-        </a>
+    <div class="background">
+        <div class="blur blur1"></div>
+        <div class="blur blur2"></div>
     </div>
-</header>
 
-<main>
-
-    <section class="not-found">
+    <header class="header">
         <div class="container">
 
-            <div class="not-found-content">
+            <a href="/ai-tools-hub/" class="logo">
+                <img
+                    src="/ai-tools-hub/ai_tools_logo.png"
+                    alt="AI Tools Hub Logo"
+                >
 
-                <h1>404</h1>
+                <span>
+                    AI <strong>Tools Hub</strong>
+                </span>
+            </a>
 
-                <h2>Page Not Found</h2>
+        </div>
+    </header>
 
-                <p>Oops! The page you're looking for couldn't be found.</p>
+    <main>
 
-                <p>AI Tools Hub helps you discover the best AI tools in one place.</p>
+        <section class="not-found">
+            <div class="container">
 
-                <div class="not-found-actions">
+                <div class="not-found-content">
 
-                    <a href="/ai-tools-hub/" class="primary-btn">← Back to Home</a>
+                    <h1>404</h1>
+
+                    <h2>Page Not Found</h2>
+
+                    <p>
+                        Oops! The page you're looking for couldn't be found.
+                    </p>
+
+                    <p>
+                        AI Tools Hub helps you discover the best AI tools
+                        in one place.
+                    </p>
+
+                    <div class="not-found-actions">
+
+                        <a
+                            href="/ai-tools-hub/"
+                            class="primary-btn"
+                        >
+                            ← Back to Home
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
+        </section>
 
-        </div>
-    </section>
-
-</main>
+    </main>
 
 </body>
 </html>
