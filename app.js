@@ -5,38 +5,110 @@
 
 
 // =============================
+// GLOBAL STATE
+// =============================
+
+let pages = [];
+let navButtons = [];
+let categoryCards = [];
+let pricingButtons = [];
+
+let currentPage = 1;
+let currentFilteredTools = [];
+
+let selectedCategory = "all";
+let selectedPricing = "all";
+
+const toolsPerPage = 20;
+
+
+// =============================
 // ELEMENTS
 // =============================
 
-const pages = document.querySelectorAll(".page");
-const navButtons = document.querySelectorAll(".nav-btn");
+let browseTools;
+let browseToolsBottom;
+let learnMore;
 
-const browseTools = document.getElementById("browseTools");
-const browseToolsBottom = document.getElementById("browseToolsBottom");
-const learnMore = document.getElementById("learnMore");
+let featuredTitle;
+let featuredDescription;
+let featuredLink;
+let featuredImage;
+let featuredCategory;
+let featuredPricing;
 
-const featuredTitle = document.getElementById("featuredTitle");
-const featuredDescription = document.getElementById("featuredDescription");
-const featuredLink = document.getElementById("featuredLink");
+let latestToolsGrid;
+let toolsGrid;
+let pagination;
 
-const latestToolsGrid = document.getElementById("latestToolsGrid");
-const toolsGrid = document.getElementById("toolsGrid");
+let cookieBanner;
+let acceptCookies;
+let rejectCookies;
+let customizeCookies;
 
-const categoryCards = document.querySelectorAll(".category-card");
-const pricingButtons = document.querySelectorAll(".pricing-btn");
+let cookieSettings;
+let closeCookieSettings;
+let analyticsCookies;
+let advertisingCookies;
+let saveCookiePreferences;
 
-const cookieBanner = document.getElementById("cookieBanner");
-const acceptCookies = document.getElementById("acceptCookies");
-const rejectCookies = document.getElementById("rejectCookies");
-const customizeCookies = document.getElementById("customizeCookies");
+let searchInput;
+let suggestToolForm;
 
-const cookieSettings = document.getElementById("cookieSettings");
-const closeCookieSettings = document.getElementById("closeCookieSettings");
-const analyticsCookies = document.getElementById("analyticsCookies");
-const advertisingCookies = document.getElementById("advertisingCookies");
-const saveCookiePreferences = document.getElementById("saveCookiePreferences");
 
-const searchInput = document.getElementById("searchInput");
+// =============================
+// INITIALIZE ELEMENTS
+// =============================
+
+function cacheElements() {
+
+    pages = document.querySelectorAll(".page");
+    navButtons = document.querySelectorAll(".nav-btn");
+    categoryCards = document.querySelectorAll(".category-card");
+    pricingButtons = document.querySelectorAll(".pricing-btn");
+
+    browseTools = document.getElementById("browseTools");
+    browseToolsBottom = document.getElementById("browseToolsBottom");
+    learnMore = document.getElementById("learnMore");
+
+    featuredTitle = document.getElementById("featuredTitle");
+    featuredDescription = document.getElementById("featuredDescription");
+    featuredLink = document.getElementById("featuredLink");
+    featuredImage = document.getElementById("featuredImage");
+    featuredCategory = document.getElementById("featuredCategory");
+    featuredPricing = document.getElementById("featuredPricing");
+
+    latestToolsGrid = document.getElementById("latestToolsGrid");
+    toolsGrid = document.getElementById("toolsGrid");
+    pagination = document.getElementById("pagination");
+
+    cookieBanner = document.getElementById("cookieBanner");
+    acceptCookies = document.getElementById("acceptCookies");
+    rejectCookies = document.getElementById("rejectCookies");
+    customizeCookies = document.getElementById("customizeCookies");
+
+    cookieSettings = document.getElementById("cookieSettings");
+    closeCookieSettings = document.getElementById("closeCookieSettings");
+    analyticsCookies = document.getElementById("analyticsCookies");
+    advertisingCookies = document.getElementById("advertisingCookies");
+    saveCookiePreferences = document.getElementById("saveCookiePreferences");
+
+    searchInput = document.getElementById("searchInput");
+    suggestToolForm = document.getElementById("suggestToolForm");
+}
+
+
+// =============================
+// SAFE DATABASE CHECK
+// =============================
+
+function hasToolsDatabase() {
+
+    return (
+        typeof aiToolsDatabase !== "undefined" &&
+        Array.isArray(aiToolsDatabase)
+    );
+}
 
 
 // =============================
@@ -45,96 +117,121 @@ const searchInput = document.getElementById("searchInput");
 
 function showPage(pageId) {
 
-    // Hide all pages
-    pages.forEach(page => {
-        page.classList.remove("active");
-    });
+    const requestedPage = document.getElementById(pageId);
 
-    // Show selected page
-    const page = document.getElementById(pageId);
-
-    if (!page) {
+    if (!requestedPage) {
         console.warn(`Page not found: ${pageId}`);
         return;
     }
 
-    page.classList.add("active");
+    pages.forEach(page => {
+        page.classList.remove("active");
+    });
 
-    // Update navigation buttons
-    navButtons.forEach(btn => {
+    requestedPage.classList.add("active");
 
-        btn.classList.remove("active");
-        btn.removeAttribute("aria-current");
+    navButtons.forEach(button => {
 
-        if (btn.dataset.page === pageId) {
-            btn.classList.add("active");
-            btn.setAttribute("aria-current", "page");
+        const isActive =
+            button.dataset.page === pageId ||
+            (
+                pageId !== "home" &&
+                pageId !== "homeSection" &&
+                button.dataset.page === "home" &&
+                (pageId === "home" || pageId === "homeSection")
+            );
+
+        button.classList.toggle("active", isActive);
+
+        if (isActive) {
+            button.setAttribute("aria-current", "page");
+        } else {
+            button.removeAttribute("aria-current");
         }
 
     });
 
-    // Scroll to the top
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }
 
+
 // =============================
-// NAV BUTTONS
+// GET HOME PAGE ID
 // =============================
 
-navButtons.forEach(btn => {
+function getHomePageId() {
 
-    btn.addEventListener("click", () => {
-        showPage(btn.dataset.page);
+    if (document.getElementById("home")) {
+        return "home";
+    }
+
+    if (document.getElementById("homeSection")) {
+        return "homeSection";
+    }
+
+    return null;
+}
+
+
+// =============================
+// NAVIGATION EVENTS
+// =============================
+
+function initNavigation() {
+
+    navButtons.forEach(button => {
+
+        button.addEventListener("click", event => {
+
+            event.preventDefault();
+
+            const pageId = button.dataset.page;
+
+            if (pageId) {
+                showPage(pageId);
+            }
+
+        });
+
     });
 
-});
+    if (browseTools) {
+        browseTools.addEventListener("click", () => {
+            showPage("categoriesSection");
+        });
+    }
 
+    if (browseToolsBottom) {
+        browseToolsBottom.addEventListener("click", () => {
+            showPage("categoriesSection");
+        });
+    }
 
-if (browseTools) {
-
-    browseTools.addEventListener("click", () => {
-        showPage("categoriesSection");
-    });
+    if (learnMore) {
+        learnMore.addEventListener("click", () => {
+            showPage("about");
+        });
+    }
 
 }
 
 
-if (browseToolsBottom) {
-
-    browseToolsBottom.addEventListener("click", () => {
-        showPage("categoriesSection");
-    });
-
-}
-
-
-if (learnMore) {
-
-    learnMore.addEventListener("click", () => {
-        showPage("about");
-    });
-
-}
-
-
-// =========================================
-// WEEKLY FEATURED TOOL (shared logic)
-// =========================================
+// =============================
+// WEEKLY FEATURED TOOL
+// =============================
 
 function getWeeklyFeaturedId() {
 
-    if (
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase) ||
-        aiToolsDatabase.length === 0
-    ) {
+    if (!hasToolsDatabase() || aiToolsDatabase.length === 0) {
         return null;
     }
 
-    const startDate = new Date("2026-01-05T00:00:00");
+    const startDate =
+        new Date("2026-01-05T00:00:00");
+
     const today = new Date();
 
     const differenceInTime =
@@ -142,8 +239,7 @@ function getWeeklyFeaturedId() {
 
     const daysPassed =
         Math.floor(
-            differenceInTime /
-            (1000 * 60 * 60 * 24)
+            differenceInTime / (1000 * 60 * 60 * 24)
         );
 
     const currentWeek =
@@ -151,228 +247,293 @@ function getWeeklyFeaturedId() {
 
     const featuredIndex =
         (
-            currentWeek %
-            aiToolsDatabase.length +
+            currentWeek % aiToolsDatabase.length +
             aiToolsDatabase.length
-        ) %
-        aiToolsDatabase.length;
+        ) % aiToolsDatabase.length;
 
     return aiToolsDatabase[featuredIndex].id;
+}
+
+
+// =============================
+// SAFE WEBSITE FAVICON
+// =============================
+
+function getFaviconUrl(website) {
+
+    try {
+
+        const url = new URL(website);
+
+        return `https://www.google.com/s2/favicons?sz=128&domain=${url.hostname}`;
+
+    } catch (error) {
+
+        return "";
+
+    }
 
 }
 
 
-// =========================================
-// CREATE TOOL CARDS
-// =========================================
+// =============================
+// ESCAPE HTML
+// =============================
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// =============================
+// CREATE TOOL CARD
+// =============================
 
 function createToolCard(tool) {
 
-    const pricingBadge = tool.pricing
-        ? `<span class="pricing-badge ${tool.pricing}">
-            ${tool.pricing.toUpperCase()}
-           </span>`
-        : "";
+    const name =
+        escapeHTML(tool.name || "AI Tool");
 
-    // First letter of the tool name, used as a text fallback
-    // when both the local logo and the favicon fetch fail.
-    const initial = (tool.name || "?").trim().charAt(0).toUpperCase();
+    const category =
+        escapeHTML(tool.category || "AI");
 
-    const isFeatured = tool.id === getWeeklyFeaturedId();
+    const company =
+        escapeHTML(tool.company || "");
+
+    const description =
+        escapeHTML(tool.description || "AI tool");
+
+    const website =
+        escapeHTML(tool.website || "#");
+
+    const image =
+        escapeHTML(
+            tool.image ||
+            getFaviconUrl(tool.website)
+        );
+
+    const pricing =
+        String(tool.pricing || "").toLowerCase();
+
+    const initial =
+        name.trim().charAt(0).toUpperCase() || "?";
+
+    const isFeatured =
+        tool.id === getWeeklyFeaturedId();
+
+    const pricingBadge =
+        pricing
+            ? `
+                <span class="pricing-badge ${pricing}">
+                    ${pricing.toUpperCase()}
+                </span>
+              `
+            : "";
+
+    const featuredBadge =
+        isFeatured
+            ? `<span class="featured-badge">🔥 Featured</span>`
+            : "";
+
+    const imageHTML =
+        image
+            ? `
+                <img
+                    src="${image}"
+                    alt="${name} logo"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div
+                    class="tool-image-fallback"
+                    style="display:none;"
+                    aria-hidden="true">
+                    ${initial}
+                </div>
+              `
+            : `
+                <div
+                    class="tool-image-fallback"
+                    aria-hidden="true">
+                    ${initial}
+                </div>
+              `;
 
     return `
-        <div class="tool-card">
+        <article class="tool-card">
 
             <div class="tool-image">
-
-                <img
-                    src="${tool.image || `https://www.google.com/s2/favicons?sz=128&domain=${new URL(tool.website).hostname}`}"
-                    alt="${tool.name}"
-                    loading="lazy"
-                    onerror="this.onerror=null; this.replaceWith(Object.assign(document.createElement('div'), { className: 'tool-image-fallback', textContent: '${initial}' }));">
-
+                ${imageHTML}
             </div>
-
 
             <div class="tool-content">
 
                 <div class="tool-top">
 
                     <span class="tool-category">
-                        ${tool.category}
+                        ${category}
                     </span>
 
                     ${pricingBadge}
 
-                    ${
-                        isFeatured
-                            ? '<span class="featured-badge">🔥 Featured</span>'
-                            : ""
-                    }
+                    ${featuredBadge}
 
                 </div>
 
-
                 <h3>
-                    ${tool.name}
+                    ${name}
                 </h3>
 
-
                 <p>
-                    ${tool.description}
+                    ${description}
                 </p>
 
+                <small class="tool-company">
+                    ${company}
+                </small>
 
                 <a
-                    href="${tool.website}"
+                    href="${website}"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="visit-btn">
-
                     Visit Website →
-
                 </a>
 
             </div>
 
-        </div>
+        </article>
     `;
 }
 
-// =========================================
-// FEATURED TOOL / TOOL OF THE WEEK
-// =========================================
+
+// =============================
+// FEATURED TOOL
+// =============================
 
 function loadFeaturedTool() {
 
     if (
         !featuredTitle ||
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase) ||
+        !hasToolsDatabase() ||
         aiToolsDatabase.length === 0
     ) {
         return;
     }
 
-
-    const featuredId = getWeeklyFeaturedId();
+    const featuredId =
+        getWeeklyFeaturedId();
 
     const featured =
-        aiToolsDatabase.find(tool => tool.id === featuredId) ||
-        aiToolsDatabase[0];
-
+        aiToolsDatabase.find(
+            tool => tool.id === featuredId
+        ) || aiToolsDatabase[0];
 
     featuredTitle.textContent =
-        featured.name;
-
+        featured.name || "AI Tool";
 
     if (featuredDescription) {
-
         featuredDescription.textContent =
-            featured.description;
-
+            featured.description || "";
     }
-
 
     if (featuredLink) {
-
         featuredLink.href =
-            featured.website;
-
+            featured.website || "#";
     }
-
-
-    const featuredImage = document.getElementById("featuredImage");
 
     if (featuredImage) {
 
-        const initial = (featured.name || "?").trim().charAt(0).toUpperCase();
+        const initial =
+            (featured.name || "?")
+                .trim()
+                .charAt(0)
+                .toUpperCase();
 
         featuredImage.onerror = () => {
-            featuredImage.onerror = null;
-            featuredImage.replaceWith(
-                Object.assign(document.createElement("div"), {
-                    className: "featured-image-fallback",
-                    textContent: initial
-                })
+
+            featuredImage.style.display = "none";
+
+            const fallback =
+                document.createElement("div");
+
+            fallback.className =
+                "featured-image-fallback";
+
+            fallback.textContent =
+                initial;
+
+            featuredImage.parentElement.appendChild(
+                fallback
             );
+
         };
 
         featuredImage.src =
             featured.image ||
-            `https://www.google.com/s2/favicons?sz=128&domain=${new URL(featured.website).hostname}`;
+            getFaviconUrl(featured.website);
 
-        featuredImage.alt = featured.name;
-
+        featuredImage.alt =
+            `${featured.name} logo`;
     }
-
-
-    const featuredCategory = document.getElementById("featuredCategory");
 
     if (featuredCategory) {
-        featuredCategory.textContent = featured.category;
+        featuredCategory.textContent =
+            featured.category || "";
     }
 
+    if (featuredPricing) {
 
-    const featuredPricing = document.getElementById("featuredPricing");
+        const pricing =
+            String(featured.pricing || "")
+                .toLowerCase();
 
-    if (featuredPricing && featured.pricing) {
-        featuredPricing.textContent = featured.pricing.toUpperCase();
-        featuredPricing.className = `pricing-badge ${featured.pricing}`;
+        featuredPricing.textContent =
+            pricing.toUpperCase();
+
+        featuredPricing.className =
+            `pricing-badge ${pricing}`;
     }
 
 }
 
 
-// =========================================
+// =============================
 // LATEST TOOLS
-// =========================================
+// =============================
 
 function loadLatestTools() {
 
-    if (!latestToolsGrid) return;
-
-
     if (
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase)
+        !latestToolsGrid ||
+        !hasToolsDatabase()
     ) {
         return;
     }
-
 
     const latest =
         [...aiToolsDatabase]
             .slice(-6)
             .reverse();
 
-
     latestToolsGrid.innerHTML =
         latest
-            .map(tool => createToolCard(tool))
+            .map(createToolCard)
             .join("");
 
 }
 
 
-// =========================================
-// PAGINATION & FILTER STATE
-// =========================================
-
-const toolsPerPage = 20;
-
-let currentPage = 1;
-
-let currentFilteredTools = [];
-
-let selectedCategory = "all";
-
-let selectedPricing = "all";
-
-
-// =========================================
-// LOAD TOOLS + FILTER SYSTEM
-// =========================================
+// =============================
+// LOAD TOOLS
+// =============================
 
 function loadTools(
     category = selectedCategory,
@@ -380,45 +541,34 @@ function loadTools(
     page = 1
 ) {
 
-    if (
-        typeof aiToolsDatabase === "undefined" ||
-        !Array.isArray(aiToolsDatabase)
-    ) {
+    if (!hasToolsDatabase()) {
         return;
     }
 
+    selectedCategory =
+        String(category || "all").toLowerCase();
 
-    selectedCategory = category;
+    selectedPricing =
+        String(pricing || "all").toLowerCase();
 
-    selectedPricing = pricing;
-
-
-    const filtered =
+    currentFilteredTools =
         aiToolsDatabase.filter(tool => {
 
             const toolCategory =
-                String(
-                    tool.category || ""
-                ).toLowerCase();
-
+                String(tool.category || "")
+                    .toLowerCase();
 
             const toolPricing =
-                String(
-                    tool.pricing || ""
-                ).toLowerCase();
-
+                String(tool.pricing || "")
+                    .toLowerCase();
 
             const matchesCategory =
-                category === "all" ||
-                toolCategory ===
-                    category.toLowerCase();
-
+                selectedCategory === "all" ||
+                toolCategory === selectedCategory;
 
             const matchesPricing =
-                pricing === "all" ||
-                toolPricing ===
-                    pricing.toLowerCase();
-
+                selectedPricing === "all" ||
+                toolPricing === selectedPricing;
 
             return (
                 matchesCategory &&
@@ -427,179 +577,123 @@ function loadTools(
 
         });
 
-
-    currentFilteredTools =
-        filtered;
-
-
     currentPage =
-        page;
-
+        Math.max(1, Number(page) || 1);
 
     renderToolsPage();
 
 }
 
 
-// =========================================
-// RENDER TOOLS PAGE
-// =========================================
+// =============================
+// RENDER TOOLS
+// =============================
 
 function renderToolsPage() {
 
-    if (!toolsGrid) return;
+    if (!toolsGrid) {
+        return;
+    }
 
-
-    if (
-        currentFilteredTools.length === 0
-    ) {
+    if (currentFilteredTools.length === 0) {
 
         toolsGrid.innerHTML = `
             <div class="empty-tools">
-
-                <h2>
-                    No Tools Found
-                </h2>
-
-                <p>
-                    No tools available for the selected filters.
-                </p>
-
+                <h2>No Tools Found</h2>
+                <p>No tools available for the selected filters.</p>
             </div>
         `;
-
 
         renderPagination(0);
 
         return;
     }
 
-
-    const start =
-        (currentPage - 1) *
-        toolsPerPage;
-
-
-    const end =
-        start +
-        toolsPerPage;
-
-
-    const toolsToShow =
-        currentFilteredTools.slice(
-            start,
-            end
-        );
-
-
-    toolsGrid.innerHTML =
-        toolsToShow
-            .map(tool => createToolCard(tool))
-            .join("");
-
-
-    renderPagination(
+    const totalPages =
         Math.ceil(
             currentFilteredTools.length /
             toolsPerPage
-        )
-    );
+        );
+
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const start =
+        (currentPage - 1) * toolsPerPage;
+
+    const end =
+        start + toolsPerPage;
+
+    const toolsToShow =
+        currentFilteredTools.slice(start, end);
+
+    toolsGrid.innerHTML =
+        toolsToShow
+            .map(createToolCard)
+            .join("");
+
+    renderPagination(totalPages);
 
 }
 
 
-// =========================================
-// PAGINATION BUTTONS
-// =========================================
+// =============================
+// PAGINATION
+// =============================
 
 function renderPagination(totalPages) {
 
-    const pagination =
-        document.getElementById(
-            "pagination"
-        );
-
-
-    if (!pagination) return;
-
-
-    if (totalPages <= 1) {
-
-        pagination.innerHTML = "";
-
+    if (!pagination) {
         return;
     }
 
+    if (totalPages <= 1) {
+        pagination.innerHTML = "";
+        return;
+    }
 
     let html = "";
 
-
-    // Previous button
-
     html += `
         <button
+            type="button"
             class="pagination-btn"
             ${currentPage === 1 ? "disabled" : ""}
             onclick="changePage(${currentPage - 1})">
-
             ← Previous
-
         </button>
     `;
 
-
-    // Page numbers
-
-    for (
-        let i = 1;
-        i <= totalPages;
-        i++
-    ) {
+    for (let i = 1; i <= totalPages; i++) {
 
         html += `
             <button
+                type="button"
                 class="pagination-btn ${
-                    i === currentPage
-                        ? "active"
-                        : ""
+                    i === currentPage ? "active" : ""
                 }"
                 onclick="changePage(${i})">
-
                 ${i}
-
             </button>
         `;
 
     }
 
-
-    // Next button
-
     html += `
         <button
+            type="button"
             class="pagination-btn"
-            ${
-                currentPage === totalPages
-                    ? "disabled"
-                    : ""
-            }
+            ${currentPage === totalPages ? "disabled" : ""}
             onclick="changePage(${currentPage + 1})">
-
             Next →
-
         </button>
     `;
 
-
     pagination.innerHTML =
         html;
-
 }
 
-
-// =========================================
-// CHANGE PAGE
-// =========================================
 
 function changePage(page) {
 
@@ -609,107 +703,114 @@ function changePage(page) {
             toolsPerPage
         );
 
+    const requestedPage =
+        Number(page);
 
     if (
-        page < 1 ||
-        page > totalPages
+        !Number.isInteger(requestedPage) ||
+        requestedPage < 1 ||
+        requestedPage > totalPages
     ) {
         return;
     }
 
-
     currentPage =
-        page;
-
+        requestedPage;
 
     renderToolsPage();
 
-
     if (toolsGrid) {
-
         toolsGrid.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
-
     }
 
 }
 
 
-// =========================================
-// CATEGORY FILTER (click + keyboard)
-// =========================================
+// =============================
+// CATEGORY FILTER
+// =============================
 
 function activateCategoryCard(card) {
 
-    categoryCards.forEach(c => {
-        c.classList.remove("active");
-        c.setAttribute("aria-pressed", "false");
+    if (!card) {
+        return;
+    }
+
+    categoryCards.forEach(item => {
+        item.classList.remove("active");
+        item.setAttribute("aria-pressed", "false");
     });
 
     card.classList.add("active");
     card.setAttribute("aria-pressed", "true");
 
-    const category = card.dataset.category;
+    const category =
+        card.dataset.category || "all";
 
-    loadTools(category, selectedPricing, 1);
+    loadTools(
+        category,
+        selectedPricing,
+        1
+    );
 
-    setTimeout(() => {
-
-        if (toolsGrid) {
-
+    if (toolsGrid) {
+        setTimeout(() => {
             toolsGrid.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
             });
-
-        }
-
-    }, 50);
+        }, 50);
+    }
 
 }
 
-categoryCards.forEach(card => {
 
-    card.addEventListener("click", () => {
-        activateCategoryCard(card);
-    });
+function initCategoryFilters() {
 
-    // Keyboard accessibility: Enter / Space activate the card
-    card.addEventListener("keydown", (event) => {
+    categoryCards.forEach(card => {
 
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
+        card.addEventListener("click", () => {
             activateCategoryCard(card);
-        }
+        });
+
+        card.addEventListener("keydown", event => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+                event.preventDefault();
+                activateCategoryCard(card);
+            }
+
+        });
 
     });
 
-});
+}
 
 
-// =========================================
+// =============================
 // PRICING FILTER
-// =========================================
+// =============================
 
-pricingButtons.forEach(btn => {
+function initPricingFilters() {
 
-    btn.addEventListener(
-        "click",
-        () => {
+    pricingButtons.forEach(button => {
 
-            pricingButtons.forEach(b => {
-                b.classList.remove("active");
+        button.addEventListener("click", () => {
+
+            pricingButtons.forEach(item => {
+                item.classList.remove("active");
             });
 
-
-            btn.classList.add("active");
-
+            button.classList.add("active");
 
             const pricing =
-                btn.dataset.pricing;
-
+                button.dataset.pricing || "all";
 
             loadTools(
                 selectedCategory,
@@ -717,36 +818,50 @@ pricingButtons.forEach(btn => {
                 1
             );
 
-        }
-    );
+        });
 
-});
+    });
+
+}
 
 
-// =========================================
-// SEARCH FILTER (debounced)
-// =========================================
+// =============================
+// SEARCH
+// =============================
 
-function debounce(fn, delay) {
+function debounce(functionToRun, delay) {
 
     let timeoutId;
 
     return (...args) => {
+
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => fn(...args), delay);
+
+        timeoutId =
+            setTimeout(
+                () => functionToRun(...args),
+                delay
+            );
+
     };
 
 }
 
+
 function runSearch() {
+
+    if (
+        !searchInput ||
+        !hasToolsDatabase()
+    ) {
+        return;
+    }
 
     const keyword =
         searchInput.value
             .trim()
             .toLowerCase();
 
-
-    // Empty search
     if (keyword === "") {
 
         loadTools(
@@ -758,103 +873,69 @@ function runSearch() {
         return;
     }
 
-
-    const filtered =
-        aiToolsDatabase.filter(
-            tool => {
-
-                let matchesSearch;
-
-
-                /*
-                 * Special pricing search
-                 *
-                 * free     → FREE only
-                 * freemium → FREEMIUM only
-                 * paid     → PAID only
-                 */
-
-                if (
-                    keyword === "free" ||
-                    keyword === "freemium" ||
-                    keyword === "paid"
-                ) {
-
-                    matchesSearch =
-                        String(
-                            tool.pricing || ""
-                        ).toLowerCase() ===
-                        keyword;
-
-                } else {
-
-                    matchesSearch =
-                        String(
-                            tool.name || ""
-                        ).toLowerCase()
-                        .includes(keyword) ||
-
-                        String(
-                            tool.company || ""
-                        ).toLowerCase()
-                        .includes(keyword) ||
-
-                        String(
-                            tool.category || ""
-                        ).toLowerCase()
-                        .includes(keyword) ||
-
-                        String(
-                            tool.description || ""
-                        ).toLowerCase()
-                        .includes(keyword);
-
-                }
-
-
-                // Keep category filter active
-
-                const matchesCategory =
-                    selectedCategory === "all" ||
-                    String(
-                        tool.category || ""
-                    ).toLowerCase() ===
-                    selectedCategory.toLowerCase();
-
-
-                // Keep pricing filter active
-
-                const matchesPricing =
-                    selectedPricing === "all" ||
-                    String(
-                        tool.pricing || ""
-                    ).toLowerCase() ===
-                    selectedPricing.toLowerCase();
-
-
-                return (
-                    matchesSearch &&
-                    matchesCategory &&
-                    matchesPricing
-                );
-
-            }
-        );
-
-
     currentFilteredTools =
-        filtered;
+        aiToolsDatabase.filter(tool => {
 
+            const name =
+                String(tool.name || "")
+                    .toLowerCase();
 
-    currentPage =
-        1;
+            const company =
+                String(tool.company || "")
+                    .toLowerCase();
 
+            const category =
+                String(tool.category || "")
+                    .toLowerCase();
+
+            const description =
+                String(tool.description || "")
+                    .toLowerCase();
+
+            const pricing =
+                String(tool.pricing || "")
+                    .toLowerCase();
+
+            const matchesSearch =
+                keyword === "free" ||
+                keyword === "freemium" ||
+                keyword === "paid"
+                    ? pricing === keyword
+                    : (
+                        name.includes(keyword) ||
+                        company.includes(keyword) ||
+                        category.includes(keyword) ||
+                        description.includes(keyword)
+                    );
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory;
+
+            const matchesPricing =
+                selectedPricing === "all" ||
+                pricing === selectedPricing;
+
+            return (
+                matchesSearch &&
+                matchesCategory &&
+                matchesPricing
+            );
+
+        });
+
+    currentPage = 1;
 
     renderToolsPage();
 
 }
 
-if (searchInput) {
+
+function initSearch() {
+
+    if (!searchInput) {
+        return;
+    }
 
     searchInput.addEventListener(
         "input",
@@ -864,240 +945,168 @@ if (searchInput) {
 }
 
 
-// =========================================
+// =============================
 // COOKIE CONSENT
-// =========================================
+// =============================
 
-// Single helper used by both initCookies() and openCookieSettings()
-// so the parse / error-handling logic isn't duplicated.
 function getSavedCookiePreferences() {
-
-    const raw = localStorage.getItem("cookiePreferences");
-
-    if (!raw) return null;
 
     try {
 
-        return JSON.parse(raw);
+        const raw =
+            localStorage.getItem("cookiePreferences");
+
+        return raw
+            ? JSON.parse(raw)
+            : null;
 
     } catch (error) {
 
-        console.warn("Invalid cookie preferences found.");
-
-        localStorage.removeItem("cookiePreferences");
+        localStorage.removeItem(
+            "cookiePreferences"
+        );
 
         return null;
-
     }
 
 }
 
+
 function initCookies() {
 
-    if (!cookieBanner) return;
+    if (!cookieBanner) {
+        return;
+    }
 
-
-    const preferences = getSavedCookiePreferences();
-
+    const preferences =
+        getSavedCookiePreferences();
 
     if (preferences) {
 
         cookieBanner.classList.add("hide");
 
-        if (analyticsCookies && preferences.analytics) {
-            analyticsCookies.checked = true;
+        if (analyticsCookies) {
+            analyticsCookies.checked =
+                Boolean(preferences.analytics);
         }
 
-        if (advertisingCookies && preferences.advertising) {
-            advertisingCookies.checked = true;
+        if (advertisingCookies) {
+            advertisingCookies.checked =
+                Boolean(preferences.advertising);
         }
 
         return;
-
     }
-
 
     cookieBanner.classList.remove("hide");
 
 }
 
 
-// =========================================
-// OPEN COOKIE SETTINGS
-// =========================================
-
 function openCookieSettings() {
 
-    if (!cookieSettings) return;
+    if (!cookieSettings) {
+        return;
+    }
 
-
-    const preferences = getSavedCookiePreferences();
-
+    const preferences =
+        getSavedCookiePreferences();
 
     if (analyticsCookies) {
-        analyticsCookies.checked = !!(preferences && preferences.analytics);
+        analyticsCookies.checked =
+            Boolean(preferences?.analytics);
     }
 
     if (advertisingCookies) {
-        advertisingCookies.checked = !!(preferences && preferences.advertising);
+        advertisingCookies.checked =
+            Boolean(preferences?.advertising);
     }
-
 
     cookieSettings.classList.add("show");
 
 }
 
 
-// =========================================
-// ACCEPT COOKIES
-// =========================================
+function savePreferences(preferences) {
 
-if (acceptCookies) {
+    localStorage.setItem(
+        "cookiePreferences",
+        JSON.stringify(preferences)
+    );
 
-    acceptCookies.addEventListener(
-        "click",
-        () => {
+    if (
+        preferences.analytics &&
+        typeof window.loadGoogleAnalytics === "function"
+    ) {
+        window.loadGoogleAnalytics();
+    }
 
-            const preferences = {
+    if (cookieBanner) {
+        cookieBanner.classList.add("hide");
+    }
 
+    if (cookieSettings) {
+        cookieSettings.classList.remove("show");
+    }
+
+}
+
+
+function initCookieEvents() {
+
+    if (acceptCookies) {
+
+        acceptCookies.addEventListener("click", () => {
+
+            savePreferences({
                 necessary: true,
-
                 analytics: true,
-
                 advertising: true
+            });
 
-            };
+        });
 
+    }
 
-            localStorage.setItem(
-                "cookiePreferences",
-                JSON.stringify(
-                    preferences
-                )
-            );
+    if (rejectCookies) {
 
+        rejectCookies.addEventListener("click", () => {
 
-            if (window.loadGoogleAnalytics) {
-                window.loadGoogleAnalytics();
-            }
-
-
-            if (cookieBanner) {
-
-                cookieBanner.classList.add(
-                    "hide"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-// =========================================
-// REJECT COOKIES =========================================
-
-if (rejectCookies) {
-
-    rejectCookies.addEventListener(
-        "click",
-        () => {
-
-            const preferences = {
-
+            savePreferences({
                 necessary: true,
-
                 analytics: false,
-
                 advertising: false
+            });
 
-            };
+        });
 
+    }
 
-            localStorage.setItem(
-                "cookiePreferences",
-                JSON.stringify(
-                    preferences
-                )
-            );
+    if (customizeCookies) {
 
+        customizeCookies.addEventListener("click", () => {
+            openCookieSettings();
+        });
 
-            if (cookieBanner) {
+    }
 
-                cookieBanner.classList.add(
-                    "hide"
-                );
+    if (closeCookieSettings) {
 
-            }
-
-        }
-    );
-
-}
-
-
-// =========================================
-// CUSTOMIZE COOKIES
-// =========================================
-
-if (customizeCookies) {
-
-    customizeCookies.addEventListener(
-        "click",
-        () => {
+        closeCookieSettings.addEventListener("click", () => {
 
             if (cookieSettings) {
-
-                cookieSettings.classList.add(
-                    "show"
-                );
-
+                cookieSettings.classList.remove("show");
             }
 
-        }
-    );
+        });
 
-}
+    }
 
+    if (saveCookiePreferences) {
 
-// =========================================
-// CLOSE COOKIE SETTINGS
-// =========================================
+        saveCookiePreferences.addEventListener("click", () => {
 
-if (closeCookieSettings) {
-
-    closeCookieSettings.addEventListener(
-        "click",
-        () => {
-
-            if (cookieSettings) {
-
-                cookieSettings.classList.remove(
-                    "show"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-// =========================================
-// SAVE COOKIE PREFERENCES
-// =========================================
-
-if (saveCookiePreferences) {
-
-    saveCookiePreferences.addEventListener(
-        "click",
-        () => {
-
-            const preferences = {
-
+            savePreferences({
                 necessary: true,
 
                 analytics:
@@ -1109,104 +1118,144 @@ if (saveCookiePreferences) {
                     advertisingCookies
                         ? advertisingCookies.checked
                         : false
+            });
 
-            };
+        });
 
+    }
 
-            localStorage.setItem(
-                "cookiePreferences",
-                JSON.stringify(
-                    preferences
-                )
-            );
+    document.addEventListener("keydown", event => {
 
-
-            if (preferences.analytics && window.loadGoogleAnalytics) {
-                window.loadGoogleAnalytics();
-            }
-
-
-            if (cookieSettings) {
-
-                cookieSettings.classList.remove(
-                    "show"
-                );
-
-            }
-
-
-            if (cookieBanner) {
-
-                cookieBanner.classList.add(
-                    "hide"
-                );
-
-            }
-
+        if (
+            event.key === "Escape" &&
+            cookieSettings
+        ) {
+            cookieSettings.classList.remove("show");
         }
-    );
 
-}
-
-// =========================================
-// SUGGEST A TOOL
-// =========================================
-
-const suggestToolForm = document.getElementById("suggestToolForm");
-
-if (suggestToolForm) {
-
-    suggestToolForm.addEventListener("submit", (event) => {
-
-        event.preventDefault();
-
-        const name = document.getElementById("suggestName").value.trim();
-        const website = document.getElementById("suggestWebsite").value.trim();
-        const category = document.getElementById("suggestCategory").value;
-        const reason = document.getElementById("suggestReason").value.trim();
-
-        const subject = `Tool Suggestion: ${name}`;
-
-        const bodyLines = [
-            `Tool Name: ${name}`,
-            `Website: ${website}`,
-            `Category: ${category}`,
-            `Reason: ${reason || "N/A"}`
-        ];
-
-        const body = bodyLines.join("\n");
-
-        const mailtoUrl =
-            "mailto:aitoolshuboffic@gmail.com" +
-            "?subject=" + encodeURIComponent(subject) +
-            "&body=" + encodeURIComponent(body);
-
-        window.location.href = mailtoUrl;
     });
 
 }
 
-// =========================================
-// START WEBSITE
-// =========================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+// =============================
+// SUGGEST A TOOL
+// =============================
 
-        showPage("home");
+function initSuggestTool() {
 
-        loadFeaturedTool();
-
-        loadLatestTools();
-
-        loadTools(
-            "all",
-            "all",
-            1
-        );
-
-        initCookies();
-
+    if (!suggestToolForm) {
+        return;
     }
-);
+
+    suggestToolForm.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("suggestName")?.value.trim() ||
+            "";
+
+        const website =
+            document.getElementById("suggestWebsite")?.value.trim() ||
+            "";
+
+        const category =
+            document.getElementById("suggestCategory")?.value ||
+            "";
+
+        const reason =
+            document.getElementById("suggestReason")?.value.trim() ||
+            "";
+
+        if (!name || !website || !category) {
+            alert("Please complete the required fields.");
+            return;
+        }
+
+        const subject =
+            `Tool Suggestion: ${name}`;
+
+        const body =
+            [
+                `Tool Name: ${name}`,
+                `Website: ${website}`,
+                `Category: ${category}`,
+                `Reason: ${reason || "N/A"}`
+            ].join("\n");
+
+        const mailtoUrl =
+            "mailto:aitoolshuboffic@gmail.com" +
+            "?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
+
+        window.location.href =
+            mailtoUrl;
+
+    });
+
+}
+
+
+// =============================
+// START WEBSITE
+// =============================
+
+function initWebsite() {
+
+    cacheElements();
+
+    initNavigation();
+    initCategoryFilters();
+    initPricingFilters();
+    initSearch();
+    initCookieEvents();
+    initSuggestTool();
+
+    const homePageId =
+        getHomePageId();
+
+    if (homePageId) {
+        showPage(homePageId);
+    }
+
+    loadFeaturedTool();
+    loadLatestTools();
+
+    loadTools(
+        "all",
+        "all",
+        1
+    );
+
+    initCookies();
+
+}
+
+
+// =============================
+// START AFTER HTML LOAD
+// =============================
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initWebsite,
+        { once: true }
+    );
+
+} else {
+
+    initWebsite();
+
+}
+
+
+// Expose functions used by inline HTML onclick attributes
+window.showPage = showPage;
+window.changePage = changePage;
+window.openCookieSettings = openCookieSettings;
+window.activateCategoryCard = activateCategoryCard;
