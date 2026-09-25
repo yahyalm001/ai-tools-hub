@@ -45,16 +45,22 @@ const searchInput = document.getElementById("searchInput");
 
 function showPage(pageId) {
 
+    // Hide all pages
     pages.forEach(page => {
         page.classList.remove("active");
     });
 
+    // Show selected page
     const page = document.getElementById(pageId);
 
-    if (page) {
-        page.classList.add("active");
+    if (!page) {
+        console.warn(`Page not found: ${pageId}`);
+        return;
     }
 
+    page.classList.add("active");
+
+    // Update navigation buttons
     navButtons.forEach(btn => {
 
         btn.classList.remove("active");
@@ -67,12 +73,12 @@ function showPage(pageId) {
 
     });
 
+    // Scroll to the top
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }
-
 
 // =============================
 // NAV BUTTONS
