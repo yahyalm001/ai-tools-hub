@@ -862,6 +862,17 @@ const aiToolsDatabase = [
     website: "https://www.veed.io",
     image: "logos/veed.png",
     featured: false
+},
+
+{
+    id: 82,
+    name: "Agent QA",
+    category: "coding",
+    company: "Vostride",
+    description: "Source-available QA agent for natural-language web and mobile application tests with CLI, MCP, agent skills, execution memory and UI adaptation.",
+    website: "https://vostride.com/docs/agent-qa",
+    image: "",
+    featured: false
 }
 
 ];
