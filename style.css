@@ -2882,13 +2882,85 @@ transform:translateY(-2px);
     padding-top: 22px;
 }
 
+/* =========================
+   MANUFACTURER / COMPANY
+   ========================= */
+
 .tool-company {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     min-width: 0;
-    max-width: 43%;
+    max-width: 52%;
+    padding: 7px 10px 7px 7px;
     overflow: hidden;
-    color: rgba(255, 255, 255, 0.52);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 999px;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 217, 255, 0.12),
+        rgba(99, 91, 255, 0.1)
+    );
+    color: rgba(255, 255, 255, 0.72);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 5px 15px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.tool-company:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 217, 255, 0.55);
+    background: linear-gradient(
+        135deg,
+        rgba(0, 217, 255, 0.2),
+        rgba(99, 91, 255, 0.18)
+    );
+}
+
+/* الأيقونة الصغيرة */
+.company-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    color: #06121f;
+    font-size: 13px;
+    font-weight: 900;
+    background: linear-gradient(
+        135deg,
+        #00e5ff,
+        #726bff
+    );
+    box-shadow:
+        0 0 12px rgba(0, 217, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* كلمة By */
+.company-label {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* اسم الشركة */
+.tool-company strong {
+    min-width: 0;
+    overflow: hidden;
+    color: #ffffff;
     font-size: 11px;
-    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: 0.1px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
