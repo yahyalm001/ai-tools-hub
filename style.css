@@ -2699,87 +2699,305 @@ transform:translateY(-2px);
         font-size: 2rem;
     }
 }
-/* Footer ديال كل Tool Card */
+/* =========================
+   MODERN TOOL CARD DESIGN
+   ========================= */
+
 .tool-card {
+    position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 420px;
     overflow: hidden;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(0, 217, 255, 0.16),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.09),
+            rgba(255, 255, 255, 0.035)
+        );
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.tool-content {
+.tool-card::before {
+    content: "";
+    position: absolute;
+    top: -70px;
+    right: -70px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: rgba(0, 217, 255, 0.12);
+    filter: blur(35px);
+    pointer-events: none;
+}
+
+.tool-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 217, 255, 0.55);
+    box-shadow:
+        0 24px 55px rgba(0, 0, 0, 0.38),
+        0 0 30px rgba(0, 217, 255, 0.12);
+}
+
+/* الصورة */
+.tool-image {
+    position: relative;
+    z-index: 1;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 19px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.13),
+            rgba(255, 255, 255, 0.035)
+        );
+}
+
+.tool-image img {
+    width: 92px;
+    height: 92px;
+    padding: 12px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.tool-image-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 92px;
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00d9ff, #635bff);
+    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.25);
+}
+
+/* محتوى الكارت */
+.tool-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
     flex: 1;
+    flex-direction: column;
 }
 
-.tool-content h3 {
-    margin-bottom: 10px;
-}
-
-.tool-content p {
+.tool-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 28px;
     margin-bottom: 12px;
 }
 
+.tool-category,
+.pricing-badge,
+.featured-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.tool-category {
+    color: #00d9ff;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    background: rgba(0, 217, 255, 0.08);
+}
+
+.pricing-badge {
+    color: #ffe45c;
+    border: 1px solid rgba(255, 228, 92, 0.3);
+    background: rgba(255, 196, 0, 0.12);
+}
+
+.featured-badge {
+    color: #ffb86b;
+    border: 1px solid rgba(255, 133, 77, 0.3);
+    background: rgba(255, 133, 77, 0.12);
+}
+
+/* العنوان */
+.tool-card h3 {
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+}
+
+.tool-card p {
+    display: -webkit-box;
+    min-height: 58px;
+    margin: 0;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 13px;
+    line-height: 1.65;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+/* أسفل الكارت */
 .tool-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
     margin-top: auto;
-    padding-top: 18px;
+    padding-top: 22px;
 }
 
-/* اسم الشركة أو المصدر */
 .tool-company {
     min-width: 0;
-    max-width: 45%;
-    color: #d7dce5;
-    font-size: 12px;
+    max-width: 43%;
     overflow: hidden;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 11px;
+    line-height: 1.4;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 /* الزر */
 .tool-card-footer .visit-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
     flex-shrink: 0;
-    min-height: 44px;
-    padding: 12px 17px;
+    min-height: 46px;
+    padding: 13px 17px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 14px;
-    background: linear-gradient(135deg, #00d9ff, #00bfff);
-    color: #06121f;
-    font-size: 13px;
-    font-weight: 700;
+    color: #03131b;
+    font-size: 12px;
+    font-weight: 900;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 8px 18px rgba(0, 210, 255, 0.22);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: linear-gradient(135deg, #18e4ff, #00b8e6);
+    box-shadow:
+        0 8px 20px rgba(0, 217, 255, 0.23),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.tool-card-footer .visit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        110deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.55s ease;
+}
+
+.tool-card-footer .visit-btn:hover::before {
+    left: 140%;
 }
 
 .tool-card-footer .visit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(0, 210, 255, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    filter: brightness(1.08);
+    box-shadow:
+        0 13px 30px rgba(0, 217, 255, 0.42),
+        0 0 20px rgba(0, 217, 255, 0.2);
 }
+
+.tool-card-footer .visit-btn span {
+    position: relative;
+    z-index: 1;
+    font-size: 18px;
+    line-height: 0;
+}
+
+/* الهاتف */
 @media (max-width: 600px) {
+    .tool-card {
+        min-height: 0;
+        padding: 14px;
+        border-radius: 21px;
+    }
+
+    .tool-image {
+        height: 135px;
+        margin-bottom: 15px;
+    }
+
+    .tool-card h3 {
+        font-size: 19px;
+    }
+
     .tool-card-footer {
         align-items: stretch;
         flex-direction: column;
-        gap: 10px;
+        gap: 11px;
+        padding-top: 20px;
     }
 
     .tool-company {
         max-width: 100%;
         text-align: center;
         white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
     }
 
     .tool-card-footer .visit-btn {
         width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* fallback للمتصفحات اللي ما كتدعمش blur */
+@supports not (
+    backdrop-filter: blur(14px)
+) {
+    .tool-card {
+        background: #151a25;
     }
 }
