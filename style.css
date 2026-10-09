@@ -2699,3 +2699,63 @@ transform:translateY(-2px);
         font-size: 2rem;
     }
 }
+/* ترتيب المعلومات اللي قبل الأزرار */
+.tool-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+/* اسم الموقع أو الرابط القصير */
+.tool-source {
+    flex: 1;
+    min-width: 0;
+    max-width: 150px;
+    color: #d8d8d8;
+    font-size: 13px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* زر Visit Website */
+.tool-footer .primary-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 13px 18px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    color: #06121f;
+    background: linear-gradient(135deg, #00d9ff, #00bfff);
+    box-shadow: 0 8px 20px rgba(0, 210, 255, 0.25);
+    transition: 0.25s ease;
+}
+
+.tool-footer .primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 210, 255, 0.4);
+}
+@media (max-width: 600px) {
+    .tool-footer {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tool-source {
+        max-width: 100%;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .tool-footer .primary-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
