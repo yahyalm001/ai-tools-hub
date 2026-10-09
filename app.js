@@ -351,6 +351,7 @@ function createToolCard(tool) {
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 >
+
                 <div
                     class="tool-image-fallback"
                     style="display:none;"
@@ -395,24 +396,27 @@ function createToolCard(tool) {
                     ${description}
                 </p>
 
-                <small class="tool-company">
-                    ${company}
-                </small>
+                <div class="tool-card-footer">
 
-                <a
-                    href="${website}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="visit-btn">
-                    Visit Website →
-                </a>
+                    <small class="tool-company">
+                        ${company}
+                    </small>
+
+                    <a
+                        href="${website}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="visit-btn">
+                        Visit Website <span aria-hidden="true">→</span>
+                    </a>
+
+                </div>
 
             </div>
 
         </article>
     `;
 }
-
 
 // =============================
 // FEATURED TOOL
