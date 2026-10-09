@@ -398,9 +398,11 @@ function createToolCard(tool) {
 
                 <div class="tool-card-footer">
 
-                    <small class="tool-company">
-                        ${company}
-                    </small>
+                   <div class="tool-company">
+    <span class="company-icon" aria-hidden="true">✦</span>
+    <span class="company-label">By</span>
+    <strong>${company || "Independent Developer"}</strong>
+</div>
 
                     <a
                         href="${website}"
