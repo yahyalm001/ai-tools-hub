@@ -2699,63 +2699,68 @@ transform:translateY(-2px);
         font-size: 2rem;
     }
 }
-/* ترتيب المعلومات اللي قبل الأزرار */
-.tool-footer {
+/* Footer ديال كل Tool Card */
+.tool-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tool-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.tool-content h3 {
+    margin-bottom: 10px;
+}
+
+.tool-content p {
+    margin-bottom: 12px;
+}
+
+.tool-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-top: 22px;
-    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 18px;
 }
 
-/* اسم الموقع أو الرابط القصير */
-.tool-source {
-    flex: 1;
+/* اسم الشركة أو المصدر */
+.tool-company {
     min-width: 0;
-    max-width: 150px;
-    color: #d8d8d8;
-    font-size: 13px;
-    line-height: 1.4;
+    max-width: 45%;
+    color: #d7dce5;
+    font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* زر Visit Website */
-.tool-footer .primary-btn {
+/* الزر */
+.tool-card-footer .visit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     flex-shrink: 0;
-    white-space: nowrap;
-    padding: 13px 18px;
+    min-height: 44px;
+    padding: 12px 17px;
     border-radius: 14px;
+    background: linear-gradient(135deg, #00d9ff, #00bfff);
+    color: #06121f;
     font-size: 13px;
     font-weight: 700;
-    border: none;
-    color: #06121f;
-    background: linear-gradient(135deg, #00d9ff, #00bfff);
-    box-shadow: 0 8px 20px rgba(0, 210, 255, 0.25);
-    transition: 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 8px 18px rgba(0, 210, 255, 0.22);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.tool-footer .primary-btn:hover {
+.tool-card-footer .visit-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0, 210, 255, 0.4);
-}
-@media (max-width: 600px) {
-    .tool-footer {
-        align-items: stretch;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .tool-source {
-        max-width: 100%;
-        text-align: center;
-        white-space: normal;
-    }
-
-    .tool-footer .primary-btn {
-        width: 100%;
-        text-align: center;
-    }
+    box-shadow: 0 12px 24px rgba(0, 210, 255, 0.4);
 }
