@@ -2836,23 +2836,16 @@ transform:translateY(-2px);
     object-fit: contain;
     object-position: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.32);
+    border: none;
     border-radius: 22px;
 
-    /*
-     * شفافة باش مايبانش مربع أبيض زايد
-     */
-    background: transparent;
+    background: rgba(255, 255, 255, 0.94);
 
-    /*
-     * كيدمج الخلفية البيضاء ديال بعض اللوغوات
-     * مع الخلفية اللي وراها
-     */
-    mix-blend-mode: multiply;
+    /* رجعنا الوضع العادي */
+    mix-blend-mode: normal;
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.2),
-        0 0 20px rgba(0, 217, 255, 0.14);
+        0 10px 25px rgba(0, 0, 0, 0.25);
 
     transition:
         transform 0.25s ease,
@@ -2860,9 +2853,9 @@ transform:translateY(-2px);
 }
 .tool-card:hover .tool-image img {
     transform: scale(1.06);
+
     box-shadow:
-        0 10px 22px rgba(0, 0, 0, 0.35),
-        0 0 28px rgba(0, 217, 255, 0.35);
+        0 12px 28px rgba(0, 0, 0, 0.32);
 }
 
 .tool-image-fallback {
