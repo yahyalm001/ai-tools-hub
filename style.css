@@ -2825,16 +2825,38 @@ transform:translateY(-2px);
     z-index: 2;
 }
 .tool-image img {
+    position: relative;
+    z-index: 2;
+
     width: 112px;
     height: 112px;
+
     padding: 13px;
+
     object-fit: contain;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    object-position: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.32);
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.96);
+
+    /*
+     * شفافة باش مايبانش مربع أبيض زايد
+     */
+    background: transparent;
+
+    /*
+     * كيدمج الخلفية البيضاء ديال بعض اللوغوات
+     * مع الخلفية اللي وراها
+     */
+    mix-blend-mode: multiply;
+
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.28),
-        0 0 24px rgba(0, 217, 255, 0.2);
+        0 10px 25px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(0, 217, 255, 0.14);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 .tool-card:hover .tool-image img {
     transform: scale(1.06);
