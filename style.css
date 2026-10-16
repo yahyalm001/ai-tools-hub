@@ -2760,15 +2760,14 @@ transform:translateY(-2px);
 .tool-image {
     position: relative;
     z-index: 1;
+    isolation: isolate;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    /* العرض هو اللي نقصناه */
     width: 72%;
     height: 150px;
-
-    /* باش تجي فالوسط */
     margin: 0 auto 18px;
 
     overflow: hidden;
@@ -2776,53 +2775,61 @@ transform:translateY(-2px);
     border-radius: 19px;
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(0, 217, 255, 0.18),
-            transparent 60%
-        ),
         linear-gradient(
             135deg,
             rgba(255, 255, 255, 0.13),
             rgba(255, 255, 255, 0.035)
         );
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
+/* الضوء يبقى فالخلف */
 .tool-image::before {
     content: "";
     position: absolute;
+    z-index: -1;
+
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background: rgba(0, 217, 255, 0.22);
+
+    background: rgba(0, 217, 255, 0.18);
     filter: blur(24px);
     pointer-events: none;
 }
 
+/* الخط اللامع يبقى خلف اللوغو */
 .tool-image::after {
     content: "";
     position: absolute;
+    z-index: 0;
+
     top: 0;
     left: 18%;
     width: 64%;
     height: 1px;
+
     background: linear-gradient(
         90deg,
         transparent,
         rgba(0, 217, 255, 0.75),
         transparent
     );
+
+    pointer-events: none;
 }
 
+/* اللوغو يبقى فوق الضوء */
+.tool-image img,
+.tool-image-fallback {
+    position: relative;
+    z-index: 2;
+}
 .tool-image img {
     width: 112px;
     height: 112px;
     padding: 13px;
     object-fit: contain;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.96);
     box-shadow:
