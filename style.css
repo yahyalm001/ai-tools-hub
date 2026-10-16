@@ -3186,7 +3186,10 @@ transform:translateY(-2px);
     }
 
     .tool-image img {
+        width: 96px;
+        height: 96px;
         padding: 11px;
+        border-radius: 20px;
     }
 
     .tool-image-fallback {
