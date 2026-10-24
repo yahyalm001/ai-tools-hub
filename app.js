@@ -348,7 +348,10 @@ function createToolCard(tool) {
                 <img
                     src="${image}"
                     alt="${name} logo"
+                    width="64"
+                    height="64"
                     loading="lazy"
+                    decoding="async"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 >
 
@@ -398,11 +401,11 @@ function createToolCard(tool) {
 
                 <div class="tool-card-footer">
 
-                   <div class="tool-company">
-    <span class="company-icon" aria-hidden="true">✦</span>
-    <span class="company-label">By</span>
-    <strong>${company || "Independent Developer"}</strong>
-</div>
+                    <div class="tool-company">
+                        <span class="company-icon" aria-hidden="true">✦</span>
+                        <span class="company-label">By</span>
+                        <strong>${company || "Independent Developer"}</strong>
+                    </div>
 
                     <a
                         href="${website}"
