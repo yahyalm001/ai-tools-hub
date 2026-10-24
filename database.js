@@ -231,17 +231,6 @@ const aiToolsDatabase = [
     featured: false
   },
   {
-    id: 22,
-    name: "CapCut AI",
-    category: "video",
-    company: "CapCut",
-    description: "AI-powered video editing and automatic effects.",
-    website: "https://www.capcut.com",
-    image: "logos/capcut.png",
-    pricing: "freemium",
-    featured: false
-  },
-  {
     id: 23,
     name: "ElevenLabs",
     category: "audio",
