@@ -470,11 +470,19 @@ function loadFeaturedTool() {
 
     if (featuredImage) {
 
+        const toolName =
+            featured.name || "AI Tool";
+
         const initial =
-            (featured.name || "AI")
-                .trim()
-                .charAt(0)
-                .toUpperCase();
+            toolName.trim().charAt(0).toUpperCase();
+
+        const showImage = () => {
+            featuredImage.style.display = "block";
+
+            if (featuredImageFallback) {
+                featuredImageFallback.hidden = true;
+            }
+        };
 
         const showFallback = () => {
             featuredImage.style.display = "none";
@@ -485,23 +493,24 @@ function loadFeaturedTool() {
             }
         };
 
-        const showImage = () => {
-            featuredImage.style.display = "block";
+        // Reset before loading a new image
+        featuredImage.onload = null;
+        featuredImage.onerror = null;
 
-            if (featuredImageFallback) {
-                featuredImageFallback.hidden = true;
-            }
-        };
-
-        featuredImage.onerror = showFallback;
         featuredImage.onload = showImage;
+        featuredImage.onerror = showFallback;
 
         featuredImage.src =
             featured.image ||
             getFaviconUrl(featured.website);
 
         featuredImage.alt =
-            `${featured.name} logo`;
+            `${toolName} logo`;
+
+        // If image is already cached/loaded
+        if (featuredImage.complete && featuredImage.naturalWidth > 0) {
+            showImage();
+        }
     }
 
     if (featuredCategory) {
@@ -522,7 +531,6 @@ function loadFeaturedTool() {
     }
 
 }
-
 
 // =============================
 // LATEST TOOLS
