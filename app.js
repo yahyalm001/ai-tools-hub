@@ -1,6 +1,6 @@
 /*=========================================
-  AI TOOLS HUB
-  app.js - COMPLETE UPDATED VERSION
+  DiscoveryTools
+  app.js — Complete Updated Version
 =========================================*/
 
 
@@ -18,6 +18,7 @@ let currentFilteredTools = [];
 
 let selectedCategory = "all";
 let selectedPricing = "all";
+let selectedSort = "default";
 
 const toolsPerPage = 20;
 
@@ -34,12 +35,18 @@ let featuredTitle;
 let featuredDescription;
 let featuredLink;
 let featuredImage;
+let featuredImageFallback;
 let featuredCategory;
 let featuredPricing;
 
 let latestToolsGrid;
 let toolsGrid;
 let pagination;
+
+let searchInput;
+let sortSelect;
+let clearFilters;
+let resultsCount;
 
 let cookieBanner;
 let acceptCookies;
@@ -52,7 +59,6 @@ let analyticsCookies;
 let advertisingCookies;
 let saveCookiePreferences;
 
-let searchInput;
 let suggestToolForm;
 
 
@@ -75,12 +81,18 @@ function cacheElements() {
     featuredDescription = document.getElementById("featuredDescription");
     featuredLink = document.getElementById("featuredLink");
     featuredImage = document.getElementById("featuredImage");
+    featuredImageFallback = document.getElementById("featuredImageFallback");
     featuredCategory = document.getElementById("featuredCategory");
     featuredPricing = document.getElementById("featuredPricing");
 
     latestToolsGrid = document.getElementById("latestToolsGrid");
     toolsGrid = document.getElementById("toolsGrid");
     pagination = document.getElementById("pagination");
+
+    searchInput = document.getElementById("searchInput");
+    sortSelect = document.getElementById("sortSelect");
+    clearFilters = document.getElementById("clearFilters");
+    resultsCount = document.getElementById("resultsCount");
 
     cookieBanner = document.getElementById("cookieBanner");
     acceptCookies = document.getElementById("acceptCookies");
@@ -93,7 +105,6 @@ function cacheElements() {
     advertisingCookies = document.getElementById("advertisingCookies");
     saveCookiePreferences = document.getElementById("saveCookiePreferences");
 
-    searchInput = document.getElementById("searchInput");
     suggestToolForm = document.getElementById("suggestToolForm");
 }
 
@@ -103,7 +114,6 @@ function cacheElements() {
 // =============================
 
 function hasToolsDatabase() {
-
     return (
         typeof aiToolsDatabase !== "undefined" &&
         Array.isArray(aiToolsDatabase)
@@ -229,18 +239,14 @@ function getWeeklyFeaturedId() {
         return null;
     }
 
-    const startDate =
-        new Date("2026-01-05T00:00:00");
-
+    const startDate = new Date("2026-01-05T00:00:00");
     const today = new Date();
 
     const differenceInTime =
         today.getTime() - startDate.getTime();
 
     const daysPassed =
-        Math.floor(
-            differenceInTime / (1000 * 60 * 60 * 24)
-        );
+        Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
 
     const currentWeek =
         Math.floor(daysPassed / 7);
@@ -262,17 +268,26 @@ function getWeeklyFeaturedId() {
 function getFaviconUrl(website) {
 
     try {
-
         const url = new URL(website);
-
         return `https://www.google.com/s2/favicons?sz=128&domain=${url.hostname}`;
-
     } catch (error) {
-
         return "";
-
     }
 
+}
+
+
+// =============================
+// GET TOOL LINK
+// =============================
+
+function getToolLink(tool) {
+    return tool.affiliateUrl || tool.website || "#";
+}
+
+
+function isAffiliateTool(tool) {
+    return Boolean(tool.affiliateUrl);
 }
 
 
@@ -310,8 +325,13 @@ function createToolCard(tool) {
     const description =
         escapeHTML(tool.description || "AI tool");
 
-    const website =
-        escapeHTML(tool.website || "#");
+    const visitLink =
+        escapeHTML(getToolLink(tool));
+
+    const linkRel =
+        isAffiliateTool(tool)
+            ? "sponsored noopener noreferrer"
+            : "noopener noreferrer";
 
     const image =
         escapeHTML(
@@ -330,11 +350,7 @@ function createToolCard(tool) {
 
     const pricingBadge =
         pricing
-            ? `
-                <span class="pricing-badge ${pricing}">
-                    ${pricing.toUpperCase()}
-                </span>
-              `
+            ? `<span class="pricing-badge ${pricing}">${pricing.toUpperCase()}</span>`
             : "";
 
     const featuredBadge =
@@ -380,24 +396,14 @@ function createToolCard(tool) {
             <div class="tool-content">
 
                 <div class="tool-top">
-
-                    <span class="tool-category">
-                        ${category}
-                    </span>
-
+                    <span class="tool-category">${category}</span>
                     ${pricingBadge}
-
                     ${featuredBadge}
-
                 </div>
 
-                <h3>
-                    ${name}
-                </h3>
+                <h3>${name}</h3>
 
-                <p>
-                    ${description}
-                </p>
+                <p>${description}</p>
 
                 <div class="tool-card-footer">
 
@@ -408,9 +414,9 @@ function createToolCard(tool) {
                     </div>
 
                     <a
-                        href="${website}"
+                        href="${visitLink}"
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="${linkRel}"
                         class="visit-btn">
                         Visit Website <span aria-hidden="true">→</span>
                     </a>
@@ -422,6 +428,7 @@ function createToolCard(tool) {
         </article>
     `;
 }
+
 
 // =============================
 // FEATURED TOOL
@@ -437,8 +444,7 @@ function loadFeaturedTool() {
         return;
     }
 
-    const featuredId =
-        getWeeklyFeaturedId();
+    const featuredId = getWeeklyFeaturedId();
 
     const featured =
         aiToolsDatabase.find(
@@ -454,36 +460,41 @@ function loadFeaturedTool() {
     }
 
     if (featuredLink) {
-        featuredLink.href =
-            featured.website || "#";
+        featuredLink.href = getToolLink(featured);
+
+        featuredLink.rel =
+            isAffiliateTool(featured)
+                ? "sponsored noopener noreferrer"
+                : "noopener noreferrer";
     }
 
     if (featuredImage) {
 
         const initial =
-            (featured.name || "?")
+            (featured.name || "AI")
                 .trim()
                 .charAt(0)
                 .toUpperCase();
 
-        featuredImage.onerror = () => {
-
+        const showFallback = () => {
             featuredImage.style.display = "none";
 
-            const fallback =
-                document.createElement("div");
-
-            fallback.className =
-                "featured-image-fallback";
-
-            fallback.textContent =
-                initial;
-
-            featuredImage.parentElement.appendChild(
-                fallback
-            );
-
+            if (featuredImageFallback) {
+                featuredImageFallback.textContent = initial;
+                featuredImageFallback.hidden = false;
+            }
         };
+
+        const showImage = () => {
+            featuredImage.style.display = "block";
+
+            if (featuredImageFallback) {
+                featuredImageFallback.hidden = true;
+            }
+        };
+
+        featuredImage.onerror = showFallback;
+        featuredImage.onload = showImage;
 
         featuredImage.src =
             featured.image ||
@@ -501,8 +512,7 @@ function loadFeaturedTool() {
     if (featuredPricing) {
 
         const pricing =
-            String(featured.pricing || "")
-                .toLowerCase();
+            String(featured.pricing || "").toLowerCase();
 
         featuredPricing.textContent =
             pricing.toUpperCase();
@@ -520,10 +530,7 @@ function loadFeaturedTool() {
 
 function loadLatestTools() {
 
-    if (
-        !latestToolsGrid ||
-        !hasToolsDatabase()
-    ) {
+    if (!latestToolsGrid || !hasToolsDatabase()) {
         return;
     }
 
@@ -533,10 +540,56 @@ function loadLatestTools() {
             .reverse();
 
     latestToolsGrid.innerHTML =
-        latest
-            .map(createToolCard)
-            .join("");
+        latest.map(createToolCard).join("");
 
+}
+
+
+// =============================
+// SORT TOOLS
+// =============================
+
+function sortTools(tools) {
+
+    const sorted = [...tools];
+
+    if (selectedSort === "az") {
+        sorted.sort((a, b) =>
+            String(a.name || "").localeCompare(String(b.name || ""))
+        );
+    }
+
+    if (selectedSort === "za") {
+        sorted.sort((a, b) =>
+            String(b.name || "").localeCompare(String(a.name || ""))
+        );
+    }
+
+    if (selectedSort === "free") {
+
+        const order = {
+            free: 0,
+            freemium: 1,
+            paid: 2
+        };
+
+        sorted.sort((a, b) => {
+            const aValue = order[String(a.pricing || "").toLowerCase()] ?? 3;
+            const bValue = order[String(b.pricing || "").toLowerCase()] ?? 3;
+            return aValue - bValue;
+        });
+    }
+
+    if (selectedSort === "featured") {
+
+        const featuredId = getWeeklyFeaturedId();
+
+        sorted.sort((a, b) =>
+            Number(b.id === featuredId) - Number(a.id === featuredId)
+        );
+    }
+
+    return sorted;
 }
 
 
@@ -560,16 +613,29 @@ function loadTools(
     selectedPricing =
         String(pricing || "all").toLowerCase();
 
+    const keyword =
+        searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : "";
+
     currentFilteredTools =
         aiToolsDatabase.filter(tool => {
 
             const toolCategory =
-                String(tool.category || "")
-                    .toLowerCase();
+                String(tool.category || "").toLowerCase();
 
             const toolPricing =
-                String(tool.pricing || "")
-                    .toLowerCase();
+                String(tool.pricing || "").toLowerCase();
+
+            const searchableText = [
+                tool.name,
+                tool.company,
+                tool.category,
+                tool.description,
+                tool.pricing
+            ]
+                .join(" ")
+                .toLowerCase();
 
             const matchesCategory =
                 selectedCategory === "all" ||
@@ -579,18 +645,25 @@ function loadTools(
                 selectedPricing === "all" ||
                 toolPricing === selectedPricing;
 
+            const matchesSearch =
+                keyword === "" ||
+                searchableText.includes(keyword);
+
             return (
                 matchesCategory &&
-                matchesPricing
+                matchesPricing &&
+                matchesSearch
             );
 
         });
+
+    currentFilteredTools =
+        sortTools(currentFilteredTools);
 
     currentPage =
         Math.max(1, Number(page) || 1);
 
     renderToolsPage();
-
 }
 
 
@@ -615,13 +688,16 @@ function renderToolsPage() {
 
         renderPagination(0);
 
+        if (resultsCount) {
+            resultsCount.textContent = "Showing 0 AI tools";
+        }
+
         return;
     }
 
     const totalPages =
         Math.ceil(
-            currentFilteredTools.length /
-            toolsPerPage
+            currentFilteredTools.length / toolsPerPage
         );
 
     if (currentPage > totalPages) {
@@ -638,11 +714,14 @@ function renderToolsPage() {
         currentFilteredTools.slice(start, end);
 
     toolsGrid.innerHTML =
-        toolsToShow
-            .map(createToolCard)
-            .join("");
+        toolsToShow.map(createToolCard).join("");
 
     renderPagination(totalPages);
+
+    if (resultsCount) {
+        resultsCount.textContent =
+            `Showing ${toolsToShow.length} of ${currentFilteredTools.length} AI tools`;
+    }
 
 }
 
@@ -679,9 +758,7 @@ function renderPagination(totalPages) {
         html += `
             <button
                 type="button"
-                class="pagination-btn ${
-                    i === currentPage ? "active" : ""
-                }"
+                class="pagination-btn ${i === currentPage ? "active" : ""}"
                 onclick="changePage(${i})">
                 ${i}
             </button>
@@ -699,8 +776,7 @@ function renderPagination(totalPages) {
         </button>
     `;
 
-    pagination.innerHTML =
-        html;
+    pagination.innerHTML = html;
 }
 
 
@@ -708,12 +784,10 @@ function changePage(page) {
 
     const totalPages =
         Math.ceil(
-            currentFilteredTools.length /
-            toolsPerPage
+            currentFilteredTools.length / toolsPerPage
         );
 
-    const requestedPage =
-        Number(page);
+    const requestedPage = Number(page);
 
     if (
         !Number.isInteger(requestedPage) ||
@@ -723,8 +797,7 @@ function changePage(page) {
         return;
     }
 
-    currentPage =
-        requestedPage;
+    currentPage = requestedPage;
 
     renderToolsPage();
 
@@ -835,6 +908,84 @@ function initPricingFilters() {
 
 
 // =============================
+// SORT FILTER
+// =============================
+
+function initSortFilter() {
+
+    if (!sortSelect) {
+        return;
+    }
+
+    sortSelect.addEventListener("change", () => {
+
+        selectedSort =
+            sortSelect.value || "default";
+
+        loadTools(
+            selectedCategory,
+            selectedPricing,
+            1
+        );
+
+    });
+
+}
+
+
+// =============================
+// CLEAR FILTERS
+// =============================
+
+function initClearFilters() {
+
+    if (!clearFilters) {
+        return;
+    }
+
+    clearFilters.addEventListener("click", () => {
+
+        selectedCategory = "all";
+        selectedPricing = "all";
+        selectedSort = "default";
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+        if (sortSelect) {
+            sortSelect.value = "default";
+        }
+
+        categoryCards.forEach(card => {
+            card.classList.toggle(
+                "active",
+                card.dataset.category === "all"
+            );
+
+            card.setAttribute(
+                "aria-pressed",
+                card.dataset.category === "all"
+                    ? "true"
+                    : "false"
+            );
+        });
+
+        pricingButtons.forEach(button => {
+            button.classList.toggle(
+                "active",
+                button.dataset.pricing === "all"
+            );
+        });
+
+        loadTools("all", "all", 1);
+
+    });
+
+}
+
+
+// =============================
 // SEARCH
 // =============================
 
@@ -859,83 +1010,15 @@ function debounce(functionToRun, delay) {
 
 function runSearch() {
 
-    if (
-        !searchInput ||
-        !hasToolsDatabase()
-    ) {
+    if (!searchInput || !hasToolsDatabase()) {
         return;
     }
 
-    const keyword =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-    if (keyword === "") {
-
-        loadTools(
-            selectedCategory,
-            selectedPricing,
-            1
-        );
-
-        return;
-    }
-
-    currentFilteredTools =
-        aiToolsDatabase.filter(tool => {
-
-            const name =
-                String(tool.name || "")
-                    .toLowerCase();
-
-            const company =
-                String(tool.company || "")
-                    .toLowerCase();
-
-            const category =
-                String(tool.category || "")
-                    .toLowerCase();
-
-            const description =
-                String(tool.description || "")
-                    .toLowerCase();
-
-            const pricing =
-                String(tool.pricing || "")
-                    .toLowerCase();
-
-            const matchesSearch =
-                keyword === "free" ||
-                keyword === "freemium" ||
-                keyword === "paid"
-                    ? pricing === keyword
-                    : (
-                        name.includes(keyword) ||
-                        company.includes(keyword) ||
-                        category.includes(keyword) ||
-                        description.includes(keyword)
-                    );
-
-            const matchesCategory =
-                selectedCategory === "all" ||
-                category === selectedCategory;
-
-            const matchesPricing =
-                selectedPricing === "all" ||
-                pricing === selectedPricing;
-
-            return (
-                matchesSearch &&
-                matchesCategory &&
-                matchesPricing
-            );
-
-        });
-
-    currentPage = 1;
-
-    renderToolsPage();
+    loadTools(
+        selectedCategory,
+        selectedPricing,
+        1
+    );
 
 }
 
@@ -965,16 +1048,11 @@ function getSavedCookiePreferences() {
         const raw =
             localStorage.getItem("cookiePreferences");
 
-        return raw
-            ? JSON.parse(raw)
-            : null;
+        return raw ? JSON.parse(raw) : null;
 
     } catch (error) {
 
-        localStorage.removeItem(
-            "cookiePreferences"
-        );
-
+        localStorage.removeItem("cookiePreferences");
         return null;
     }
 
@@ -1162,20 +1240,16 @@ function initSuggestTool() {
         event.preventDefault();
 
         const name =
-            document.getElementById("suggestName")?.value.trim() ||
-            "";
+            document.getElementById("suggestName")?.value.trim() || "";
 
         const website =
-            document.getElementById("suggestWebsite")?.value.trim() ||
-            "";
+            document.getElementById("suggestWebsite")?.value.trim() || "";
 
         const category =
-            document.getElementById("suggestCategory")?.value ||
-            "";
+            document.getElementById("suggestCategory")?.value || "";
 
         const reason =
-            document.getElementById("suggestReason")?.value.trim() ||
-            "";
+            document.getElementById("suggestReason")?.value.trim() || "";
 
         if (!name || !website || !category) {
             alert("Please complete the required fields.");
@@ -1200,8 +1274,7 @@ function initSuggestTool() {
             "&body=" +
             encodeURIComponent(body);
 
-        window.location.href =
-            mailtoUrl;
+        window.location.href = mailtoUrl;
 
     });
 
@@ -1219,12 +1292,13 @@ function initWebsite() {
     initNavigation();
     initCategoryFilters();
     initPricingFilters();
+    initSortFilter();
+    initClearFilters();
     initSearch();
     initCookieEvents();
     initSuggestTool();
 
-    const homePageId =
-        getHomePageId();
+    const homePageId = getHomePageId();
 
     if (homePageId) {
         showPage(homePageId);
@@ -1233,11 +1307,7 @@ function initWebsite() {
     loadFeaturedTool();
     loadLatestTools();
 
-    loadTools(
-        "all",
-        "all",
-        1
-    );
+    loadTools("all", "all", 1);
 
     initCookies();
 
