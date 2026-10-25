@@ -1318,64 +1318,6 @@ line-height:1.9;
 }
 
 /* ===================================================
-   CONTACT
-=================================================== */
-
-.contact-card{
-
-max-width:700px;
-
-margin:50px auto 0;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:26px;
-
-padding:45px;
-
-text-align:center;
-
-backdrop-filter:blur(18px);
-
-box-shadow:var(--shadow);
-
-}
-
-.contact-card h3{
-
-font-size:2rem;
-
-margin-bottom:20px;
-
-}
-
-.contact-card p{
-
-color:var(--text2);
-
-font-size:1.05rem;
-
-margin-bottom:12px;
-
-}
-
-.contact-card a{
-
-color:var(--secondary);
-
-font-weight:700;
-
-}
-
-.contact-card a:hover{
-
-color:#fff;
-
-}
-
-/* ===================================================
    SUGGEST A TOOL FORM
 =================================================== */
 
@@ -3564,5 +3506,192 @@ transform:translateY(-2px);
     font-size: 0.82rem;
     padding: 12px 14px;
     border-radius: 12px;
+  }
+}
+/*=========================================
+  CONTACT PAGE
+=========================================*/
+
+#contact .container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+#contact .section-title {
+  margin-bottom: 0;
+}
+
+.contact-card,
+.suggest-tool-card {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+
+  padding: 36px;
+  border-radius: 24px;
+
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.35);
+
+  backdrop-filter: blur(14px);
+}
+
+.contact-card {
+  text-align: center;
+}
+
+.contact-card h2 {
+  margin-bottom: 14px;
+  color: #f8fafc;
+  font-size: 1.8rem;
+}
+
+.contact-card p {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.contact-card p:first-of-type {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+.contact-card .visit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 18px;
+  padding: 13px 26px;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, var(--primary), #2f67ff);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card .visit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(79, 140, 255, 0.35);
+}
+
+
+/*=========================================
+  SUGGEST A TOOL FORM
+=========================================*/
+
+.suggest-tool-card h2 {
+  margin-bottom: 10px;
+  color: #f8fafc;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.suggest-tool-card > p {
+  color: #94a3b8;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+#suggestToolForm {
+  display: grid;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #e2e8f0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 15px;
+
+  border-radius: 13px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(2, 6, 23, 0.55);
+  color: #e2e8f0;
+
+  font: inherit;
+  font-size: 0.95rem;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #64748b;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(79, 140, 255, 0.65);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.15);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-group select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #94a3b8 50%),
+    linear-gradient(135deg, #94a3b8 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 15px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+#suggestToolForm .primary-btn {
+  margin-top: 6px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+/*=========================================
+  RESPONSIVE
+=========================================*/
+
+@media (max-width: 640px) {
+  #contact .container {
+    gap: 32px;
+  }
+
+  .contact-card,
+  .suggest-tool-card {
+    padding: 26px 20px;
+    border-radius: 20px;
+  }
+
+  .contact-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .suggest-tool-card h2 {
+    font-size: 1.4rem;
   }
 }
