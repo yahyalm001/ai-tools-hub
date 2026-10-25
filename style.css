@@ -1877,21 +1877,44 @@ align-items:flex-start;
 =========================================*/
 
 .footer {
-  padding: 56px 0 28px;
-  background: rgba(15, 23, 42, 0.75);
-  border-top: 1px solid rgba(148, 163, 184, 0.16);
-  backdrop-filter: blur(14px);
+  position: relative;
+  padding: 64px 0 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.35) 0%,
+    rgba(2, 6, 23, 0.85) 100%
+  );
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 80%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(129, 140, 248, 0.65) 50%,
+    transparent 100%
+  );
 }
 
 .footer-container {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
   align-items: start;
 }
 
+/* Brand */
+
 .footer-brand {
-  max-width: 420px;
+  max-width: 460px;
 }
 
 .footer-logo {
@@ -1903,35 +1926,49 @@ align-items:flex-start;
 }
 
 .footer-logo img {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
   border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
 .footer-logo span {
-  font-size: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+
+  font-size: 1.55rem;
   font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
   color: #f8fafc;
-  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .footer-logo strong {
-  color: #818cf8;
+  background: linear-gradient(90deg, #818cf8 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .footer-brand p {
+  margin: 0;
+  max-width: 390px;
   color: #94a3b8;
   font-size: 0.95rem;
   line-height: 1.7;
-  margin: 0;
 }
 
+/* Links */
+
 .footer-column h4 {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   color: #f8fafc;
   font-size: 1rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .footer-links {
@@ -1939,26 +1976,47 @@ align-items:flex-start;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-links a {
+  position: relative;
   display: inline-block;
   color: #94a3b8;
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.2s ease, transform 0.2s ease;
+  line-height: 1.4;
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.footer-links a::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: #818cf8;
+  transform: translateY(-50%);
+  transition: width 0.22s ease;
 }
 
 .footer-links a:hover {
-  color: #c7d2fe;
-  transform: translateX(4px);
+  color: #e0e7ff;
+  transform: translateX(6px);
 }
 
+.footer-links a:hover::before {
+  width: 8px;
+}
+
+/* Bottom */
+
 .footer-bottom {
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
   text-align: center;
 }
 
@@ -1966,21 +2024,20 @@ align-items:flex-start;
   margin: 0;
   color: #64748b;
   font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 /* Mobile */
-@media (max-width: 768px) {
-  .footer {
-    padding: 40px 0 22px;
-  }
 
+@media (max-width: 900px) {
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 36px;
     text-align: center;
   }
 
   .footer-brand {
+    max-width: 520px;
     margin: 0 auto;
   }
 
@@ -1988,15 +2045,56 @@ align-items:flex-start;
     justify-content: center;
   }
 
-  .footer-links {
-    justify-items: center;
+  .footer-brand p {
+    max-width: 420px;
+    margin: 0 auto;
   }
 
-  .footer-bottom {
-    margin-top: 30px;
+  .footer-column h4 {
+    margin-bottom: 14px;
+  }
+
+  .footer-links {
+    justify-items: center;
+    gap: 10px;
+  }
+
+  .footer-links a::before {
+    display: none;
+  }
+
+  .footer-links a:hover {
+    transform: none;
   }
 }
 
+@media (max-width: 480px) {
+  .footer {
+    padding: 44px 0 22px;
+  }
+
+  .footer-container {
+    gap: 28px;
+  }
+
+  .footer-logo img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer-logo span {
+    font-size: 1.3rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    margin-top: 32px;
+    padding-top: 18px;
+  }
+}
 /* ===================================================
    GLOBAL HOVER EFFECTS
 =================================================== */
