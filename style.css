@@ -840,28 +840,6 @@ margin-bottom:20px;
 }
 
 /* ===================================================
-   LATEST TOOLS
-=================================================== */
-
-.latest-tools{
-
-padding:90px 0;
-
-}
-
-.center{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-margin-top:45px;
-
-}
-
-/* ===================================================
    TOOLS GRID
 =================================================== */
 
@@ -3532,5 +3510,72 @@ transform:translateY(-2px);
   .sort-select,
   .clear-filters-btn {
     width: 100%;
+  }
+}
+/*=========================================
+  LATEST AI TOOLS
+=========================================*/
+
+.latest-tools {
+  padding: 90px 0;
+}
+
+.latest-tools .section-title {
+  margin-bottom: 48px;
+}
+
+.latest-tools .tools-grid {
+  margin-bottom: 48px;
+}
+
+.latest-tools .center {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.latest-tools .primary-btn {
+  padding: 14px 28px;
+  font-size: 1rem;
+}
+
+
+/*=========================================
+  AFFILIATE DISCLOSURE
+=========================================*/
+
+.affiliate-disclosure {
+  max-width: 900px;
+  margin: 0 auto 28px;
+  padding: 14px 18px;
+
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.55);
+
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+
+/*=========================================
+  RESPONSIVE
+=========================================*/
+
+@media (max-width: 640px) {
+  .latest-tools {
+    padding: 70px 0;
+  }
+
+  .latest-tools .tools-grid {
+    margin-bottom: 36px;
+  }
+
+  .affiliate-disclosure {
+    font-size: 0.82rem;
+    padding: 12px 14px;
+    border-radius: 12px;
   }
 }
