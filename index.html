@@ -1751,27 +1751,52 @@
 
         </div>
 
-        <div class="section-title">
-            <h2>AI Tools</h2>
-            <p>Select a category to display its AI tools.</p>
+       <div class="section-title">
+    <h2>AI Tools</h2>
+    <p>Browse, search and filter AI tools by category and pricing.</p>
 
-            <div class="search-box">
-                <label for="searchInput" class="visually-hidden">Search AI tools</label>
-                <input type="text" id="searchInput" placeholder="🔍 Search AI tools..." aria-label="Search AI tools">
-            </div>
+    <div class="search-box">
+        <label for="searchInput" class="visually-hidden">Search AI tools</label>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search AI tools..."
+            aria-label="Search AI tools"
+        >
+    </div>
 
-            <div class="pricing-filter-container" role="group" aria-label="Filter by pricing">
-                <button class="pricing-btn active" data-pricing="all">All Pricing</button>
-                <button class="pricing-btn" data-pricing="free">Free</button>
-                <button class="pricing-btn" data-pricing="freemium">Freemium</button>
-                <button class="pricing-btn" data-pricing="paid">Paid</button>
-            </div>
+    <div class="filters-row">
 
+        <div class="pricing-filter-container" role="group" aria-label="Filter by pricing">
+            <button class="pricing-btn active" data-pricing="all">All Pricing</button>
+            <button class="pricing-btn" data-pricing="free">Free</button>
+            <button class="pricing-btn" data-pricing="freemium">Freemium</button>
+            <button class="pricing-btn" data-pricing="paid">Paid</button>
         </div>
 
-        <div id="toolsGrid" class="tools-grid"></div>
+        <div class="sort-container">
+            <label for="sortSelect" class="visually-hidden">Sort AI tools</label>
+            <select id="sortSelect" class="sort-select" aria-label="Sort AI tools">
+                <option value="default">Sort: Default</option>
+                <option value="az">Name: A-Z</option>
+                <option value="za">Name: Z-A</option>
+                <option value="free">Free tools first</option>
+                <option value="featured">Featured first</option>
+            </select>
+        </div>
 
-        <div id="pagination"></div>
+        <button id="clearFilters" class="secondary-btn clear-filters-btn" type="button">
+            Clear Filters
+        </button>
+
+    </div>
+
+    <p id="resultsCount" class="results-count" aria-live="polite"></p>
+</div>
+
+<div id="toolsGrid" class="tools-grid"></div>
+
+<div id="pagination"></div>
 
     </div>
 </section>
