@@ -72,15 +72,6 @@ const tools = [
     needs: ["maths"]
   },
   {
-    id: 9,
-    name: "Photomath",
-    description: "Aide à comprendre les exercices de mathématiques étape par étape.",
-    category: "maths",
-    price: "freemium",
-    url: "https://photomath.com/",
-    needs: ["maths"]
-  },
-  {
     id: 10,
     name: "Notion",
     description: "Organise tes cours, notes, tâches, projets et planning de révision.",
