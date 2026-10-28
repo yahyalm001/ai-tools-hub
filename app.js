@@ -1,293 +1,240 @@
-/* =========================================
-   STUDYNOVA — app.js
-========================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const pages = document.querySelectorAll(".page");
+  const navButtons = document.querySelectorAll(".nav-btn");
+  const toolsGrid = document.getElementById("toolsGrid");
+  const resultsCount = document.getElementById("resultsCount");
+  const pagination = document.getElementById("pagination");
+  const searchInput = document.getElementById("searchInput");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const priceFilter = document.getElementById("priceFilter");
+  const clearFilters = document.getElementById("clearFilters");
 
-const SITE_NAME = "StudyNova";
-const TOOLS_PER_PAGE = 9;
+  let currentPage = 1;
+  const toolsPerPage = 6;
+  let activeNeed = "";
 
-let currentPage = 1;
-let currentSearch = "";
-let currentCategory = "all";
-let currentPrice = "all";
+  function showPage(pageId) {
+    pages.forEach(page => page.classList.remove("active"));
 
-const pages = document.querySelectorAll(".page");
-const navButtons = document.querySelectorAll(".nav-btn");
-const toolsGrid = document.getElementById("toolsGrid");
-const searchInput = document.getElementById("searchInput");
-const categoryFilter = document.getElementById("categoryFilter");
-const priceFilter = document.getElementById("priceFilter");
-const clearFilters = document.getElementById("clearFilters");
-const resultsCount = document.getElementById("resultsCount");
-const pagination = document.getElementById("pagination");
-const toolsCount = document.getElementById("toolsCount");
+    const target = document.getElementById(pageId);
+    if (!target) return;
 
-function escapeHTML(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+    target.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
-function showPage(pageId) {
-  const target = document.getElementById(pageId);
-
-  if (!target) return;
-
-  pages.forEach(page => page.classList.remove("active"));
-  target.classList.add("active");
-
-  navButtons.forEach(button => {
-    const isActive = button.dataset.page === pageId;
-    button.classList.toggle("active", isActive);
-  });
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function getFilteredTools() {
-  const search = currentSearch.toLowerCase().trim();
-
-  return aiTools.filter(tool => {
-    const matchSearch =
-      !search ||
-      tool.name.toLowerCase().includes(search) ||
-      tool.description.toLowerCase().includes(search) ||
-      tool.category.toLowerCase().includes(search);
-
-    const matchCategory =
-      currentCategory === "all" ||
-      tool.category === currentCategory;
-
-    const matchPrice =
-      currentPrice === "all" ||
-      tool.pricing === currentPrice;
-
-    return matchSearch && matchCategory && matchPrice;
-  });
-}
-
-function createToolCard(tool) {
-  const link = tool.affiliateUrl || tool.website;
-  const isAffiliate = Boolean(tool.affiliateUrl);
-
-  const card = document.createElement("article");
-  card.className = "tool-card";
-
-  card.innerHTML = `
-    <div class="tool-head">
-      <div class="tool-logo">
-        <img src="${escapeHTML(tool.image)}" alt="${escapeHTML(tool.name)} logo" loading="lazy">
-      </div>
-      <div>
-        <div class="tool-name">${escapeHTML(tool.name)}</div>
-        <div class="tool-company">${escapeHTML(tool.company)}</div>
-      </div>
-    </div>
-
-    <p class="tool-desc">${escapeHTML(tool.description)}</p>
-
-    <div class="tool-meta">
-      <span class="chip">${escapeHTML(getCategoryLabel(tool.category))}</span>
-      <span class="chip">${escapeHTML(tool.pricing)}</span>
-    </div>
-
-    <div class="tool-actions">
-      <a
-        class="tool-link"
-        href="${escapeHTML(link)}"
-        target="_blank"
-        rel="${isAffiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}"
-      >
-        Visiter le site
-      </a>
-    </div>
-  `;
-
-  return card;
-}
-
-function getCategoryLabel(category) {
-  const labels = {
-    etudes: "Études",
-    redaction: "Rédaction",
-    presentation: "Présentation",
-    traduction: "Traduction",
-    maths: "Maths",
-    organisation: "Organisation"
-  };
-
-  return labels[category] || category;
-}
-
-function renderTools() {
-  const filtered = getFilteredTools();
-  const totalPages = Math.max(1, Math.ceil(filtered.length / TOOLS_PER_PAGE));
-
-  if (currentPage > totalPages) currentPage = 1;
-
-  const start = (currentPage - 1) * TOOLS_PER_PAGE;
-  const visibleTools = filtered.slice(start, start + TOOLS_PER_PAGE);
-
-  toolsGrid.innerHTML = "";
-
-  if (!visibleTools.length) {
-    toolsGrid.innerHTML = `
-      <p class="results-count">
-        Aucun outil trouvé. Essaie un autre mot-clé ou réinitialise les filtres.
-      </p>
-    `;
-  } else {
-    visibleTools.forEach(tool => toolsGrid.appendChild(createToolCard(tool)));
-  }
-
-  resultsCount.textContent = `${filtered.length} outil(s) trouvé(s)`;
-  renderPagination(totalPages);
-}
-
-function renderPagination(totalPages) {
-  pagination.innerHTML = "";
-
-  if (totalPages <= 1) return;
-
-  for (let i = 1; i <= totalPages; i++) {
-    const button = document.createElement("button");
-    button.className = `page-btn ${i === currentPage ? "active" : ""}`;
-    button.textContent = i;
-
-    button.addEventListener("click", () => {
-      currentPage = i;
-      renderTools();
-      document.getElementById("tools").scrollIntoView({ behavior: "smooth" });
+    navButtons.forEach(button => {
+      const isActive = button.dataset.page === pageId;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-current", isActive ? "page" : "false");
     });
-
-    pagination.appendChild(button);
   }
-}
 
-function initNavigation() {
-  document.querySelectorAll("[data-page]").forEach(element => {
-    element.addEventListener("click", event => {
+  document.addEventListener("click", event => {
+    const pageButton = event.target.closest("[data-page]");
+    if (!pageButton) return;
+
+    const pageId = pageButton.dataset.page;
+    const need = pageButton.dataset.need;
+
+    if (need) {
+      activeNeed = need;
+      currentPage = 1;
+
+      if (searchInput) searchInput.value = "";
+      if (categoryFilter) categoryFilter.value = "all";
+      if (priceFilter) priceFilter.value = "all";
+
+      renderTools();
+    }
+
+    showPage(pageId);
+  });
+
+  function getFilteredTools() {
+    const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
+    const category = categoryFilter ? categoryFilter.value : "all";
+    const price = priceFilter ? priceFilter.value : "all";
+
+    return tools.filter(tool => {
+      const matchSearch =
+        !search ||
+        tool.name.toLowerCase().includes(search) ||
+        tool.description.toLowerCase().includes(search);
+
+      const matchCategory = category === "all" || tool.category === category;
+      const matchPrice = price === "all" || tool.price === price;
+
+      const matchNeed =
+        !activeNeed ||
+        (tool.needs && tool.needs.some(need =>
+          need.toLowerCase().includes(activeNeed.toLowerCase())
+        ));
+
+      return matchSearch && matchCategory && matchPrice && matchNeed;
+    });
+  }
+
+  function renderTools() {
+    if (!toolsGrid) return;
+
+    const filtered = getFilteredTools();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / toolsPerPage));
+
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * toolsPerPage;
+    const visibleTools = filtered.slice(start, start + toolsPerPage);
+
+    toolsGrid.innerHTML = "";
+
+    if (visibleTools.length === 0) {
+      toolsGrid.innerHTML = `
+        <div class="empty-state">
+          <h3>Aucun outil trouvé</h3>
+          <p>Essaie une autre recherche ou réinitialise les filtres.</p>
+        </div>
+      `;
+    } else {
+      visibleTools.forEach(tool => {
+        const card = document.createElement("article");
+        card.className = "tool-card";
+
+        card.innerHTML = `
+          <div class="tool-top">
+            <h3>${tool.name}</h3>
+            <span class="price-badge ${tool.price}">${getPriceLabel(tool.price)}</span>
+          </div>
+
+          <p>${tool.description}</p>
+
+          <div class="tool-tags">
+            ${tool.needs.map(need => `<span>${need}</span>`).join("")}
+          </div>
+
+          <a
+            class="btn primary tool-link"
+            href="${tool.url}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visiter le site officiel
+          </a>
+        `;
+
+        toolsGrid.appendChild(card);
+      });
+    }
+
+    if (resultsCount) {
+      resultsCount.textContent = `${filtered.length} outil(s) trouvé(s)`;
+    }
+
+    renderPagination(totalPages);
+  }
+
+  function getPriceLabel(price) {
+    if (price === "free") return "Gratuit";
+    if (price === "freemium") return "Freemium";
+    return "Payant";
+  }
+
+  function renderPagination(totalPages) {
+    if (!pagination) return;
+
+    pagination.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const button = document.createElement("button");
+      button.className = `page-btn ${i === currentPage ? "active" : ""}`;
+      button.textContent = i;
+
+      button.addEventListener("click", () => {
+        currentPage = i;
+        renderTools();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      pagination.appendChild(button);
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      activeNeed = "";
+      currentPage = 1;
+      renderTools();
+    });
+  }
+
+  if (categoryFilter) {
+    categoryFilter.addEventListener("change", () => {
+      activeNeed = "";
+      currentPage = 1;
+      renderTools();
+    });
+  }
+
+  if (priceFilter) {
+    priceFilter.addEventListener("change", () => {
+      activeNeed = "";
+      currentPage = 1;
+      renderTools();
+    });
+  }
+
+  if (clearFilters) {
+    clearFilters.addEventListener("click", () => {
+      if (searchInput) searchInput.value = "";
+      if (categoryFilter) categoryFilter.value = "all";
+      if (priceFilter) priceFilter.value = "all";
+
+      activeNeed = "";
+      currentPage = 1;
+      renderTools();
+    });
+  }
+
+  const toolsCount = document.getElementById("toolsCount");
+  if (toolsCount) {
+    toolsCount.textContent = tools.length + "+";
+  }
+
+  const newsletterForm = document.getElementById("newsletterForm");
+  const newsletterEmail = document.getElementById("newsletterEmail");
+  const newsletterMessage = document.getElementById("newsletterMessage");
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", event => {
       event.preventDefault();
 
-      const pageId = element.dataset.page;
-      showPage(pageId);
+      if (!newsletterEmail.value) return;
 
-      const need = element.dataset.need;
-
-      if (need) {
-        currentSearch = need;
-        currentCategory = "all";
-        currentPrice = "all";
-        currentPage = 1;
-
-        searchInput.value = need;
-        categoryFilter.value = "all";
-        priceFilter.value = "all";
-
-        renderTools();
-      }
+      newsletterMessage.textContent = "Merci ! Ton inscription a bien été enregistrée.";
+      newsletterMessage.classList.add("success");
+      newsletterForm.reset();
     });
-  });
-}
-
-function initFilters() {
-  if (!searchInput) return;
-
-  searchInput.addEventListener("input", () => {
-    currentSearch = searchInput.value;
-    currentPage = 1;
-    renderTools();
-  });
-
-  categoryFilter.addEventListener("change", () => {
-    currentCategory = categoryFilter.value;
-    currentPage = 1;
-    renderTools();
-  });
-
-  priceFilter.addEventListener("change", () => {
-    currentPrice = priceFilter.value;
-    currentPage = 1;
-    renderTools();
-  });
-
-  clearFilters.addEventListener("click", () => {
-    currentSearch = "";
-    currentCategory = "all";
-    currentPrice = "all";
-    currentPage = 1;
-
-    searchInput.value = "";
-    categoryFilter.value = "all";
-    priceFilter.value = "all";
-
-    renderTools();
-  });
-}
-
-function initNewsletter() {
-  const form = document.getElementById("newsletterForm");
-  const email = document.getElementById("newsletterEmail");
-  const message = document.getElementById("newsletterMessage");
-
-  form.addEventListener("submit", event => {
-    event.preventDefault();
-
-    const subscribers = JSON.parse(localStorage.getItem("studynova_subscribers") || "[]");
-    subscribers.push({
-      email: email.value,
-      date: new Date().toISOString()
-    });
-
-    localStorage.setItem("studynova_subscribers", JSON.stringify(subscribers));
-
-    message.textContent = "Merci ! Ton inscription a été enregistrée.";
-    form.reset();
-  });
-}
-
-function initContact() {
-  const form = document.getElementById("contactForm");
-  const status = document.getElementById("contactMessageStatus");
-
-  form.addEventListener("submit", event => {
-    event.preventDefault();
-
-    const messages = JSON.parse(localStorage.getItem("studynova_messages") || "[]");
-
-    messages.push({
-      name: document.getElementById("contactName").value,
-      email: document.getElementById("contactEmail").value,
-      message: document.getElementById("contactMessage").value,
-      date: new Date().toISOString()
-    });
-
-    localStorage.setItem("studynova_messages", JSON.stringify(messages));
-
-    status.textContent = "Message envoyé. Merci pour ton retour !";
-    form.reset();
-  });
-}
-
-function initWebsite() {
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  if (toolsCount) {
-    toolsCount.textContent = aiTools.length;
   }
 
-  initNavigation();
-  initFilters();
-  initNewsletter();
-  initContact();
+  const contactForm = document.getElementById("contactForm");
+  const contactMessageStatus = document.getElementById("contactMessageStatus");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      contactMessageStatus.textContent = "Merci ! Ton message a bien été envoyé.";
+      contactMessageStatus.classList.add("success");
+      contactForm.reset();
+    });
+  }
+
+  const year = document.getElementById("year");
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+
   renderTools();
   showPage("home");
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initWebsite, { once: true });
-} else {
-  initWebsite();
-}
+});
