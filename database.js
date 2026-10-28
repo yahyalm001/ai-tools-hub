@@ -72,7 +72,7 @@ const tools = [
     needs: ["maths"]
   },
   {
-    id: 10,
+    id: 9,
     name: "Notion",
     description: "Organise tes cours, notes, tâches, projets et planning de révision.",
     category: "organisation",
@@ -81,7 +81,7 @@ const tools = [
     needs: ["organisation"]
   },
   {
-    id: 11,
+    id: 10,
     name: "Google Keep",
     description: "Application simple pour prendre des notes rapides et créer des rappels.",
     category: "organisation",
@@ -90,7 +90,7 @@ const tools = [
     needs: ["organisation"]
   },
   {
-    id: 12,
+    id: 11,
     name: "Grammarly",
     description: "Améliore l’orthographe, la grammaire et la clarté de tes textes en anglais.",
     category: "redaction",
@@ -99,7 +99,7 @@ const tools = [
     needs: ["rédaction"]
   },
   {
-    id: 13,
+    id: 12,
     name: "QuillBot",
     description: "Reformule et améliore tes phrases tout en gardant le sens original.",
     category: "redaction",
@@ -108,7 +108,7 @@ const tools = [
     needs: ["rédaction", "résumé"]
   },
   {
-    id: 14,
+    id: 13,
     name: "Todoist",
     description: "Gère tes devoirs, examens et projets avec des listes et des rappels.",
     category: "organisation",
