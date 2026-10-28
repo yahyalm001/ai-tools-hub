@@ -1,97 +1,128 @@
-/* =========================================
-   STUDYNOVA — database.js
-   أضف أدوات جديدة بنفس الشكل
-========================================= */
-
-const aiTools = [
+const tools = [
   {
+    id: 1,
     name: "ChatGPT",
-    company: "OpenAI",
-    description: "Assistant IA pour expliquer les cours, rédiger, réviser et créer des quiz.",
-    website: "https://chatgpt.com",
-    image: "https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128",
+    description: "Assistant IA pour expliquer les cours, générer des quiz, améliorer des textes et préparer des révisions.",
     category: "etudes",
-    pricing: "freemium",
-    affiliateUrl: ""
+    price: "freemium",
+    url: "https://chat.openai.com/",
+    needs: ["résumé", "rédaction", "maths"]
   },
   {
-    name: "Gamma",
-    company: "Gamma",
-    description: "Crée rapidement des présentations modernes à partir d’un sujet ou d’un texte.",
-    website: "https://gamma.app",
-    image: "https://www.google.com/s2/favicons?domain=gamma.app&sz=128",
-    category: "presentation",
-    pricing: "freemium",
-    affiliateUrl: ""
+    id: 2,
+    name: "Gemini",
+    description: "IA de Google utile pour rechercher, résumer des documents et expliquer des notions difficiles.",
+    category: "etudes",
+    price: "freemium",
+    url: "https://gemini.google.com/",
+    needs: ["résumé", "rédaction", "traduction"]
   },
   {
-    name: "Canva",
-    company: "Canva",
-    description: "Design facile pour présentations, CV, affiches et projets scolaires.",
-    website: "https://www.canva.com",
-    image: "https://www.google.com/s2/favicons?domain=canva.com&sz=128",
-    category: "presentation",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
-    name: "DeepL",
-    company: "DeepL",
-    description: "Traduction de haute qualité, utile pour les cours et documents en français ou anglais.",
-    website: "https://www.deepl.com",
-    image: "https://www.google.com/s2/favicons?domain=deepl.com&sz=128",
-    category: "traduction",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
-    name: "Notion",
-    company: "Notion",
-    description: "Organise tes cours, révisions, projets et deadlines dans un seul espace.",
-    website: "https://www.notion.so",
-    image: "https://www.google.com/s2/favicons?domain=notion.so&sz=128",
-    category: "organisation",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
-    name: "Wolfram Alpha",
-    company: "Wolfram",
-    description: "Résout des problèmes de maths et explique des calculs étape par étape.",
-    website: "https://www.wolframalpha.com",
-    image: "https://www.google.com/s2/favicons?domain=wolframalpha.com&sz=128",
-    category: "maths",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
-    name: "Grammarly",
-    company: "Grammarly",
-    description: "Améliore l’orthographe, la clarté et le style de tes textes en anglais.",
-    website: "https://www.grammarly.com",
-    image: "https://www.google.com/s2/favicons?domain=grammarly.com&sz=128",
-    category: "redaction",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
-    name: "QuillBot",
-    company: "QuillBot",
-    description: "Reformule et améliore tes textes tout en gardant le sens principal.",
-    website: "https://quillbot.com",
-    image: "https://www.google.com/s2/favicons?domain=quillbot.com&sz=128",
-    category: "redaction",
-    pricing: "freemium",
-    affiliateUrl: ""
-  },
-  {
+    id: 3,
     name: "Perplexity",
-    company: "Perplexity AI",
-    description: "Moteur de réponse IA avec sources, utile pour la recherche et la vérification.",
-    website: "https://www.perplexity.ai",
-    image: "https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128",
+    description: "Moteur de recherche IA avec sources, idéal pour faire des recherches fiables et comprendre un sujet.",
     category: "etudes",
-    pricing: "freemium",
-    affiliateUrl: ""
+    price: "freemium",
+    url: "https://www.perplexity.ai/",
+    needs: ["résumé", "rédaction"]
+  },
+  {
+    id: 4,
+    name: "Gamma",
+    description: "Crée rapidement des présentations modernes à partir d’un sujet ou d’un plan.",
+    category: "presentation",
+    price: "freemium",
+    url: "https://gamma.app/",
+    needs: ["présentation"]
+  },
+  {
+    id: 5,
+    name: "Canva",
+    description: "Outil de design pour créer des présentations, affiches, CV et documents visuels.",
+    category: "presentation",
+    price: "freemium",
+    url: "https://www.canva.com/",
+    needs: ["présentation", "rédaction"]
+  },
+  {
+    id: 6,
+    name: "DeepL",
+    description: "Traduction de haute qualité pour les textes académiques, emails et documents.",
+    category: "traduction",
+    price: "freemium",
+    url: "https://www.deepl.com/",
+    needs: ["traduction"]
+  },
+  {
+    id: 7,
+    name: "Google Translate",
+    description: "Traduction rapide de mots, phrases, pages web et documents.",
+    category: "traduction",
+    price: "free",
+    url: "https://translate.google.com/",
+    needs: ["traduction"]
+  },
+  {
+    id: 8,
+    name: "Wolfram Alpha",
+    description: "Résout des problèmes de mathématiques et explique des étapes importantes.",
+    category: "maths",
+    price: "freemium",
+    url: "https://www.wolframalpha.com/",
+    needs: ["maths"]
+  },
+  {
+    id: 9,
+    name: "Photomath",
+    description: "Aide à comprendre les exercices de mathématiques étape par étape.",
+    category: "maths",
+    price: "freemium",
+    url: "https://photomath.com/",
+    needs: ["maths"]
+  },
+  {
+    id: 10,
+    name: "Notion",
+    description: "Organise tes cours, notes, tâches, projets et planning de révision.",
+    category: "organisation",
+    price: "freemium",
+    url: "https://www.notion.so/",
+    needs: ["organisation"]
+  },
+  {
+    id: 11,
+    name: "Google Keep",
+    description: "Application simple pour prendre des notes rapides et créer des rappels.",
+    category: "organisation",
+    price: "free",
+    url: "https://keep.google.com/",
+    needs: ["organisation"]
+  },
+  {
+    id: 12,
+    name: "Grammarly",
+    description: "Améliore l’orthographe, la grammaire et la clarté de tes textes en anglais.",
+    category: "redaction",
+    price: "freemium",
+    url: "https://www.grammarly.com/",
+    needs: ["rédaction"]
+  },
+  {
+    id: 13,
+    name: "QuillBot",
+    description: "Reformule et améliore tes phrases tout en gardant le sens original.",
+    category: "redaction",
+    price: "freemium",
+    url: "https://quillbot.com/",
+    needs: ["rédaction", "résumé"]
+  },
+  {
+    id: 14,
+    name: "Todoist",
+    description: "Gère tes devoirs, examens et projets avec des listes et des rappels.",
+    category: "organisation",
+    price: "freemium",
+    url: "https://todoist.com/",
+    needs: ["organisation"]
   }
 ];
