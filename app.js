@@ -201,21 +201,37 @@ document.addEventListener("DOMContentLoaded", () => {
     toolsCount.textContent = tools.length + "+";
   }
 
-  const newsletterForm = document.getElementById("newsletterForm");
-  const newsletterEmail = document.getElementById("newsletterEmail");
-  const newsletterMessage = document.getElementById("newsletterMessage");
+const newsletterForm = document.getElementById("newsletterForm");
+const newsletterMessage = document.getElementById("newsletterMessage");
 
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", event => {
-      event.preventDefault();
+if (newsletterForm) {
+  newsletterForm.addEventListener("submit", async event => {
+    event.preventDefault();
 
-      if (!newsletterEmail.value) return;
+    newsletterMessage.textContent = "Envoi en cours…";
+    newsletterMessage.classList.remove("success");
 
-      newsletterMessage.textContent = "Merci ! Ton inscription a bien été enregistrée.";
-      newsletterMessage.classList.add("success");
-      newsletterForm.reset();
-    });
-  }
+    try {
+      const response = await fetch(newsletterForm.action, {
+        method: "POST",
+        body: new FormData(newsletterForm),
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (response.ok) {
+        newsletterMessage.textContent = "Merci ! Ton inscription a bien été enregistrée.";
+        newsletterMessage.classList.add("success");
+        newsletterForm.reset();
+      } else {
+        newsletterMessage.textContent = "Une erreur est survenue. Réessaie plus tard.";
+      }
+    } catch (error) {
+      newsletterMessage.textContent = "Une erreur est survenue. Réessaie plus tard.";
+    }
+  });
+}
 
   const contactForm = document.getElementById("contactForm");
   const contactMessageStatus = document.getElementById("contactMessageStatus");
