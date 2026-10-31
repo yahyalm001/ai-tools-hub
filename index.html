@@ -424,27 +424,47 @@
           </div>
         </div>
 
-        <form id="contactForm" class="contact-form">
-          <label for="contactName">Nom</label>
-          <input type="text" id="contactName" required>
+       <form
+  id="contactForm"
+  class="contact-form"
+  action="https://formspree.io/f/xnppgnpy"
+  method="POST"
+>
+  <label for="contactName">Nom</label>
+  <input
+    type="text"
+    id="contactName"
+    name="name"
+    required
+  >
 
-          <label for="contactEmail">Email</label>
-          <input type="email" id="contactEmail" required>
+  <label for="contactEmail">Email</label>
+  <input
+    type="email"
+    id="contactEmail"
+    name="email"
+    required
+  >
 
-          <label for="contactSubject">Sujet</label>
-          <select id="contactSubject" required>
-            <option value="">Choisir un sujet</option>
-            <option value="outil">Proposer un outil</option>
-            <option value="guide">Demander un guide</option>
-            <option value="probleme">Signaler un problème</option>
-            <option value="autre">Autre</option>
-          </select>
+  <label for="contactSubject">Sujet</label>
+  <select id="contactSubject" name="subject" required>
+    <option value="">Choisir un sujet</option>
+    <option value="Proposer un outil">Proposer un outil</option>
+    <option value="Demander un guide">Demander un guide</option>
+    <option value="Signaler un problème">Signaler un problème</option>
+    <option value="Autre">Autre</option>
+  </select>
 
-          <label for="contactMessage">Message</label>
-          <textarea id="contactMessage" rows="6" required></textarea>
+  <label for="contactMessage">Message</label>
+  <textarea
+    id="contactMessage"
+    name="message"
+    rows="6"
+    required
+  ></textarea>
 
-          <button type="submit" class="btn primary">Envoyer</button>
-        </form>
+  <button type="submit" class="btn primary">Envoyer</button>
+</form>
       </div>
 
       <p id="contactMessageStatus" class="form-message"></p>
