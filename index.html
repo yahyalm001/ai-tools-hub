@@ -123,11 +123,21 @@
         <h2>Reçois les meilleures ressources</h2>
         <p>Une sélection courte d’outils et conseils pour étudiants.</p>
 
-        <form id="newsletterForm">
-          <input type="email" id="newsletterEmail" placeholder="Ton email" required>
-          <button type="submit" class="btn primary">S’inscrire</button>
-        </form>
+        <form
+  id="newsletterForm"
+  action="https://formspree.io/f/xbggyvap"
+  method="POST"
+>
+  <input
+    type="email"
+    id="newsletterEmail"
+    name="email"
+    placeholder="Ton email"
+    required
+  >
 
+  <button type="submit" class="btn primary">S’inscrire</button>
+</form>
         <p id="newsletterMessage" class="form-message"></p>
       </section>
 
