@@ -233,18 +233,42 @@ if (newsletterForm) {
   });
 }
 
-  const contactForm = document.getElementById("contactForm");
-  const contactMessageStatus = document.getElementById("contactMessageStatus");
+ const contactForm = document.getElementById("contactForm");
+const contactMessageStatus = document.getElementById("contactMessageStatus");
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", event => {
-      event.preventDefault();
+if (contactForm) {
+  contactForm.addEventListener("submit", async event => {
+    event.preventDefault();
 
-      contactMessageStatus.textContent = "Merci ! Ton message a bien été envoyé.";
-      contactMessageStatus.classList.add("success");
-      contactForm.reset();
-    });
-  }
+    contactMessageStatus.textContent = "Envoi en cours…";
+    contactMessageStatus.classList.remove("success");
+
+    const submitButton = contactForm.querySelector("button[type='submit']");
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (response.ok) {
+        contactMessageStatus.textContent = "Merci ! Ton message a bien été envoyé.";
+        contactMessageStatus.classList.add("success");
+        contactForm.reset();
+      } else {
+        contactMessageStatus.textContent = "Une erreur est survenue. Réessaie plus tard.";
+      }
+    } catch (error) {
+      contactMessageStatus.textContent = "Une erreur est survenue. Réessaie plus tard.";
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+}
 
   const year = document.getElementById("year");
   if (year) {
