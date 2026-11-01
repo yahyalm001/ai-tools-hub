@@ -1,21 +1,26 @@
 {
-  "name": "DiscoveryTools",
-  "short_name": "DiscoveryTools",
-  "description": "Discover, compare and choose the best AI tools for work, study, creativity and business.",
-  "start_url": "/",
+  "name": "StudyNova — Outils et ressources pour étudiants",
+  "short_name": "StudyNova",
+  "description": "Des outils, guides et ressources pour réviser, comprendre les cours, préparer des présentations et organiser tes études.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#4f8cff",
+  "background_color": "#0b1120",
+  "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "ai_tools_logo.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "ai_tools_logo.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
