@@ -22,10 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
     target.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
 
+    const navPageId = pageId.startsWith("guide") ? "guides" : pageId;
+
     navButtons.forEach(button => {
-      const isActive = button.dataset.page === pageId;
+      const isActive = button.dataset.page === navPageId;
       button.classList.toggle("active", isActive);
-      button.setAttribute("aria-current", isActive ? "page" : "false");
+
+      if (isActive) {
+        button.setAttribute("aria-current", "page");
+      } else {
+        button.removeAttribute("aria-current");
+      }
     });
   }
 
@@ -196,79 +203,56 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const toolsCount = document.getElementById("toolsCount");
-  if (toolsCount) {
-    toolsCount.textContent = tools.length + "+";
+  function handleFormSubmission(formId, statusId, successMessage) {
+    const form = document.getElementById(formId);
+    const status = document.getElementById(statusId);
+
+    if (!form || !status) return;
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector("button[type='submit']");
+      status.textContent = "Envoi en cours…";
+      status.classList.remove("success", "error");
+      status.setAttribute("aria-busy", "true");
+      if (submitButton) submitButton.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) {
+          throw new Error("Formspree n’a pas accepté la demande.");
+        }
+
+        status.textContent = successMessage;
+        status.classList.add("success");
+        form.reset();
+      } catch {
+        status.textContent = "Une erreur est survenue. Réessaie plus tard.";
+        status.classList.add("error");
+      } finally {
+        status.setAttribute("aria-busy", "false");
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
   }
 
-const newsletterForm = document.getElementById("newsletterForm");
-const newsletterMessage = document.getElementById("newsletterMessage");
+  handleFormSubmission(
+    "newsletterForm",
+    "newsletterMessage",
+    "Merci ! Ton inscription a bien été enregistrée."
+  );
 
-if (newsletterForm) {
-  newsletterForm.addEventListener("submit", async event => {
-    event.preventDefault();
-
-    newsletterMessage.textContent = "Envoi en cours…";
-    newsletterMessage.classList.remove("success");
-
-    try {
-      const response = await fetch(newsletterForm.action, {
-        method: "POST",
-        body: new FormData(newsletterForm),
-        headers: {
-          Accept: "application/json"
-        }
-      });
-
-      if (response.ok) {
-        newsletterMessage.textContent = "Merci ! Ton inscription a bien été enregistrée.";
-        newsletterMessage.classList.add("success");
-        newsletterForm.reset();
-      } else {
-        newsletterMessage.textContent = "Une erreur est survenue. Réessaie plus tard.";
-      }
-    } catch (error) {
-      newsletterMessage.textContent = "Une erreur est survenue. Réessaie plus tard.";
-    }
-  });
-}
-
- const contactForm = document.getElementById("contactForm");
-const contactMessageStatus = document.getElementById("contactMessageStatus");
-
-if (contactForm) {
-  contactForm.addEventListener("submit", async event => {
-    event.preventDefault();
-
-    contactMessageStatus.textContent = "Envoi en cours…";
-    contactMessageStatus.classList.remove("success");
-
-    const submitButton = contactForm.querySelector("button[type='submit']");
-    if (submitButton) submitButton.disabled = true;
-
-    try {
-      const response = await fetch(contactForm.action, {
-        method: "POST",
-        body: new FormData(contactForm),
-        headers: {
-          Accept: "application/json"
-        }
-      });
-
-      if (response.ok) {
-        contactMessageStatus.textContent = "Merci ! Ton message a bien été envoyé.";
-        contactMessageStatus.classList.add("success");
-        contactForm.reset();
-      } else {
-        contactMessageStatus.textContent = "Une erreur est survenue. Réessaie plus tard.";
-      }
-    } catch (error) {
-      contactMessageStatus.textContent = "Une erreur est survenue. Réessaie plus tard.";
-    } finally {
-      if (submitButton) submitButton.disabled = false;
-    }
-  });
-}
+  handleFormSubmission(
+    "contactForm",
+    "contactMessageStatus",
+    "Merci ! Ton message a bien été envoyé."
+  );
 
   const year = document.getElementById("year");
   if (year) {

@@ -80,7 +80,6 @@
   <link rel="stylesheet" href="style.css">
   
   <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#2563eb">
 </head>
 
 <body>
@@ -92,13 +91,13 @@
   <span>Study<strong>Nova</strong></span>
 </a>
 
-    <nav class="navbar">
-      <button class="nav-btn active" data-page="home">Accueil</button>
-      <button class="nav-btn" data-page="resources">Ressources</button>
-      <button class="nav-btn" data-page="tools">Outils IA</button>
-      <button class="nav-btn" data-page="guides">Guides</button>
-      <button class="nav-btn" data-page="about">À propos</button>
-      <button class="nav-btn" data-page="contact">Contact</button>
+    <nav class="navbar" aria-label="Navigation principale">
+      <button type="button" class="nav-btn active" data-page="home" aria-current="page">Accueil</button>
+      <button type="button" class="nav-btn" data-page="resources">Ressources</button>
+      <button type="button" class="nav-btn" data-page="tools">Outils IA</button>
+      <button type="button" class="nav-btn" data-page="guides">Guides</button>
+      <button type="button" class="nav-btn" data-page="about">À propos</button>
+      <button type="button" class="nav-btn" data-page="contact">Contact</button>
     </nav>
   </div>
 </header>
@@ -111,7 +110,7 @@
 
       <div class="hero">
         <div class="hero-text">
-          <div class="badge">Pour les étudiants · Gratuit · Simple</div>
+          <div class="badge">Pour les étudiants · Des outils pour apprendre</div>
           <h1>Réussis tes études avec les <span>bons outils</span></h1>
           <p>
             StudyNova rassemble les meilleurs outils IA, guides pratiques et ressources
@@ -119,8 +118,8 @@
           </p>
 
           <div class="hero-actions">
-            <button class="btn primary" data-page="tools">Découvrir les outils</button>
-            <button class="btn ghost" data-page="guides">Lire les guides</button>
+            <button type="button" class="btn primary" data-page="tools">Découvrir les outils</button>
+            <button type="button" class="btn ghost" data-page="guides">Lire les guides</button>
           </div>
         </div>
 
@@ -138,21 +137,6 @@
           </div>
         </div>
       </div>
-
-      <section class="stats">
-        <div class="stat">
-          <h2 id="toolsCount">0</h2>
-          <p>Outils sélectionnés</p>
-        </div>
-        <div class="stat">
-          <h2>100%</h2>
-          <p>Liens officiels</p>
-        </div>
-        <div class="stat">
-          <h2>Gratuit</h2>
-          <p>Pour commencer</p>
-        </div>
-      </section>
 
       <section class="section">
         <div class="section-title">
@@ -190,17 +174,19 @@
   action="https://formspree.io/f/xbggyvap"
   method="POST"
 >
+  <label class="sr-only" for="newsletterEmail">Ton adresse e-mail</label>
   <input
     type="email"
     id="newsletterEmail"
     name="email"
     placeholder="Ton email"
+    autocomplete="email"
     required
   >
 
   <button type="submit" class="btn primary">S’inscrire</button>
 </form>
-        <p id="newsletterMessage" class="form-message"></p>
+        <p id="newsletterMessage" class="form-message" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
 
     </div>
@@ -275,8 +261,8 @@
 
       <div id="pagination" class="pagination"></div>
 
-      <p class="affiliate-disclosure">
-        Certains liens peuvent être des liens affiliés. Cela ne change pas le prix pour toi.
+      <p class="catalog-note">
+        Consulte le site officiel de chaque outil pour connaître ses tarifs et ses conditions d’utilisation.
       </p>
     </div>
   </section>
@@ -447,8 +433,7 @@
 
         <h3>Transparence</h3>
         <p>
-          StudyNova est un projet indépendant. Certains liens peuvent être affiliés :
-          cela ne change pas le prix pour l’utilisateur.
+          Consulte le site officiel de chaque outil pour vérifier ses tarifs et ses conditions d’utilisation.
         </p>
       </div>
     </div>
@@ -497,6 +482,7 @@
     type="text"
     id="contactName"
     name="name"
+    autocomplete="name"
     required
   >
 
@@ -505,6 +491,7 @@
     type="email"
     id="contactEmail"
     name="email"
+    autocomplete="email"
     required
   >
 
@@ -529,7 +516,7 @@
 </form>
       </div>
 
-      <p id="contactMessageStatus" class="form-message"></p>
+      <p id="contactMessageStatus" class="form-message" role="status" aria-live="polite" aria-atomic="true"></p>
     </div>
   </section>
 
@@ -548,12 +535,12 @@
       </p>
     </div>
 
-    <div class="footer-links">
-      <button data-page="home">Accueil</button>
-      <button data-page="tools">Outils IA</button>
-      <button data-page="guides">Guides</button>
-      <button data-page="contact">Contact</button>
-    </div>
+    <nav class="footer-links" aria-label="Navigation de pied de page">
+      <button type="button" data-page="home">Accueil</button>
+      <button type="button" data-page="tools">Outils IA</button>
+      <button type="button" data-page="guides">Guides</button>
+      <button type="button" data-page="contact">Contact</button>
+    </nav>
   </div>
 
   <div class="footer-bottom">
