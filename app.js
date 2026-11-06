@@ -186,5 +186,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(form.action, {method:"POST",body:new FormData(form),headers:{Accept:"application/json"},signal:controller.signal});
         if (!response.ok) throw new Error("Envoi refusé");
         status.textContent=successMessage;status.classList.add("success");form.reset();
-      } catch (error) {
-        status.textContent=error.name === "AbortError" ? "Délai dépassé. Vérifie ta connexion et réessaie plus t
+            } catch (error) {
+        status.textContent =
+          error.name === "AbortError"
+            ? "Délai dépassé. Vérifie ta connexion et réessaie plus tard."
+            : "Une erreur est survenue. Réessaie plus tard.";
+        status.classList.add("error");
+      } finally {
+        clearTimeout(timer);
+        status.removeAttribute("aria-busy");
+        form.removeAttribute("aria-busy");
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = oldText;
+        }
+        sending = false;
+      }
+    });
+  }
+
+  handleFormSubmission(
+    "newsletterForm",
+    "newsletterMessage",
+    "Merci ! Tu es bien inscrit(e) à la newsletter."
+  );
+
+  handleFormSubmission(
+    "contactForm",
+    "contactMessageStatus",
+    "Merci ! Ton message a bien été envoyé."
+  );
+
+  const year = $("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  const initialPage = location.hash.slice(1) || "home";
+  showPage(initialPage, false, false);
+  renderTools();
+});
