@@ -78,7 +78,7 @@
     rel="stylesheet"
   >
   <link rel="stylesheet" href="style.css">
-  
+
   <link rel="manifest" href="./manifest.json">
 </head>
 
@@ -86,10 +86,10 @@
 
 <header class="header">
   <div class="container header-inner">
-   <a href="#home" class="logo" data-page="home">
-  <img src="favicon.png" alt="StudyNova" class="logo-img">
-  <span>Study<strong>Nova</strong></span>
-</a>
+    <a href="#home" class="logo" data-page="home">
+      <img src="favicon.png" alt="StudyNova" class="logo-img">
+      <span>Study<strong>Nova</strong></span>
+    </a>
 
     <nav class="navbar" aria-label="Navigation principale">
       <button type="button" class="nav-btn active" data-page="home" aria-current="page">Accueil</button>
@@ -170,22 +170,22 @@
         <p>Une sélection courte d’outils et conseils pour étudiants.</p>
 
         <form
-  id="newsletterForm"
-  action="https://formspree.io/f/xbggyvap"
-  method="POST"
->
-  <label class="sr-only" for="newsletterEmail">Ton adresse e-mail</label>
-  <input
-    type="email"
-    id="newsletterEmail"
-    name="email"
-    placeholder="Ton email"
-    autocomplete="email"
-    required
-  >
+          id="newsletterForm"
+          action="https://formspree.io/f/xbggyvap"
+          method="POST"
+        >
+          <label class="sr-only" for="newsletterEmail">Ton adresse e-mail</label>
+          <input
+            type="email"
+            id="newsletterEmail"
+            name="email"
+            placeholder="Ton email"
+            autocomplete="email"
+            required
+          >
 
-  <button type="submit" class="btn primary">S’inscrire</button>
-</form>
+          <button type="submit" class="btn primary">S’inscrire</button>
+        </form>
         <p id="newsletterMessage" class="form-message" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
 
@@ -233,9 +233,14 @@
       </div>
 
       <div class="filters">
-        <input type="search" id="searchInput" placeholder="Chercher un outil…">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Chercher un outil…"
+          aria-label="Rechercher un outil"
+        >
 
-        <select id="categoryFilter">
+        <select id="categoryFilter" aria-label="Filtrer par catégorie">
           <option value="all">Toutes catégories</option>
           <option value="etudes">Études</option>
           <option value="redaction">Rédaction</option>
@@ -245,7 +250,7 @@
           <option value="organisation">Organisation</option>
         </select>
 
-        <select id="priceFilter">
+        <select id="priceFilter" aria-label="Filtrer par prix">
           <option value="all">Tous les prix</option>
           <option value="free">Gratuit</option>
           <option value="freemium">Freemium</option>
@@ -471,49 +476,49 @@
           </div>
         </div>
 
-       <form
-  id="contactForm"
-  class="contact-form"
-  action="https://formspree.io/f/xnppgnpy"
-  method="POST"
->
-  <label for="contactName">Nom</label>
-  <input
-    type="text"
-    id="contactName"
-    name="name"
-    autocomplete="name"
-    required
-  >
+        <form
+          id="contactForm"
+          class="contact-form"
+          action="https://formspree.io/f/xnppgnpy"
+          method="POST"
+        >
+          <label for="contactName">Nom</label>
+          <input
+            type="text"
+            id="contactName"
+            name="name"
+            autocomplete="name"
+            required
+          >
 
-  <label for="contactEmail">Email</label>
-  <input
-    type="email"
-    id="contactEmail"
-    name="email"
-    autocomplete="email"
-    required
-  >
+          <label for="contactEmail">Email</label>
+          <input
+            type="email"
+            id="contactEmail"
+            name="email"
+            autocomplete="email"
+            required
+          >
 
-  <label for="contactSubject">Sujet</label>
-  <select id="contactSubject" name="subject" required>
-    <option value="">Choisir un sujet</option>
-    <option value="Proposer un outil">Proposer un outil</option>
-    <option value="Demander un guide">Demander un guide</option>
-    <option value="Signaler un problème">Signaler un problème</option>
-    <option value="Autre">Autre</option>
-  </select>
+          <label for="contactSubject">Sujet</label>
+          <select id="contactSubject" name="subject" required>
+            <option value="">Choisir un sujet</option>
+            <option value="Proposer un outil">Proposer un outil</option>
+            <option value="Demander un guide">Demander un guide</option>
+            <option value="Signaler un problème">Signaler un problème</option>
+            <option value="Autre">Autre</option>
+          </select>
 
-  <label for="contactMessage">Message</label>
-  <textarea
-    id="contactMessage"
-    name="message"
-    rows="6"
-    required
-  ></textarea>
+          <label for="contactMessage">Message</label>
+          <textarea
+            id="contactMessage"
+            name="message"
+            rows="6"
+            required
+          ></textarea>
 
-  <button type="submit" class="btn primary">Envoyer</button>
-</form>
+          <button type="submit" class="btn primary">Envoyer</button>
+        </form>
       </div>
 
       <p id="contactMessageStatus" class="form-message" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -526,9 +531,9 @@
   <div class="container footer-inner">
     <div>
       <a href="#home" class="logo" data-page="home">
-  <img src="favicon.png" alt="StudyNova" class="logo-img">
-  <span>Study<strong>Nova</strong></span>
-</a>
+        <img src="favicon.png" alt="StudyNova" class="logo-img">
+        <span>Study<strong>Nova</strong></span>
+      </a>
 
       <p class="footer-desc">
         Outils, guides et ressources pour étudiants.
